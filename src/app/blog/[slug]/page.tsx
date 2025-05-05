@@ -27,6 +27,7 @@ export async function generateMetadata({
         description: post.excerpt,
       },
     };
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     return {
       title: "Blog Post Not Found | Jesus O'Bulan",
@@ -54,6 +55,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     const relatedPosts = getRelatedPosts(slug, 3);
 
     return <BlogPostDetail post={post} relatedPosts={relatedPosts} />;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     // If the post isn't found, return a 404 page
     notFound();

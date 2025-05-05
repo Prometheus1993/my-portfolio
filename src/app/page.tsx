@@ -1,7 +1,6 @@
 // src/app/page.tsx
 import HeroSection from "@/components/sections/HeroSection";
 import FeaturedProjectsSection from "@/components/sections/FeaturedProjectsSection";
-import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import BlogSection from "@/components/sections/BlogSection";
 import { getFeaturedProjectsData, getAllProjectsData } from "@/projects";
 import { getRecentPosts } from "@/lib/blog/utils";
