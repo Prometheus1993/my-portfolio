@@ -7,7 +7,7 @@ import TabContainer from "@/components/ui/TabContainer";
 export const metadata: ProjectData = {
   slug: "brightest-pom-generator",
   title: "Test Automation Code Generator",
-  date: "2024-04-01",
+  date: "2025-05-28",
   overview:
     "Internship project at Brightest: A tool that extracts Page Object Models (POM) from GitHub repositories and generates test code.",
   imageUrl: "/images/projects/brightest-logo.png",

@@ -1,25 +1,21 @@
 "use client";
 
-// src/components/sections/BlogPostDetail.tsx
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { format } from "date-fns";
 import {
-  FaClock,
   FaCalendarAlt,
   FaTag,
   FaShare,
   FaTwitter,
   FaLinkedin,
   FaFacebook,
+  FaArrowLeft,
 } from "react-icons/fa";
-import { BlogPost } from "@/lib/blog";
+import { BlogPost } from "@/lib/blog/types";
 import BlogCard from "@/components/ui/BlogCard";
 import FadeIn from "@/components/animations/FadeIn";
-import { MDXRemote } from "next-mdx-remote";
-import { MDXComponentsWrapper } from "@/mdx/mdx-components";
-import components from "@/mdx/mdx-components";
+import TabContainer from "@/components/ui/TabContainer";
 
 interface BlogPostDetailProps {
   post: BlogPost;
@@ -64,12 +60,109 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
     );
   };
 
+  // Create tabs based on post content sections
+  // This is a simplified example - you'll need to structure your content accordingly
+  const contentTabs = [
+    {
+      id: "overview",
+      label: "Overview",
+      content: (
+        <div className="prose prose-lg dark:prose-invert max-w-none">
+          <p className="text-gray-700 dark:text-gray-300">{post.excerpt}</p>
+        </div>
+      ),
+    },
+    {
+      id: "monday",
+      label: "Monday",
+      content: (
+        <div className="prose prose-lg dark:prose-invert max-w-none">
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+            First Day at Brightest! ✨👨‍💻🚀
+          </h3>
+          <p className="text-gray-700 dark:text-gray-300">
+            Today was my first internship day at Brightest! The morning was all
+            about introductions and onboarding. The project - a Test Automation
+            UI Framework - is still in the initial phase, so we needed to set up
+            some practical matters first, like Trello boards and tools. I didn't
+            get to dive into code yet, but to make good use of my time, I set up
+            my blog website. This makes it easier for my internship supervisor
+            to follow my progress. Additionally, I researched Page Object Models
+            in Selenium, an important concept for my assignment. 🔍📑💡
+          </p>
+        </div>
+      ),
+    },
+    {
+      id: "tuesday",
+      label: "Tuesday",
+      content: (
+        <div className="prose prose-lg dark:prose-invert max-w-none">
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+            Waiting, but Productive! ⏳📖💭
+          </h3>
+          <p className="text-gray-700 dark:text-gray-300">
+            Today was primarily a day of research. We're still waiting for
+            concrete tasks, so there wasn't much action, but we independently
+            continued to search for relevant information and concepts that could
+            come in handy. 🧠🔎📚
+          </p>
+        </div>
+      ),
+    },
+    {
+      id: "wednesday",
+      label: "Wednesday",
+      content: (
+        <div className="prose prose-lg dark:prose-invert max-w-none">
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+            UI Design in Progress 🎨🖥️📝
+          </h3>
+          <p className="text-gray-700 dark:text-gray-300">
+            Today I created wireframes and then a mockup in V0.dev to visualize
+            the UI of our application. We presented these to our supervisors to
+            get feedback and understand their vision. Next step: process
+            feedback and refine! 🛠️💬✨
+          </p>
+        </div>
+      ),
+    },
+    {
+      id: "thursday-friday",
+      label: "Thu & Fri",
+      content: (
+        <div className="prose prose-lg dark:prose-invert max-w-none">
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+            Remote Work and Research 🏡💻🔬
+          </h3>
+          <p className="text-gray-700 dark:text-gray-300">
+            These days we worked remotely and delved into Playwright and code
+            generation. We went through documentation, created a questionnaire,
+            and made a flowchart for our application. We also implemented some
+            design tweaks. Two productive days from home! 🚀📂✅
+          </p>
+        </div>
+      ),
+    },
+  ];
+
   return (
     <article className="py-12 md:py-16">
       <div className="container mx-auto px-4">
         <FadeIn direction="up">
           {/* Header */}
           <header className="max-w-3xl mx-auto text-center mb-8">
+            {/* Back to Blog link */}
+            <div className="mb-6">
+              <Link
+                href="/blog"
+                className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline"
+              >
+                <FaArrowLeft className="mr-2" size={12} />
+                Back to all posts
+              </Link>
+            </div>
+
             {/* Tags */}
             <div className="flex flex-wrap justify-center gap-2 mb-4">
               {post.tags.map((tag) => (
@@ -93,40 +186,21 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
                 <FaCalendarAlt className="mr-1" size={12} />
                 <span>{formattedDate}</span>
               </div>
-              <div className="flex items-center">
-                <FaClock className="mr-1" size={12} />
-                <span>{post.readingTime}</span>
-              </div>
             </div>
           </header>
         </FadeIn>
 
-        {/* Cover Image */}
-        <FadeIn direction="up" delay={0.1}>
-          <div className="relative w-full h-64 md:h-96 mb-10 rounded-lg overflow-hidden max-w-5xl mx-auto">
-            <Image
-              src={post.coverImage}
-              alt={`Cover image for ${post.title}`}
-              fill
-              style={{ objectFit: "cover" }}
-              priority
-            />
-          </div>
-        </FadeIn>
-
-        {/* Content */}
+        {/* Content with tabs */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 max-w-6xl mx-auto">
           {/* Main Content */}
           <FadeIn direction="up" delay={0.2} className="lg:col-span-3">
-            <div className="prose prose-lg dark:prose-invert max-w-none">
-              {post.mdxSource ? (
-                <MDXComponentsWrapper>
-                  <MDXRemote {...post.mdxSource} components={components} />
-                </MDXComponentsWrapper>
-              ) : (
-                <div dangerouslySetInnerHTML={{ __html: post.content || "" }} />
-              )}
-            </div>
+            <TabContainer
+              tabs={contentTabs}
+              defaultTabId="overview"
+              transitionDirection="fade"
+              transitionDuration={0.3}
+              className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6"
+            />
           </FadeIn>
 
           {/* Sidebar */}
@@ -198,7 +272,6 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
                     title={post.title}
                     excerpt={post.excerpt}
                     date={post.date}
-                    coverImage={post.coverImage}
                     tags={post.tags}
                     readingTime={post.readingTime || "5 min read"}
                     isCompact={true}

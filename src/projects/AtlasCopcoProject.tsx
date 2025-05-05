@@ -7,7 +7,7 @@ import TabContainer from "@/components/ui/TabContainer";
 export const metadata: ProjectData = {
   slug: "atlas-copco-logger",
   title: "Atlas Copco Logger/Display App",
-  date: "2023-06-01",
+  date: "2024-12-20",
   overview:
     "Frontend development for a web application that logs and visualizes measurement data from industrial equipment.",
   imageUrl: "/images/projects/Atlas-Copco-Logo.png",

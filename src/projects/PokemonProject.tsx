@@ -7,7 +7,7 @@ import TabContainer from "@/components/ui/TabContainer";
 export const metadata: ProjectData = {
   slug: "pokemon-catcher",
   title: "Pokémon Catcher Game",
-  date: "2022-12-01",
+  date: "2024-05-28",
   overview:
     "A web app school project built with the PokeAPI, featuring catching, battling, a Pokedex, and a minigame.",
   imageUrl: "/images/projects/pokemon.png",
@@ -19,8 +19,8 @@ export const metadata: ProjectData = {
     "MongoDB",
     "Node.js",
   ],
-  liveUrl: null,
-  repoUrl: "...",
+  liveUrl: "https://mewtech.onrender.com",
+  repoUrl: "https://github.com/DenGian/Mew.Tech",
   featured: true,
 };
 
