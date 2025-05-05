@@ -18,7 +18,7 @@ import {
 import profilePic from "../../../public/profilepic.png";
 import SkillCard from "@/components/ui/SkillCard";
 import FadeIn from "@/components/animations/FadeIn";
-import StaggerContainer from "@/components/animations/StaggerContainer";
+import TabContainer from "@/components/ui/TabContainer";
 
 // Define the skills with corresponding icons and proficiency levels
 const skillsByCategory = [
@@ -118,6 +118,25 @@ const skillsByCategory = [
 ];
 
 const AboutSection = () => {
+  // Create tab content from skillsByCategory
+  const skillTabs = skillsByCategory.map(category => ({
+    id: category.title.toLowerCase(),
+    label: category.title,
+    content: (
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+        {category.skills.map((skill) => (
+          <SkillCard
+            key={skill.name}
+            name={skill.name}
+            icon={skill.icon}
+            level={skill.level}
+            description={skill.description}
+          />
+        ))}
+      </div>
+    )
+  }));
+
   return (
     <section className="py-16 md:py-24">
       <div className="container mx-auto px-4">
@@ -135,18 +154,19 @@ const AboutSection = () => {
             className="md:col-span-2 space-y-6 text-lg text-gray-700 dark:text-gray-300"
           >
             <p>
-              Hello! I&apos;m Jesus O&apos;Bulan, an enthusiastic Full-Stack Developer
-              with a Programming Associate Degree from AP University College
-              Antwerp. My passion lies in building applications from start to
-              finish that are not only functional but also a pleasure to use.
+              Hello! I&apos;m Jesus O&apos;Bulan, an enthusiastic Full-Stack
+              Developer currently completing my Programming Associate Degree at
+              AP University College Antwerp (final month of my last year). My
+              passion lies in building applications from start to finish that
+              are not only functional but also a pleasure to use.
             </p>
             <p>
               I enjoy diving deep into both frontend and backend development and
-              am always curious about new technologies. In my free time, I&apos;m
-              currently exploring iOS development with Swift and experimenting
-              with Raspberry Pi for server and automation projects. I&apos;m
-              constantly looking for ways to expand my skills and solve complex
-              problems.
+              am always curious about new technologies. In my free time,
+              I&apos;m currently exploring iOS development with Swift and
+              experimenting with Raspberry Pi for server and automation
+              projects. I&apos;m constantly looking for ways to expand my skills
+              and solve complex problems.
             </p>
             <p>
               My experience includes working with React, Next.js, TypeScript,
@@ -181,32 +201,15 @@ const AboutSection = () => {
           </h3>
         </FadeIn>
 
-        {/* Categories */}
-        <div className="space-y-16">
-          {skillsByCategory.map((category, index) => (
-            <div key={category.title}>
-              <FadeIn direction="up" delay={index * 0.1}>
-                <h4 className="text-xl font-semibold mb-6 text-gray-800 dark:text-gray-200 border-b border-gray-200 dark:border-gray-700 pb-2">
-                  {category.title}
-                </h4>
-              </FadeIn>
-
-              <StaggerContainer delay={0.1} staggerDelay={0.05}>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {category.skills.map((skill) => (
-                    <SkillCard
-                      key={skill.name}
-                      name={skill.name}
-                      icon={skill.icon}
-                      level={skill.level}
-                      description={skill.description}
-                    />
-                  ))}
-                </div>
-              </StaggerContainer>
-            </div>
-          ))}
-        </div>
+        {/* Skills Tab Container */}
+        <TabContainer 
+          tabs={skillTabs}
+          defaultTabId="frontend"
+          transitionDirection="fade"
+          transitionDuration={0.4}
+          className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md"
+          contentClassName="mt-6"
+        />
       </div>
     </section>
   );

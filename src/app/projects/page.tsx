@@ -1,8 +1,8 @@
 // src/app/projects/page.tsx
 import React from 'react';
-import ProjectsSection from '@/components/sections/ProjectsSection';
 import type { Metadata } from 'next';
 import { getAllProjectsData } from '@/projects';
+import FilteredProjectsSection from '@/components/sections/FilteredProjectsSection';
 
 export const metadata: Metadata = {
   title: 'Projects | Jesus O\'Bulan Portfolio',
@@ -14,7 +14,7 @@ export default function ProjectsPage() {
 
   return (
     <>
-      <ProjectsSection projects={projectsData} />
+      <FilteredProjectsSection projects={projectsData} />
     </>
   );
 }
