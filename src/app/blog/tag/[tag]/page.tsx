@@ -4,16 +4,21 @@ import { getAllTags, getPostsByTag } from "@/lib/blog/utils"; // Updated import 
 import type { Metadata } from "next";
 import BlogListingSection from "@/components/sections/BlogListingSection";
 
-interface TagPageProps {
-  params: {
-    tag: string;
-  };
-}
+// Define the params type for this dynamic route
+type TagParams = {
+  tag: string;
+};
+
+// Define the props type for the page component
+type PageProps = {
+  params: TagParams;
+  searchParams: Record<string, string | string[] | undefined>;
+};
 
 // Generate static metadata for the page
 export async function generateMetadata({
   params,
-}: TagPageProps): Promise<Metadata> {
+}: PageProps): Promise<Metadata> {
   return {
     title: `${params.tag} | Blog | Jesus O\'Bulan`,
     description: `Browse all blog posts about ${params.tag} by Jesus O\'Bulan`,
@@ -21,7 +26,7 @@ export async function generateMetadata({
 }
 
 // Generate static paths for all tags
-export function generateStaticParams() {
+export function generateStaticParams(): TagParams[] {
   const tags = getAllTags();
 
   return tags.map((tag) => ({
@@ -29,7 +34,8 @@ export function generateStaticParams() {
   }));
 }
 
-export default function TagPage({ params }: TagPageProps) {
+// Page component with correct Next.js App Router typing
+export default function TagPage({ params }: PageProps) {
   const decodedTag = decodeURIComponent(params.tag);
   const allTags = getAllTags();
 
