@@ -9,7 +9,7 @@ const Footer = () => {
       {" "}
       {/* mt-12 voegt wat ruimte toe boven de footer */}
       <div className="container mx-auto px-4 text-center text-gray-600 dark:text-gray-400">
-        <p>© {currentYear} Jesus O'Bulan. Alle rechten voorbehouden.</p>
+        <p>© {currentYear} Jesus O&apos;Bulan. Alle rechten voorbehouden.</p>
         {/* Voeg hier later links toe naar GitHub, LinkedIn etc. */}
         <div className="mt-2 space-x-4">
           <a

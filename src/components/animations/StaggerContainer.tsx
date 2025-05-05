@@ -39,7 +39,7 @@ const StaggerContainer: React.FC<StaggerContainerProps> = ({
     >
       {React.Children.map(children, (child) => {
         // Only wrap direct children that aren't already motion components
-        if (React.isValidElement(child) && !('variants' in child.props)) {
+        if (React.isValidElement(child) && typeof child.props === 'object' && child.props !== null && !('variants' in child.props)) {
           return (
             <motion.div
               variants={{

@@ -32,7 +32,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
         <FaQuoteLeft className="text-3xl text-blue-500 dark:text-blue-400 mb-4" />
         
         <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed italic">
-          "{quote}"
+          &quot;{quote}&quot;
         </p>
         
         <div className="flex items-center mt-4">
