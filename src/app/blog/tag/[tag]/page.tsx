@@ -21,7 +21,7 @@ export async function generateMetadata({
 }
 
 // Generate static paths for all tags
-export async function generateStaticParams() {
+export function generateStaticParams() {
   const tags = getAllTags();
 
   return tags.map((tag) => ({
