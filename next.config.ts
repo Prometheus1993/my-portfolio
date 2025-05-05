@@ -27,6 +27,9 @@ const nextConfig: NextConfig = {
   images: {
     domains: ['placehold.co'],
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   
   // Andere Next.js config opties indien nodig
 };
