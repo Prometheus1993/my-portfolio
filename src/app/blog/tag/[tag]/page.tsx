@@ -4,15 +4,20 @@ import { getAllTags, getPostsByTag } from "@/lib/blog/utils"; // Updated import 
 import type { Metadata } from "next";
 import BlogListingSection from "@/components/sections/BlogListingSection";
 
-// Use a simpler export without custom interfaces to match Next.js expectations
+interface TagPageProps {
+  params: Promise<{ tag: string }>;
+}
+
+// Generate static metadata for the page
 export async function generateMetadata({
   params,
-}: {
-  params: { tag: string };
-}): Promise<Metadata> {
+}: TagPageProps): Promise<Metadata> {
+  // Await the params as per Next.js 15 documentation
+  const { tag } = await params;
+
   return {
-    title: `${params.tag} | Blog | Jesus O\'Bulan`,
-    description: `Browse all blog posts about ${params.tag} by Jesus O\'Bulan`,
+    title: `${tag} | Blog | Jesus O\'Bulan`,
+    description: `Browse all blog posts about ${tag} by Jesus O\'Bulan`,
   };
 }
 
@@ -25,9 +30,11 @@ export function generateStaticParams() {
   }));
 }
 
-// Use the simplest interface possible and let TypeScript inference work
-export default function TagPage({ params }: { params: { tag: string } }) {
-  const decodedTag = decodeURIComponent(params.tag);
+export default async function TagPage({ params }: TagPageProps) {
+  // Await the params as per Next.js 15 documentation
+  const { tag } = await params;
+
+  const decodedTag = decodeURIComponent(tag);
   const allTags = getAllTags();
 
   // Find the tag with the correct case
