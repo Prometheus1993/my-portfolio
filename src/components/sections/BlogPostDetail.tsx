@@ -1,25 +1,21 @@
 "use client";
 
-// src/components/sections/BlogPostDetail.tsx
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { format } from "date-fns";
 import {
-  FaClock,
   FaCalendarAlt,
   FaTag,
   FaShare,
   FaTwitter,
   FaLinkedin,
   FaFacebook,
+  FaArrowLeft,
 } from "react-icons/fa";
-import { BlogPost } from "@/lib/blog";
+import { BlogPost } from "@/lib/blog/types";
 import BlogCard from "@/components/ui/BlogCard";
 import FadeIn from "@/components/animations/FadeIn";
-import { MDXRemote } from "next-mdx-remote";
-import { MDXComponentsWrapper } from "@/mdx/mdx-components";
-import components from "@/mdx/mdx-components";
+import TabContainer from "@/components/ui/TabContainer";
 
 interface BlogPostDetailProps {
   post: BlogPost;
@@ -64,12 +60,50 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
     );
   };
 
+  // Create tabs based on post content sections
+  const contentTabs = [
+    // Overview tab
+    {
+      id: "overview",
+      label: "Overview",
+      content: (
+        <div className="prose prose-lg dark:prose-invert max-w-none">
+          <p className="text-gray-700 dark:text-gray-300">{post.excerpt}</p>
+        </div>
+      ),
+    },
+    // Map through each section to create additional tabs
+    ...post.sections.map((section) => ({
+      id: section.id,
+      label: section.title.split(":")[0], // Use just the first part of the title for the tab label
+      content: (
+        <div className="prose prose-lg dark:prose-invert max-w-none">
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+            {section.title} {section.emoji}
+          </h3>
+          <p className="text-gray-700 dark:text-gray-300">{section.content}</p>
+        </div>
+      ),
+    })),
+  ];
+
   return (
     <article className="py-12 md:py-16">
       <div className="container mx-auto px-4">
         <FadeIn direction="up">
           {/* Header */}
           <header className="max-w-3xl mx-auto text-center mb-8">
+            {/* Back to Blog link */}
+            <div className="mb-6">
+              <Link
+                href="/blog"
+                className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline"
+              >
+                <FaArrowLeft className="mr-2" size={12} />
+                Back to all posts
+              </Link>
+            </div>
+
             {/* Tags */}
             <div className="flex flex-wrap justify-center gap-2 mb-4">
               {post.tags.map((tag) => (
@@ -93,40 +127,26 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
                 <FaCalendarAlt className="mr-1" size={12} />
                 <span>{formattedDate}</span>
               </div>
-              <div className="flex items-center">
-                <FaClock className="mr-1" size={12} />
-                <span>{post.readingTime}</span>
-              </div>
+              {post.readingTime && (
+                <div className="flex items-center">
+                  <span>{post.readingTime}</span>
+                </div>
+              )}
             </div>
           </header>
         </FadeIn>
 
-        {/* Cover Image */}
-        <FadeIn direction="up" delay={0.1}>
-          <div className="relative w-full h-64 md:h-96 mb-10 rounded-lg overflow-hidden max-w-5xl mx-auto">
-            <Image
-              src={post.coverImage}
-              alt={`Cover image for ${post.title}`}
-              fill
-              style={{ objectFit: "cover" }}
-              priority
-            />
-          </div>
-        </FadeIn>
-
-        {/* Content */}
+        {/* Content with tabs */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 max-w-6xl mx-auto">
           {/* Main Content */}
           <FadeIn direction="up" delay={0.2} className="lg:col-span-3">
-            <div className="prose prose-lg dark:prose-invert max-w-none">
-              {post.mdxSource ? (
-                <MDXComponentsWrapper>
-                  <MDXRemote {...post.mdxSource} components={components} />
-                </MDXComponentsWrapper>
-              ) : (
-                <div dangerouslySetInnerHTML={{ __html: post.content || "" }} />
-              )}
-            </div>
+            <TabContainer
+              tabs={contentTabs}
+              defaultTabId="overview"
+              transitionDirection="fade"
+              transitionDuration={0.3}
+              className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6"
+            />
           </FadeIn>
 
           {/* Sidebar */}
@@ -198,7 +218,6 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
                     title={post.title}
                     excerpt={post.excerpt}
                     date={post.date}
-                    coverImage={post.coverImage}
                     tags={post.tags}
                     readingTime={post.readingTime || "5 min read"}
                     isCompact={true}

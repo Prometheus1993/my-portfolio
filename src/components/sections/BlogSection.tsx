@@ -1,12 +1,12 @@
 // src/components/sections/BlogSection.tsx
-import React from 'react';
-import Link from 'next/link';
-import BlogCard from '@/components/ui/BlogCard';
-import Button from '@/components/ui/Button';
-import FadeIn from '@/components/animations/FadeIn';
-import StaggerContainer from '@/components/animations/StaggerContainer';
-import { FaArrowRight } from 'react-icons/fa';
-import { BlogPost } from '@/lib/blog';
+import React from "react";
+import Link from "next/link";
+import BlogCard from "@/components/ui/BlogCard";
+import Button from "@/components/ui/Button";
+import FadeIn from "@/components/animations/FadeIn";
+import StaggerContainer from "@/components/animations/StaggerContainer";
+import { FaArrowRight } from "react-icons/fa";
+import { BlogPost } from "@/lib/blog/types";
 
 interface BlogSectionProps {
   posts: BlogPost[];
@@ -22,7 +22,8 @@ const BlogSection: React.FC<BlogSectionProps> = ({ posts }) => {
               Recent Blog Posts
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              Insights, tutorials, and stories from my experiences as a developer.
+              Insights, tutorials, and stories from my experiences as a
+              developer.
             </p>
           </div>
         </FadeIn>
@@ -37,9 +38,8 @@ const BlogSection: React.FC<BlogSectionProps> = ({ posts }) => {
                     title={post.title}
                     excerpt={post.excerpt}
                     date={post.date}
-                    coverImage={post.coverImage}
                     tags={post.tags}
-                    readingTime={post.readingTime || '5 min read'}
+                    readingTime={post.readingTime || "5 min read"}
                     isCompact={true}
                   />
                 </div>
@@ -57,8 +57,8 @@ const BlogSection: React.FC<BlogSectionProps> = ({ posts }) => {
         <FadeIn direction="up" delay={0.4}>
           <div className="text-center">
             <Link href="/blog">
-              <Button 
-                variant="secondary" 
+              <Button
+                variant="secondary"
                 className="inline-flex items-center hover:translate-x-1 transition-transform"
               >
                 View all posts <FaArrowRight className="ml-2" />

@@ -3,8 +3,8 @@ import HeroSection from "@/components/sections/HeroSection";
 import FeaturedProjectsSection from "@/components/sections/FeaturedProjectsSection";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import BlogSection from "@/components/sections/BlogSection";
-import { getFeaturedProjectsData, getAllProjectsData } from "@/projects"; // Nieuwe import pad
-import { getRecentPosts } from "@/lib/blog";
+import { getFeaturedProjectsData, getAllProjectsData } from "@/projects";
+import { getRecentPosts } from "@/lib/blog/utils";
 
 export default function Home() {
   // Get featured projects first
@@ -23,7 +23,6 @@ export default function Home() {
       <HeroSection />
       <FeaturedProjectsSection projects={featuredProjects} />
       <BlogSection posts={recentPosts} />
-      <TestimonialsSection />
     </>
   );
 }
