@@ -11,12 +11,14 @@ import { notFound } from "next/navigation";
 
 // Props type for the page component
 type Props = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 // Generate Metadata dynamically
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const project = getProjectBySlug(params.slug);
+  // Await the params as per Next.js 15 documentation
+  const { slug } = await params;
+  const project = getProjectBySlug(slug);
 
   if (!project) {
     return {
@@ -38,8 +40,10 @@ export function generateStaticParams() {
 }
 
 // The page component itself
-export default function ProjectDetailPage({ params }: Props) {
-  const project = getProjectBySlug(params.slug);
+export default async function ProjectDetailPage({ params }: Props) {
+  // Await the params as per Next.js 15 documentation
+  const { slug } = await params;
+  const project = getProjectBySlug(slug);
 
   // If project doesn't exist, return 404
   if (!project) {
@@ -48,7 +52,7 @@ export default function ProjectDetailPage({ params }: Props) {
 
   // Get the corresponding component
   const ProjectComponent =
-    projectComponents[params.slug as keyof typeof projectComponents];
+    projectComponents[slug as keyof typeof projectComponents];
 
   // If component doesn't exist, return 404
   if (!ProjectComponent) {
@@ -77,6 +81,7 @@ export default function ProjectDetailPage({ params }: Props) {
           alt={`Header image for ${project.title}`}
           fill
           style={{ objectFit: "contain", objectPosition: "center" }}
+          className="bg-gray-100 dark:bg-gray-800"
           priority // Most important image on the page
         />
       </div>
