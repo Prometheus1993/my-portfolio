@@ -11,28 +11,28 @@ export const firstWeekAtBrightest: BlogPost = {
   readingTime: "3 min read",
   sections: [
     {
-      id: "monday",
+      id: "week1-monday",
       title: "Monday: First Day at Brightest!",
       emoji: "✨👨‍💻🚀",
       content:
         "Today was my first internship day at Brightest! The morning was all about introductions and onboarding. The project - a Test Automation UI Framework - is still in the initial phase, so we needed to set up some practical matters first, like Trello boards and tools. I didn't get to dive into code yet, but to make good use of my time, I set up my blog website. This makes it easier for my internship supervisor to follow my progress. Additionally, I researched Page Object Models in Selenium, an important concept for my assignment. 🔍📑💡",
     },
     {
-      id: "tuesday",
+      id: "week1-tuesday",
       title: "Tuesday: Waiting, but Productive!",
       emoji: "⏳📖💭",
       content:
         "Today was primarily a day of research. We're still waiting for concrete tasks, so there wasn't much action, but we independently continued to search for relevant information and concepts that could come in handy. 🧠🔎📚",
     },
     {
-      id: "wednesday",
+      id: "week1-wednesday",
       title: "Wednesday: UI Design in Progress",
       emoji: "🎨🖥️📝",
       content:
         "Today I created wireframes and then a mockup in V0.dev to visualize the UI of our application. We presented these to our supervisors to get feedback and understand their vision. Next step: process feedback and refine! 🛠️💬✨",
     },
     {
-      id: "thursday-friday",
+      id: "week-1-thursday-friday",
       title: "Thursday & Friday: Remote Work and Research",
       emoji: "🏡💻🔬",
       content:

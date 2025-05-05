@@ -61,8 +61,8 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
   };
 
   // Create tabs based on post content sections
-  // This is a simplified example - you'll need to structure your content accordingly
   const contentTabs = [
+    // Overview tab
     {
       id: "overview",
       label: "Overview",
@@ -72,78 +72,19 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
         </div>
       ),
     },
-    {
-      id: "monday",
-      label: "Monday",
+    // Map through each section to create additional tabs
+    ...post.sections.map((section) => ({
+      id: section.id,
+      label: section.title.split(":")[0], // Use just the first part of the title for the tab label
       content: (
         <div className="prose prose-lg dark:prose-invert max-w-none">
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-            First Day at Brightest! ✨👨‍💻🚀
+            {section.title} {section.emoji}
           </h3>
-          <p className="text-gray-700 dark:text-gray-300">
-            Today was my first internship day at Brightest! The morning was all
-            about introductions and onboarding. The project - a Test Automation
-            UI Framework - is still in the initial phase, so we needed to set up
-            some practical matters first, like Trello boards and tools. I didn't
-            get to dive into code yet, but to make good use of my time, I set up
-            my blog website. This makes it easier for my internship supervisor
-            to follow my progress. Additionally, I researched Page Object Models
-            in Selenium, an important concept for my assignment. 🔍📑💡
-          </p>
+          <p className="text-gray-700 dark:text-gray-300">{section.content}</p>
         </div>
       ),
-    },
-    {
-      id: "tuesday",
-      label: "Tuesday",
-      content: (
-        <div className="prose prose-lg dark:prose-invert max-w-none">
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-            Waiting, but Productive! ⏳📖💭
-          </h3>
-          <p className="text-gray-700 dark:text-gray-300">
-            Today was primarily a day of research. We're still waiting for
-            concrete tasks, so there wasn't much action, but we independently
-            continued to search for relevant information and concepts that could
-            come in handy. 🧠🔎📚
-          </p>
-        </div>
-      ),
-    },
-    {
-      id: "wednesday",
-      label: "Wednesday",
-      content: (
-        <div className="prose prose-lg dark:prose-invert max-w-none">
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-            UI Design in Progress 🎨🖥️📝
-          </h3>
-          <p className="text-gray-700 dark:text-gray-300">
-            Today I created wireframes and then a mockup in V0.dev to visualize
-            the UI of our application. We presented these to our supervisors to
-            get feedback and understand their vision. Next step: process
-            feedback and refine! 🛠️💬✨
-          </p>
-        </div>
-      ),
-    },
-    {
-      id: "thursday-friday",
-      label: "Thu & Fri",
-      content: (
-        <div className="prose prose-lg dark:prose-invert max-w-none">
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-            Remote Work and Research 🏡💻🔬
-          </h3>
-          <p className="text-gray-700 dark:text-gray-300">
-            These days we worked remotely and delved into Playwright and code
-            generation. We went through documentation, created a questionnaire,
-            and made a flowchart for our application. We also implemented some
-            design tweaks. Two productive days from home! 🚀📂✅
-          </p>
-        </div>
-      ),
-    },
+    })),
   ];
 
   return (
@@ -186,6 +127,11 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
                 <FaCalendarAlt className="mr-1" size={12} />
                 <span>{formattedDate}</span>
               </div>
+              {post.readingTime && (
+                <div className="flex items-center">
+                  <span>{post.readingTime}</span>
+                </div>
+              )}
             </div>
           </header>
         </FadeIn>

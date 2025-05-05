@@ -1,10 +1,32 @@
 // src/lib/blog/utils.ts
 import { BlogPost, BlogPostList } from "./types";
 import { firstWeekAtBrightest } from "./posts/first-week-at-brightest";
+import { secondWeekAtBrightest } from "./posts/second-week-at-brightest";
+import { thirdWeekAtBrightest } from "./posts/third-week-at-brightest";
+import { fourthWeekAtBrightest } from "./posts/fourth-week-at-brightest";
+import { fifthWeekAtBrightest } from "./posts/fifth-week-at-brightest";
+import { sixthWeekAtBrightest } from "./posts/sixth-week-at-brightest";
+import { seventhWeekAtBrightest } from "./posts/seventh-week-at-brightest";
+import { eighthWeekAtBrightest } from "./posts/eighth-week-at-brightest";
+import { ninthWeekAtBrightest } from "./posts/ninth-week-at-brightest";
+import { tenthWeekAtBrightest } from "./posts/tenth-week-at-brightest";
+import { eleventhWeekAtBrightest } from "./posts/eleventh-week-at-brightest";
+import { twelfthWeekAtBrightest } from "./posts/twelfth-week-at-brightest";
 
 // Import all blog posts here
 const allPosts: BlogPostList = [
   firstWeekAtBrightest,
+  secondWeekAtBrightest,
+  thirdWeekAtBrightest,
+  fourthWeekAtBrightest,
+  fifthWeekAtBrightest,
+  sixthWeekAtBrightest,
+  seventhWeekAtBrightest,
+  eighthWeekAtBrightest,
+  ninthWeekAtBrightest,
+  tenthWeekAtBrightest,
+  eleventhWeekAtBrightest,
+  twelfthWeekAtBrightest,
   // Add more posts as you create them
 ];
 

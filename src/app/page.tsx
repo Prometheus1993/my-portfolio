@@ -23,7 +23,6 @@ export default function Home() {
       <HeroSection />
       <FeaturedProjectsSection projects={featuredProjects} />
       <BlogSection posts={recentPosts} />
-      <TestimonialsSection />
     </>
   );
 }
