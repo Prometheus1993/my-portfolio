@@ -10,7 +10,7 @@ export const metadata: ProjectData = {
   date: "2025-05-28",
   overview:
     "Internship project at Brightest: A tool that extracts Page Object Models (POM) from GitHub repositories and generates test code.",
-  imageUrl: "/images/projects/brightest-logo.png",
+  imageUrl: "/images/projects/Brightest-logo.png",
   techStack: [
     "Next.js",
     "React",
@@ -42,10 +42,10 @@ const BrightestProject: React.FC = () => {
           </div>
           <p className="text-gray-700 dark:text-gray-300">
             While existing frameworks like Playwright and Selenium offer code
-            generation, this tool specifically focuses on extracting methods from
-            Page Object Models (POM) stored in GitHub repositories and generating
-            reusable code compatible with Brightest&apos;s internal test
-            framework.
+            generation, this tool specifically focuses on extracting methods
+            from Page Object Models (POM) stored in GitHub repositories and
+            generating reusable code compatible with Brightest&apos;s internal
+            test framework.
           </p>
         </div>
       ),
@@ -126,8 +126,8 @@ export class PomExtractor {
           </p>
           <ol className="list-decimal pl-6 space-y-4 mb-6">
             <li className="text-gray-700 dark:text-gray-300">
-              <span className="font-semibold">Login:</span> Users log in via their
-              Microsoft account (MSAL)
+              <span className="font-semibold">Login:</span> Users log in via
+              their Microsoft account (MSAL)
             </li>
             <li className="text-gray-700 dark:text-gray-300">
               <span className="font-semibold">Repository Configuration:</span>{" "}
@@ -136,9 +136,9 @@ export class PomExtractor {
             </li>
             <li className="text-gray-700 dark:text-gray-300">
               <span className="font-semibold">File Selection:</span> The tool
-              displays available repositories, and the user selects relevant code
-              files from which POM methods should be extracted. A custom extractor
-              parses JS, TS, and C# code
+              displays available repositories, and the user selects relevant
+              code files from which POM methods should be extracted. A custom
+              extractor parses JS, TS, and C# code
             </li>
             <li className="text-gray-700 dark:text-gray-300">
               <span className="font-semibold">Test Case Creation:</span> On a
@@ -188,9 +188,9 @@ export class PomExtractor {
           </ul>
           <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-5 border-l-4 border-green-500">
             <p className="text-green-800 dark:text-green-300 text-sm md:text-base font-medium">
-              This internship project gave me valuable experience with modern web
-              development in a professional context and improved my skills in
-              designing complex system architectures.
+              This internship project gave me valuable experience with modern
+              web development in a professional context and improved my skills
+              in designing complex system architectures.
             </p>
           </div>
         </div>
@@ -200,10 +200,10 @@ export class PomExtractor {
 
   return (
     <div>
-      <TabContainer 
+      <TabContainer
         tabs={tabs}
         defaultTabId="overview"
-        transitionDirection="fade" 
+        transitionDirection="fade"
         transitionDuration={0.3}
         className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6"
       />
