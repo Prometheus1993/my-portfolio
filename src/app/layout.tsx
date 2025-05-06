@@ -6,6 +6,8 @@ import "./globals.css"; // Behoud deze import voor Tailwind stijlen
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ScrollToTop from "@/components/ui/ScrollToTop";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
   title: "Jesus O'Bulan - Full-Stack Developer Portfolio",
@@ -31,6 +33,8 @@ export default function RootLayout({
 
         <main className="flex-grow container mx-auto px-4 py-8">
           {children}
+          <SpeedInsights />
+          <Analytics />
         </main>
 
         <Footer />
