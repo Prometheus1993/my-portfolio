@@ -11,14 +11,7 @@ export const metadata: ProjectData = {
   overview:
     "A web app school project built with the PokeAPI, featuring catching, battling, a Pokedex, and a minigame.",
   imageUrl: "/images/projects/pokemon.png",
-  techStack: [
-    "React",
-    "TypeScript",
-    "Tailwind CSS",
-    "Express.js",
-    "MongoDB",
-    "Node.js",
-  ],
+  techStack: ["React", "Tailwind CSS", "Express.js", "MongoDB", "Node.js"],
   liveUrl: "https://mewtech.onrender.com",
   repoUrl: "https://github.com/DenGian/Mew.Tech",
   featured: true,

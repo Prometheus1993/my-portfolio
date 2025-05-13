@@ -13,9 +13,7 @@ export const metadata: ProjectData = {
   imageUrl: "/images/projects/Atlas-Copco-Logo.png",
   techStack: [
     "React",
-    "TypeScript",
     "Tailwind CSS",
-    "Auth0",
     "C#",
     "Node.js",
     "PostgreSQL",

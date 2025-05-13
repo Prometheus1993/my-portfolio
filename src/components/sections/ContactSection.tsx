@@ -13,7 +13,7 @@ import {
   FaExclamationCircle,
   FaUserAlt,
   FaMapMarkerAlt,
-  FaCalendarAlt
+  FaCalendarAlt,
 } from "react-icons/fa";
 import TabContainer from "@/components/ui/TabContainer";
 
@@ -44,7 +44,6 @@ const ContactSection = () => {
       [name]: value,
     }));
   };
-
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -136,14 +135,13 @@ const ContactSection = () => {
       });
     }
   };
-
   // Create the tabs for the contact section
   const contactTabs = [
     {
       id: "form",
       label: "Message Form",
       content: (
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 md:p-8">
+        <div className="bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md p-6 md:p-8 border border-gray-200 dark:border-gray-700">
           <h3 className="text-2xl font-semibold mb-6 text-gray-800 dark:text-gray-200">
             Send a message
           </h3>
@@ -163,7 +161,7 @@ const ContactSection = () => {
             <form
               className="space-y-6"
               onSubmit={handleSubmit}
-              action="https://formspree.io/f/YOUR_FORM_ID"
+              action="https://formspree.io/f/mrbqejaa" // You already have this ID in your fetch request
               method="POST"
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -288,7 +286,7 @@ const ContactSection = () => {
       id: "info",
       label: "Contact Info",
       content: (
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 md:p-8">
+        <div className="bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md p-6 md:p-8 border border-gray-200 dark:border-gray-700">
           <h3 className="text-2xl font-semibold mb-6 text-gray-800 dark:text-gray-200">
             Contact Information
           </h3>
@@ -361,7 +359,7 @@ const ContactSection = () => {
       id: "availability",
       label: "Availability",
       content: (
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 md:p-8">
+        <div className="bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md p-6 md:p-8 border border-gray-200 dark:border-gray-700">
           <h3 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
             Availability
           </h3>
@@ -369,43 +367,49 @@ const ContactSection = () => {
             I am currently available for:
           </p>
           <div className="space-y-4 mb-8">
-            <div className="flex items-start p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+            <div className="flex items-start p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800">
               <div className="mr-4 mt-1 text-blue-600 dark:text-blue-400">
                 <FaUserAlt />
               </div>
               <div>
-                <h4 className="font-semibold text-gray-900 dark:text-white">Freelance projects</h4>
+                <h4 className="font-semibold text-gray-900 dark:text-white">
+                  Freelance projects
+                </h4>
                 <p className="text-sm text-gray-700 dark:text-gray-300">
                   For short to medium-term web development projects
                 </p>
               </div>
             </div>
-            
-            <div className="flex items-start p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+
+            <div className="flex items-start p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800">
               <div className="mr-4 mt-1 text-blue-600 dark:text-blue-400">
                 <FaUserAlt />
               </div>
               <div>
-                <h4 className="font-semibold text-gray-900 dark:text-white">Full-time positions</h4>
+                <h4 className="font-semibold text-gray-900 dark:text-white">
+                  Full-time positions
+                </h4>
                 <p className="text-sm text-gray-700 dark:text-gray-300">
                   Looking for full-time roles in web/software development
                 </p>
               </div>
             </div>
-            
-            <div className="flex items-start p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+
+            <div className="flex items-start p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800">
               <div className="mr-4 mt-1 text-blue-600 dark:text-blue-400">
                 <FaUserAlt />
               </div>
               <div>
-                <h4 className="font-semibold text-gray-900 dark:text-white">Collaborations</h4>
+                <h4 className="font-semibold text-gray-900 dark:text-white">
+                  Collaborations
+                </h4>
                 <p className="text-sm text-gray-700 dark:text-gray-300">
                   Open to collaborating on interesting projects and initiatives
                 </p>
               </div>
             </div>
           </div>
-          
+
           <div className="mt-6">
             <a
               href="/cv-jesus-obulan.pdf"
@@ -422,7 +426,7 @@ const ContactSection = () => {
           </div>
         </div>
       ),
-    }
+    },
   ];
 
   return (
@@ -432,10 +436,10 @@ const ContactSection = () => {
           Contact
         </h2>
 
-        <TabContainer 
+        <TabContainer
           tabs={contactTabs}
           defaultTabId="form"
-          transitionDirection="fade" 
+          transitionDirection="fade"
           transitionDuration={0.3}
           className="max-w-4xl mx-auto"
           contentClassName="mt-1"

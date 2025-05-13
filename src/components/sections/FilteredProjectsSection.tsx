@@ -30,11 +30,13 @@ const FilteredProjectsSection: React.FC<FilteredProjectsSectionProps> = ({
   // State for search query
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-  // Extract all unique technologies from projects
+  // Extract all unique technologies from projects - fix de sortering
   const allTechnologies = [
     "All",
-    ...Array.from(new Set(projects.flatMap((project) => project.techStack))),
-  ].sort();
+    ...Array.from(
+      new Set(projects.flatMap((project) => project.techStack))
+    ).sort(),
+  ];
 
   // Filter projects by search query
   useEffect(() => {
@@ -113,7 +115,7 @@ const FilteredProjectsSection: React.FC<FilteredProjectsSectionProps> = ({
       <div className="container mx-auto px-4">
         <FadeIn direction="up">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12 text-gray-900 dark:text-white">
-            Projects
+            My Projects
           </h2>
         </FadeIn>
 

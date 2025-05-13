@@ -27,7 +27,7 @@ const BlogCard: React.FC<BlogCardProps> = ({
   const formattedDate = format(new Date(date), "MMMM d, yyyy");
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 h-full flex flex-col">
+    <div className="bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 h-full flex flex-col border border-gray-200 dark:border-gray-700">
       {/* Card Content */}
       <div className="p-6 flex flex-col flex-grow">
         {/* Tags */}

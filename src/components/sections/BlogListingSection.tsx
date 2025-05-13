@@ -11,11 +11,13 @@ import { BlogPost } from "@/lib/blog/types";
 interface BlogListingSectionProps {
   posts: BlogPost[];
   tags: string[];
+  selectedTag?: string;
 }
 
 const BlogListingSection: React.FC<BlogListingSectionProps> = ({
   posts,
   tags,
+  selectedTag,
 }) => {
   // State for search query
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -25,6 +27,16 @@ const BlogListingSection: React.FC<BlogListingSectionProps> = ({
 
   // Add "All" to the beginning of the tags array
   const allTags = ["All", ...tags];
+
+  // Find the selected tag index or default to 'All'
+  const initialTagId = selectedTag
+    ? allTags.findIndex(
+        (tag) => tag.toLowerCase() === selectedTag.toLowerCase()
+      )
+    : 0;
+
+  // Zorg ervoor dat we een geldige index hebben, zelfs als de tag niet wordt gevonden
+  const safeInitialTagId = initialTagId >= 0 ? initialTagId : 0;
 
   // Filter posts when searchQuery changes
   useEffect(() => {
@@ -117,7 +129,7 @@ const BlogListingSection: React.FC<BlogListingSectionProps> = ({
           </p>
         </FadeIn>
 
-        {/* Search */}
+        {/* Search - Verbeterde styling */}
         <FadeIn direction="up" delay={0.1}>
           <div className="relative max-w-md mx-auto mb-10">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -128,19 +140,21 @@ const BlogListingSection: React.FC<BlogListingSectionProps> = ({
               value={searchQuery}
               onChange={handleSearchChange}
               placeholder="Search posts..."
-              className="block w-full pl-10 pr-4 py-3 text-sm bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-gray-900 dark:text-white"
+              className="block w-full pl-10 pr-4 py-3 text-sm bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-gray-900 dark:text-white shadow-sm"
             />
           </div>
         </FadeIn>
 
-        {/* Blog posts tabs by category */}
+        {/* Blog posts tabs by category - Verbeterde styling */}
         <FadeIn direction="up" delay={0.2}>
           <TabContainer
             tabs={tagTabs}
-            defaultTabId="all"
+            defaultTabId={allTags[safeInitialTagId]
+              .toLowerCase()
+              .replace(/\s+/g, "-")}
             transitionDirection="fade"
             transitionDuration={0.3}
-            className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6"
+            className="bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700"
             tabsClassName="flex flex-wrap -mb-6"
           />
         </FadeIn>

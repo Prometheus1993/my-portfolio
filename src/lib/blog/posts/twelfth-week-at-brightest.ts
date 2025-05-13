@@ -8,7 +8,7 @@ export const twelfthWeekAtBrightest: BlogPost = {
   date: "2025-04-28", // Example date - update as needed
   excerpt:
     "A more relaxed week after intense development periods, featuring internal alignment meetings, enriching exchanges with parallel project teams, and planning for upcoming personal projects during vacation.",
-  tags: ["Internship", "Reflection", "Personal Growth", "iOS Development"],
+  tags: ["Internship"],
   readingTime: "3 min read",
   sections: [
     {

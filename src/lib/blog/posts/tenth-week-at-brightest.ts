@@ -8,7 +8,7 @@ export const tenthWeekAtBrightest: BlogPost = {
   date: "2025-04-13", // Example date - update as needed
   excerpt:
     "This week marked a significant milestone as we finalized our code generation functionality for both TypeScript and C#, created a bridge between the UI and code output, and started the comprehensive testing phase of our application.",
-  tags: ["Internship", "Code Generation", "TypeScript", "C#", "Testing"],
+  tags: ["Internship",],
   readingTime: "4 min read",
   sections: [
     {

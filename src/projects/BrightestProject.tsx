@@ -11,15 +11,7 @@ export const metadata: ProjectData = {
   overview:
     "Internship project at Brightest: A tool that extracts Page Object Models (POM) from GitHub repositories and generates test code.",
   imageUrl: "/images/projects/Brightest-logo.png",
-  techStack: [
-    "Next.js",
-    "React",
-    "TypeScript",
-    "Tailwind CSS",
-    "MongoDB",
-    "MSAL",
-    "Context API",
-  ],
+  techStack: ["React", "Tailwind CSS", "Next.js", "MongoDB"],
   liveUrl: null,
   repoUrl: null,
   featured: true,

@@ -1,23 +1,37 @@
 // src/app/blog/tag/[tag]/page.tsx
 import React from "react";
-import { getAllTags, getPostsByTag } from "@/lib/blog/utils"; // Updated import path
+import { getAllPosts, getAllTags, getPostsByTag } from "@/lib/blog/utils";
 import type { Metadata } from "next";
 import BlogListingSection from "@/components/sections/BlogListingSection";
+import { notFound } from "next/navigation";
 
 interface TagPageProps {
   params: Promise<{ tag: string }>;
 }
 
-// Generate static metadata for the page
+// Generate metadata for SEO
 export async function generateMetadata({
   params,
 }: TagPageProps): Promise<Metadata> {
-  // Await the params as per Next.js 15 documentation
   const { tag } = await params;
+  const decodedTag = decodeURIComponent(tag);
+
+  // Check if tag exists
+  const allTags = getAllTags();
+  const tagExists = allTags.some(
+    (t) => t.toLowerCase() === decodedTag.toLowerCase()
+  );
+
+  if (!tagExists) {
+    return {
+      title: "Tag Not Found | Blog | Jesus O'Bulan",
+      description: "The requested tag could not be found.",
+    };
+  }
 
   return {
-    title: `${tag} | Blog | Jesus O\'Bulan`,
-    description: `Browse all blog posts about ${tag} by Jesus O\'Bulan`,
+    title: `${decodedTag} | Blog | Jesus O'Bulan`,
+    description: `Browse articles tagged with ${decodedTag}`,
   };
 }
 
@@ -31,23 +45,24 @@ export function generateStaticParams() {
 }
 
 export default async function TagPage({ params }: TagPageProps) {
-  // Await the params as per Next.js 15 documentation
   const { tag } = await params;
-
   const decodedTag = decodeURIComponent(tag);
-  const allTags = getAllTags();
 
-  // Find the tag with the correct case
-  const matchedTag = allTags.find(
-    (tag) => tag.toLowerCase() === decodedTag.toLowerCase()
+  // Check if tag exists
+  const allTags = getAllTags();
+  const tagExists = allTags.some(
+    (t) => t.toLowerCase() === decodedTag.toLowerCase()
   );
 
-  if (!matchedTag) {
-    // If tag doesn't exist, return empty array
-    return <BlogListingSection posts={[]} tags={allTags} />;
+  if (!tagExists) {
+    notFound();
   }
 
-  const posts = getPostsByTag(matchedTag);
+  const posts = getAllPosts();
+  const tags = getAllTags();
 
-  return <BlogListingSection posts={posts} tags={allTags} />;
+  // Pass down the active tag as selectedTag
+  return (
+    <BlogListingSection posts={posts} tags={tags} selectedTag={decodedTag} />
+  );
 }

@@ -145,7 +145,7 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
               defaultTabId="overview"
               transitionDirection="fade"
               transitionDuration={0.3}
-              className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6"
+              className="bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700"
             />
           </FadeIn>
 
@@ -153,7 +153,7 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
           <FadeIn direction="up" delay={0.3} className="lg:col-span-1">
             <aside className="sticky top-24 space-y-8">
               {/* Share */}
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+              <div className="bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700">
                 <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white flex items-center">
                   <FaShare className="mr-2" /> Share this post
                 </h3>
@@ -183,7 +183,7 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
               </div>
 
               {/* Tags */}
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+              <div className="bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700">
                 <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
                   Tags
                 </h3>

@@ -7,7 +7,7 @@ export const fifthWeekAtBrightest: BlogPost = {
   date: "2025-03-09", // Example date - update as needed
   excerpt:
     "A week focused on UI improvements, working through debugging challenges, researching alternative approaches, and planning ahead despite facing some stubborn technical obstacles.",
-  tags: ["Internship", "Development", "UI/UX", "Problem Solving"],
+  tags: ["Internship", ],
   readingTime: "3 min read",
   sections: [
     {

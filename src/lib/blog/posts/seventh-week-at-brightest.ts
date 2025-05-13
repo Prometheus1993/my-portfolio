@@ -10,11 +10,7 @@ export const seventhWeekAtBrightest: BlogPost = {
     "This week was perhaps one of the most intensive yet valuable weeks of my internship at Brightest, focusing on deep refactoring, implementing Single Source of Truth principles, using React Context API, and redesigning the UI for optimal user experience.",
   tags: [
     "Internship",
-    "Development",
-    "Refactoring",
-    "React",
-    "Context API",
-    "UI/UX",
+    
   ],
   readingTime: "5 min read",
   sections: [
