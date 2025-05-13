@@ -119,7 +119,7 @@ const skillsByCategory = [
 
 const AboutSection = () => {
   // Create tab content from skillsByCategory
-  const skillTabs = skillsByCategory.map(category => ({
+  const skillTabs = skillsByCategory.map((category) => ({
     id: category.title.toLowerCase(),
     label: category.title,
     content: (
@@ -134,7 +134,7 @@ const AboutSection = () => {
           />
         ))}
       </div>
-    )
+    ),
   }));
 
   // Define about me content tab
@@ -144,8 +144,8 @@ const AboutSection = () => {
       label: "Profile",
       content: (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-center mt-6">
-          {/* Text Column */}
-          <div className="md:col-span-2 space-y-6 text-lg text-gray-700 dark:text-gray-300">
+          {/* Text Column - Order 2 on mobile, order 1 on desktop */}
+          <div className="md:col-span-2 space-y-6 text-lg text-gray-700 dark:text-gray-300 order-2 md:order-1">
             <p>
               Hello! I&apos;m Jesus O&apos;Bulan, an enthusiastic Full-Stack
               Developer currently completing my Programming Associate Degree at
@@ -170,8 +170,8 @@ const AboutSection = () => {
             </p>
           </div>
 
-          {/* Image Column */}
-          <div className="md:col-span-1 flex justify-center">
+          {/* Image Column - Order 1 on mobile, order 2 on desktop */}
+          <div className="md:col-span-1 flex justify-center order-1 md:order-2 mb-8 md:mb-0">
             <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden shadow-lg">
               <Image
                 src={profilePic}
@@ -183,7 +183,7 @@ const AboutSection = () => {
             </div>
           </div>
         </div>
-      )
+      ),
     },
     {
       id: "education",
@@ -197,7 +197,7 @@ const AboutSection = () => {
           </div>
           {/* You can add more education details here */}
         </div>
-      )
+      ),
     },
     {
       id: "interests",
@@ -205,7 +205,8 @@ const AboutSection = () => {
       content: (
         <div className="space-y-6 text-lg text-gray-700 dark:text-gray-300 mt-6">
           <p>
-            Beyond coding, I&apos;m passionate about technology exploration, including:
+            Beyond coding, I&apos;m passionate about technology exploration,
+            including:
           </p>
           <ul className="list-disc pl-6 space-y-2">
             <li>iOS development with Swift</li>
@@ -215,8 +216,8 @@ const AboutSection = () => {
             <li>Keeping up with industry trends and best practices</li>
           </ul>
         </div>
-      )
-    }
+      ),
+    },
   ];
 
   return (
@@ -231,7 +232,7 @@ const AboutSection = () => {
 
         {/* About Me Tab Container */}
         <FadeIn direction="up" className="mb-16 md:mb-24">
-          <TabContainer 
+          <TabContainer
             tabs={aboutMeTabs}
             defaultTabId="profile"
             transitionDirection="fade"
@@ -249,7 +250,7 @@ const AboutSection = () => {
         </FadeIn>
 
         {/* Skills Tab Container */}
-        <TabContainer 
+        <TabContainer
           tabs={skillTabs}
           defaultTabId="frontend"
           transitionDirection="fade"

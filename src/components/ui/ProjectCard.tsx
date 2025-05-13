@@ -30,15 +30,15 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   const technologies = techStack.length > 0 ? techStack : tags;
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col">
-      {/* Project Image */}
-      <div className="relative w-full h-40 md:h-48 dark:bg-gray-800">
+    <div className="bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col border border-gray-200 dark:border-gray-700">
+      {/* Project Image - always white background */}
+      <div className="relative w-full h-40 md:h-48 bg-white">
         <Image
           src={imageUrl}
           alt={`Thumbnail for ${title}`}
           fill
           style={{ objectFit: "contain", objectPosition: "center" }}
-          className="transition-all duration-300"
+          className="transition-all duration-300 p-2"
         />
       </div>
 

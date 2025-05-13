@@ -4,7 +4,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import ThemeToggle from "@/components/ui/ThemeToggle";
 import { FaBars, FaTimes } from "react-icons/fa";
 
 const Navbar = () => {
@@ -36,7 +35,6 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center space-x-4">
-            <ThemeToggle />
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className="text-gray-700 dark:text-gray-300 focus:outline-none"
@@ -63,7 +61,6 @@ const Navbar = () => {
                 </Link>
               ))}
             </div>
-            <ThemeToggle />
           </div>
         </div>
 

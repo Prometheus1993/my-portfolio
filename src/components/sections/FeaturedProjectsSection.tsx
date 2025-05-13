@@ -47,7 +47,7 @@ const FeaturedProjectsSection: React.FC<FeaturedProjectsSectionProps> = ({
 
         {projects.length > 0 ? (
           <StaggerContainer staggerDelay={0.1} delay={0.2}>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 mb-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 mb-12 ">
               {projects.map((project) => (
                 <div key={project.slug}>
                   <ProjectCard
