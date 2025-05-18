@@ -1,5 +1,5 @@
 // src/app/page.tsx
-import HeroSection from "@/components/sections/HeroSection";
+import HeroAboutSection from "@/components/sections/HeroAboutSection"; // New combined component
 import FeaturedProjectsSection from "@/components/sections/FeaturedProjectsSection";
 import BlogSection from "@/components/sections/BlogSection";
 import { getFeaturedProjectsData, getAllProjectsData } from "@/projects";
@@ -19,7 +19,7 @@ export default function Home() {
 
   return (
     <>
-      <HeroSection />
+      <HeroAboutSection /> {/* Combined hero and about section */}
       <FeaturedProjectsSection projects={featuredProjects} />
       <BlogSection posts={recentPosts} />
     </>

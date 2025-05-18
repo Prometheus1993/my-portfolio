@@ -318,7 +318,7 @@ const ContactSection = () => {
             <div className="flex items-center">
               <FaCalendarAlt className="text-blue-600 dark:text-blue-400 mr-3 text-xl" />
               <span className="text-gray-700 dark:text-gray-300">
-                Available for work from July 2025
+                Available for junior developer roles now
               </span>
             </div>
           </div>
@@ -380,21 +380,20 @@ const ContactSection = () => {
                 </p>
               </div>
             </div>
-
+            
             <div className="flex items-start p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800">
               <div className="mr-4 mt-1 text-blue-600 dark:text-blue-400">
                 <FaUserAlt />
               </div>
               <div>
                 <h4 className="font-semibold text-gray-900 dark:text-white">
-                  Full-time positions
+                  Junior Developer Positions
                 </h4>
                 <p className="text-sm text-gray-700 dark:text-gray-300">
-                  Looking for full-time roles in web/software development
+                  Actively seeking junior full-stack or frontend developer roles
                 </p>
               </div>
             </div>
-
             <div className="flex items-start p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800">
               <div className="mr-4 mt-1 text-blue-600 dark:text-blue-400">
                 <FaUserAlt />

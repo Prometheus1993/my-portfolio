@@ -4,7 +4,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { FaBars, FaTimes, FaDownload } from "react-icons/fa";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -33,8 +33,20 @@ const Navbar = () => {
             Jesus O&apos;Bulan
           </Link>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button and CV download for mobile */}
           <div className="md:hidden flex items-center space-x-4">
+            {/* CV Download for mobile */}
+            <a
+              href="/cv-jesus-obulan.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 dark:text-blue-400 flex items-center"
+              aria-label="Download CV"
+            >
+              <FaDownload size={20} />
+            </a>
+            
+            {/* Menu toggle button */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className="text-gray-700 dark:text-gray-300 focus:outline-none"
@@ -61,6 +73,16 @@ const Navbar = () => {
                 </Link>
               ))}
             </div>
+            
+            {/* CV Download button for desktop */}
+            <a
+              href="/cv-jesus-obulan.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center text-sm transition-colors duration-200"
+            >
+              <FaDownload size={14} className="mr-2" /> CV
+            </a>
           </div>
         </div>
 
