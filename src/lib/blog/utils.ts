@@ -12,6 +12,7 @@ import { ninthWeekAtBrightest } from "./posts/ninth-week-at-brightest";
 import { tenthWeekAtBrightest } from "./posts/tenth-week-at-brightest";
 import { eleventhWeekAtBrightest } from "./posts/eleventh-week-at-brightest";
 import { twelfthWeekAtBrightest } from "./posts/twelfth-week-at-brightest";
+import { finalDaysAtBrightest } from "./posts/final-days-at-brightest";
 
 // Import all blog posts here
 const allPosts: BlogPostList = [
@@ -27,6 +28,7 @@ const allPosts: BlogPostList = [
   tenthWeekAtBrightest,
   eleventhWeekAtBrightest,
   twelfthWeekAtBrightest,
+  finalDaysAtBrightest
   // Add more posts as you create them
 ];
 

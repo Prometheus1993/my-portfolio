@@ -8,7 +8,7 @@ export const finalDaysAtBrightest: BlogPost = {
   date: "2025-05-20",
   excerpt:
     "Wrapping up my internship with thorough app reviews, final refinements, and preparations for the big presentation to the Brightest team.",
-  tags: ["Internship", "Reflection"],
+  tags: ["Internship"],
   readingTime: "3 min read",
   sections: [
     {
