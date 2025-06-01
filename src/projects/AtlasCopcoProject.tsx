@@ -1,7 +1,6 @@
 // src/projects/AtlasCopcoProject.tsx
 import React from "react";
 import { ProjectData } from "./types";
-import TabContainer from "@/components/ui/TabContainer";
 
 // Export the project metadata
 export const metadata: ProjectData = {
@@ -11,30 +10,29 @@ export const metadata: ProjectData = {
   overview:
     "Frontend development for a web application that logs and visualizes measurement data from industrial equipment.",
   imageUrl: "/images/projects/Atlas-Copco-Logo.png",
-  techStack: [
-    "React",
-    "Tailwind CSS",
-    "C#",
-    "Node.js",
-    "PostgreSQL",
-  ],
+  techStack: ["React", "Tailwind CSS", "C#", "Node.js", "PostgreSQL"],
   liveUrl: null,
   repoUrl: null,
   featured: true,
 };
 
 const AtlasCopcoProject: React.FC = () => {
-  // Define tab content
-  const tabs = [
-    {
-      id: "overview",
-      label: "Overview",
-      content: (
+  return (
+    <div className="prose prose-lg dark:prose-invert max-w-none">
+      {/* Overview Section */}
+      <section className="mb-12 pb-12 border-b border-gray-200 dark:border-gray-700">
+        <h2
+          id="overview"
+          className="text-2xl font-bold mb-6 text-gray-900 dark:text-white"
+        >
+          Overview
+        </h2>
         <div className="space-y-6">
           <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-5 mb-6 border-l-4 border-blue-500">
             <p className="text-blue-800 dark:text-blue-300 text-sm md:text-base font-medium">
-              This web application was developed for Atlas Copco to streamline the
-              process of logging and sharing measurement data from their machines.
+              This web application was developed for Atlas Copco to streamline
+              the process of logging and sharing measurement data from their
+              machines.
             </p>
           </div>
           <p className="text-gray-700 dark:text-gray-300">
@@ -44,12 +42,16 @@ const AtlasCopcoProject: React.FC = () => {
             user-friendly interface for data management and configuration.
           </p>
         </div>
-      ),
-    },
-    {
-      id: "approach",
-      label: "Approach",
-      content: (
+      </section>
+
+      {/* Approach Section */}
+      <section className="mb-12 pb-12 border-b border-gray-200 dark:border-gray-700">
+        <h2
+          id="approach"
+          className="text-2xl font-bold mb-6 text-gray-900 dark:text-white"
+        >
+          Approach
+        </h2>
         <div className="space-y-6">
           <p className="text-gray-700 dark:text-gray-300">
             As a Frontend Developer, I worked within a team of three (Frontend,
@@ -64,7 +66,7 @@ const AtlasCopcoProject: React.FC = () => {
             co-defining and implementing custom endpoints and TypeScript
             interfaces to ensure smooth communication between front and backend.
           </p>
-          <div className="bg-gray-900 rounded-lg p-6 mb-6">
+          <div className="bg-gray-900 rounded-lg p-6 mb-6 not-prose">
             <div className="flex justify-between items-center mb-2">
               <span className="text-gray-400 text-xs">MeasurementTypes.ts</span>
             </div>
@@ -103,23 +105,28 @@ export interface MeasurementFilter {
             provided a secure way to manage user roles and permissions.
           </p>
         </div>
-      ),
-    },
-    {
-      id: "features",
-      label: "Features",
-      content: (
+      </section>
+
+      {/* Features Section */}
+      <section className="mb-12 pb-12 border-b border-gray-200 dark:border-gray-700">
+        <h2
+          id="features"
+          className="text-2xl font-bold mb-6 text-gray-900 dark:text-white"
+        >
+          Features
+        </h2>
         <div className="space-y-6">
           <p className="text-gray-700 dark:text-gray-300 mb-6">
             The application enables users to:
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose">
             <div className="bg-white dark:bg-gray-800 rounded-lg p-5 shadow-md">
               <h3 className="font-semibold text-base mb-2 text-gray-900 dark:text-white">
                 Data Entry
               </h3>
               <p className="text-gray-700 dark:text-gray-300">
-                Enter measurement data per client or machine via a structured form
+                Enter measurement data per client or machine via a structured
+                form
               </p>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-lg p-5 shadow-md">
@@ -135,8 +142,8 @@ export interface MeasurementFilter {
                 Configuration Management
               </h3>
               <p className="text-gray-700 dark:text-gray-300">
-                Create and manage specific configurations for different clients or
-                installations
+                Create and manage specific configurations for different clients
+                or installations
               </p>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-lg p-5 shadow-md">
@@ -144,18 +151,22 @@ export interface MeasurementFilter {
                 Role-Based Access
               </h3>
               <p className="text-gray-700 dark:text-gray-300">
-                Manage user roles via Auth0, ensuring the right people have access
-                to the right data
+                Manage user roles via Auth0, ensuring the right people have
+                access to the right data
               </p>
             </div>
           </div>
         </div>
-      ),
-    },
-    {
-      id: "challenges",
-      label: "Challenges",
-      content: (
+      </section>
+
+      {/* Challenges Section */}
+      <section className="mb-6">
+        <h2
+          id="challenges"
+          className="text-2xl font-bold mb-6 text-gray-900 dark:text-white"
+        >
+          Challenges
+        </h2>
         <div className="space-y-6">
           <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-5 mb-6 border-l-4 border-yellow-500">
             <p className="text-yellow-800 dark:text-yellow-300 text-sm md:text-base font-medium">
@@ -189,19 +200,7 @@ export interface MeasurementFilter {
             </p>
           </div>
         </div>
-      ),
-    },
-  ];
-
-  return (
-    <div>
-      <TabContainer 
-        tabs={tabs}
-        defaultTabId="overview"
-        transitionDirection="fade" 
-        transitionDuration={0.3}
-        className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6"
-      />
+      </section>
     </div>
   );
 };

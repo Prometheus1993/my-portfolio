@@ -1,7 +1,6 @@
 // src/projects/BrightestProject.tsx
 import React from "react";
 import { ProjectData } from "./types";
-import TabContainer from "@/components/ui/TabContainer";
 
 // Export the project metadata
 export const metadata: ProjectData = {
@@ -18,12 +17,13 @@ export const metadata: ProjectData = {
 };
 
 const BrightestProject: React.FC = () => {
-  // Define tab content
-  const tabs = [
-    {
-      id: "overview",
-      label: "Overview",
-      content: (
+  return (
+    <div className="prose prose-lg dark:prose-invert max-w-none">
+      {/* Overview Section */}
+      <section className="mb-12 pb-12 border-b border-gray-200 dark:border-gray-700">
+        <h2 id="overview" className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+          Overview
+        </h2>
         <div className="space-y-6">
           <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-5 mb-6 border-l-4 border-blue-500">
             <p className="text-blue-800 dark:text-blue-300 text-sm md:text-base font-medium">
@@ -40,12 +40,13 @@ const BrightestProject: React.FC = () => {
             test framework.
           </p>
         </div>
-      ),
-    },
-    {
-      id: "approach",
-      label: "Approach",
-      content: (
+      </section>
+
+      {/* Approach Section */}
+      <section className="mb-12 pb-12 border-b border-gray-200 dark:border-gray-700">
+        <h2 id="approach" className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+          Approach
+        </h2>
         <div className="space-y-6">
           <p className="text-gray-700 dark:text-gray-300">
             The project began with a research phase into existing solutions and
@@ -59,7 +60,7 @@ const BrightestProject: React.FC = () => {
             configurations and Microsoft Authentication Library (MSAL) for login
             via the Brightest environment.
           </p>
-          <div className="bg-gray-900 rounded-lg p-6 mb-6">
+          <div className="bg-gray-900 rounded-lg p-6 mb-6 not-prose">
             <div className="flex justify-between items-center mb-2">
               <span className="text-gray-400 text-xs">PomExtractor.ts</span>
             </div>
@@ -105,12 +106,13 @@ export class PomExtractor {
             </pre>
           </div>
         </div>
-      ),
-    },
-    {
-      id: "features",
-      label: "Features",
-      content: (
+      </section>
+
+      {/* Features Section */}
+      <section className="mb-12 pb-12 border-b border-gray-200 dark:border-gray-700">
+        <h2 id="features" className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+          Features
+        </h2>
         <div className="space-y-6">
           <p className="text-gray-700 dark:text-gray-300 mb-6">
             The &quot;Test Automation Code Generator&quot; offers the following
@@ -149,12 +151,13 @@ export class PomExtractor {
             writing clear backend API endpoints within Next.js.
           </p>
         </div>
-      ),
-    },
-    {
-      id: "challenges",
-      label: "Challenges",
-      content: (
+      </section>
+
+      {/* Challenges Section */}
+      <section className="mb-6">
+        <h2 id="challenges" className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+          Challenges
+        </h2>
         <div className="space-y-6">
           <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-5 mb-6 border-l-4 border-yellow-500">
             <p className="text-yellow-800 dark:text-yellow-300 text-sm md:text-base font-medium">
@@ -186,19 +189,7 @@ export class PomExtractor {
             </p>
           </div>
         </div>
-      ),
-    },
-  ];
-
-  return (
-    <div>
-      <TabContainer
-        tabs={tabs}
-        defaultTabId="overview"
-        transitionDirection="fade"
-        transitionDuration={0.3}
-        className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6"
-      />
+      </section>
     </div>
   );
 };

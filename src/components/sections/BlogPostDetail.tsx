@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { format } from "date-fns";
 import {
@@ -11,11 +11,11 @@ import {
   FaLinkedin,
   FaFacebook,
   FaArrowLeft,
+  FaListUl,
 } from "react-icons/fa";
 import { BlogPost } from "@/lib/blog/types";
 import BlogCard from "@/components/ui/BlogCard";
 import FadeIn from "@/components/animations/FadeIn";
-import TabContainer from "@/components/ui/TabContainer";
 
 interface BlogPostDetailProps {
   post: BlogPost;
@@ -26,6 +26,8 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
   post,
   relatedPosts,
 }) => {
+  const [activeSection, setActiveSection] = useState<string>("overview");
+
   // Format the date
   const formattedDate = format(new Date(post.date), "MMMM d, yyyy");
 
@@ -60,39 +62,48 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
     );
   };
 
-  // Create tabs based on post content sections
-  const contentTabs = [
-    // Overview tab
-    {
-      id: "overview",
-      label: "Overview",
-      content: (
-        <div className="prose prose-lg dark:prose-invert max-w-none">
-          <p className="text-gray-700 dark:text-gray-300">{post.excerpt}</p>
-        </div>
-      ),
-    },
-    // Map through each section to create additional tabs
-    ...post.sections.map((section) => ({
-      id: section.id,
-      label: section.title.split(":")[0], // Use just the first part of the title for the tab label
-      content: (
-        <div className="prose prose-lg dark:prose-invert max-w-none">
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-            {section.title} {section.emoji}
-          </h3>
-          <p className="text-gray-700 dark:text-gray-300">{section.content}</p>
-        </div>
-      ),
-    })),
-  ];
+  // Smooth scroll to section
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const offset = 100; // Adjust for sticky header
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  // Track active section on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ["overview", ...post.sections.map((s) => s.id)];
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = document.getElementById(sections[i]);
+        if (section) {
+          const rect = section.getBoundingClientRect();
+          if (rect.top <= 120) {
+            setActiveSection(sections[i]);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [post.sections]);
 
   return (
     <article className="py-12 md:py-16">
       <div className="container mx-auto px-4">
         <FadeIn direction="up">
           {/* Header */}
-          <header className="max-w-3xl mx-auto text-center mb-8">
+          <header className="max-w-3xl mx-auto text-center mb-12">
             {/* Back to Blog link */}
             <div className="mb-6">
               <Link
@@ -136,22 +147,84 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
           </header>
         </FadeIn>
 
-        {/* Content with tabs */}
+        {/* Content with sidebar */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 max-w-6xl mx-auto">
           {/* Main Content */}
           <FadeIn direction="up" delay={0.2} className="lg:col-span-3">
-            <TabContainer
-              tabs={contentTabs}
-              defaultTabId="overview"
-              transitionDirection="fade"
-              transitionDuration={0.3}
-              className="bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700"
-            />
+            <div className="prose prose-lg dark:prose-invert max-w-none">
+              {/* Overview Section */}
+              <section
+                id="overview"
+                className="mb-12 pb-12 border-b border-gray-200 dark:border-gray-700"
+              >
+                <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+                  Overview
+                </h2>
+                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                  {post.excerpt}
+                </p>
+              </section>
+
+              {/* Content Sections */}
+              {post.sections.map((section, index) => (
+                <section
+                  key={section.id}
+                  id={section.id}
+                  className={`mb-12 pb-12 ${
+                    index < post.sections.length - 1
+                      ? "border-b border-gray-200 dark:border-gray-700"
+                      : ""
+                  }`}
+                >
+                  <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white flex items-center">
+                    {section.title}
+                    {section.emoji && (
+                      <span className="ml-3 text-2xl">{section.emoji}</span>
+                    )}
+                  </h2>
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    {section.content}
+                  </p>
+                </section>
+              ))}
+            </div>
           </FadeIn>
 
           {/* Sidebar */}
           <FadeIn direction="up" delay={0.3} className="lg:col-span-1">
             <aside className="sticky top-24 space-y-8">
+              {/* Table of Contents */}
+              <div className="bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700">
+                <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white flex items-center">
+                  <FaListUl className="mr-2" /> Table of Contents
+                </h3>
+                <nav className="space-y-2">
+                  <button
+                    onClick={() => scrollToSection("overview")}
+                    className={`block w-full text-left px-3 py-2 rounded-md text-sm transition-all duration-200 ${
+                      activeSection === "overview"
+                        ? "bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 font-medium"
+                        : "text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+                    }`}
+                  >
+                    Overview
+                  </button>
+                  {post.sections.map((section) => (
+                    <button
+                      key={section.id}
+                      onClick={() => scrollToSection(section.id)}
+                      className={`block w-full text-left px-3 py-2 rounded-md text-sm transition-all duration-200 ${
+                        activeSection === section.id
+                          ? "bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 font-medium"
+                          : "text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+                      }`}
+                    >
+                      {section.title.split(":")[0]}
+                    </button>
+                  ))}
+                </nav>
+              </div>
+
               {/* Share */}
               <div className="bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700">
                 <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white flex items-center">

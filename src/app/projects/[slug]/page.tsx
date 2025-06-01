@@ -8,6 +8,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
 import { notFound } from "next/navigation";
+import TableOfContents from "@/components/ui/TableOfContents";
 
 // Props type for the page component
 type Props = {
@@ -94,58 +95,67 @@ export default async function ProjectDetailPage({ params }: Props) {
           <ProjectComponent />
         </div>
 
-        {/* Right column: Tech Stack & Links */}
-        <aside className="lg:col-span-1 lg:sticky lg:top-24 h-fit">
-          {/* Sticky on larger screens */}
-          <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold mb-4 border-b border-gray-300 dark:border-gray-600 pb-2 text-gray-800 dark:text-gray-200">
-              Technologies Used
-            </h3>
-            <div className="flex flex-wrap gap-2 mb-6">
-              {project.techStack.map((tech) => (
-                <span
-                  key={tech}
-                  className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs font-medium px-2.5 py-0.5 rounded"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
+        {/* Right column: Table of Contents, Tech Stack & Links */}
+        <aside className="lg:col-span-1 space-y-6">
+          {/* Table of Contents - will be filled by the project component */}
+          <TableOfContents />
 
-            <h3 className="text-xl font-semibold mb-4 border-b border-gray-300 dark:border-gray-600 pb-2 text-gray-800 dark:text-gray-200">
-              Links
-            </h3>
-            <div className="flex flex-col space-y-3">
-              {project.liveUrl ? (
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Button variant="primary" className="w-full text-sm">
-                    View Live Demo
+          {/* Tech Stack & Links - Sticky below ToC */}
+          <div className="lg:sticky lg:top-96">
+            <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg shadow-md">
+              <h3 className="text-xl font-semibold mb-4 border-b border-gray-300 dark:border-gray-600 pb-2 text-gray-800 dark:text-gray-200">
+                Technologies Used
+              </h3>
+              <div className="flex flex-wrap gap-2 mb-6">
+                {project.techStack.map((tech) => (
+                  <span
+                    key={tech}
+                    className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs font-medium px-2.5 py-0.5 rounded"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              <h3 className="text-xl font-semibold mb-4 border-b border-gray-300 dark:border-gray-600 pb-2 text-gray-800 dark:text-gray-200">
+                Links
+              </h3>
+              <div className="flex flex-col space-y-3">
+                {project.liveUrl ? (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button variant="primary" className="w-full text-sm">
+                      View Live Demo
+                    </Button>
+                  </a>
+                ) : (
+                  <Button variant="primary" className="w-full text-sm" disabled>
+                    Live Demo (N/A)
                   </Button>
-                </a>
-              ) : (
-                <Button variant="primary" className="w-full text-sm" disabled>
-                  Live Demo (N/A)
-                </Button>
-              )}
-              {project.repoUrl ? (
-                <a
-                  href={project.repoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Button variant="secondary" className="w-full text-sm">
-                    View Code
+                )}
+                {project.repoUrl ? (
+                  <a
+                    href={project.repoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button variant="secondary" className="w-full text-sm">
+                      View Code
+                    </Button>
+                  </a>
+                ) : (
+                  <Button
+                    variant="secondary"
+                    className="w-full text-sm"
+                    disabled
+                  >
+                    Code (Private)
                   </Button>
-                </a>
-              ) : (
-                <Button variant="secondary" className="w-full text-sm" disabled>
-                  Code (Private)
-                </Button>
-              )}
+                )}
+              </div>
             </div>
           </div>
         </aside>

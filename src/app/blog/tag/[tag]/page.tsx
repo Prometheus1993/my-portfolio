@@ -1,6 +1,6 @@
 // src/app/blog/tag/[tag]/page.tsx
 import React from "react";
-import { getAllPosts, getAllTags, getPostsByTag } from "@/lib/blog/utils";
+import { getAllPosts, getAllTags} from "@/lib/blog/utils";
 import type { Metadata } from "next";
 import BlogListingSection from "@/components/sections/BlogListingSection";
 import { notFound } from "next/navigation";

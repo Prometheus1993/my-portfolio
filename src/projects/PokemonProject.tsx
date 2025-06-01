@@ -1,7 +1,6 @@
-// Example for PokemonProject.tsx or any other project component
+// src/projects/PokemonProject.tsx
 import React from "react";
 import { ProjectData } from "./types";
-import TabContainer from "@/components/ui/TabContainer";
 
 // Export the project metadata
 export const metadata: ProjectData = {
@@ -18,12 +17,13 @@ export const metadata: ProjectData = {
 };
 
 const PokemonProject: React.FC = () => {
-  // Define your tab content
-  const tabs = [
-    {
-      id: "overview",
-      label: "Overview",
-      content: (
+  return (
+    <div className="prose prose-lg dark:prose-invert max-w-none">
+      {/* Overview Section */}
+      <section className="mb-12 pb-12 border-b border-gray-200 dark:border-gray-700">
+        <h2 id="overview" className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+          Overview
+        </h2>
         <div className="space-y-6">
           <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-5 mb-6 border-l-4 border-blue-500">
             <p className="text-blue-800 dark:text-blue-300 text-sm md:text-base font-medium">
@@ -48,12 +48,13 @@ const PokemonProject: React.FC = () => {
             frontend and backend.
           </p>
         </div>
-      ),
-    },
-    {
-      id: "approach",
-      label: "Approach",
-      content: (
+      </section>
+
+      {/* Approach Section */}
+      <section className="mb-12 pb-12 border-b border-gray-200 dark:border-gray-700">
+        <h2 id="approach" className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+          Approach
+        </h2>
         <div className="space-y-6">
           <p className="text-gray-700 dark:text-gray-300">
             We started by designing and building a static frontend to get a
@@ -62,7 +63,7 @@ const PokemonProject: React.FC = () => {
             frontend (React, TypeScript, Tailwind) dynamic, integrating the
             PokeAPI for all Pokémon-related data.
           </p>
-          <div className="bg-gray-900 rounded-lg p-6">
+          <div className="bg-gray-900 rounded-lg p-6 not-prose">
             <div className="flex justify-between items-center mb-2">
               <span className="text-gray-400 text-xs">pokemonService.ts</span>
             </div>
@@ -102,17 +103,18 @@ export async function getPokemonDetails(nameOrId: string | number): Promise<Poke
             </pre>
           </div>
         </div>
-      ),
-    },
-    {
-      id: "features",
-      label: "Features",
-      content: (
+      </section>
+
+      {/* Features Section */}
+      <section className="mb-12 pb-12 border-b border-gray-200 dark:border-gray-700">
+        <h2 id="features" className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+          Features
+        </h2>
         <div className="space-y-6">
           <p className="text-gray-700 dark:text-gray-300">
             The &quot;PokéCatcher&quot; web app offers the following features:
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose">
             <div className="bg-white dark:bg-gray-800 rounded-lg p-5 shadow-md">
               <h3 className="font-semibold text-base mb-2 text-gray-900 dark:text-white">
                 User Registration & Login
@@ -148,12 +150,13 @@ export async function getPokemonDetails(nameOrId: string | number): Promise<Poke
             </div>
           </div>
         </div>
-      ),
-    },
-    {
-      id: "challenges",
-      label: "Challenges",
-      content: (
+      </section>
+
+      {/* Challenges Section */}
+      <section className="mb-6">
+        <h2 id="challenges" className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+          Challenges
+        </h2>
         <div className="space-y-6">
           <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-5 mb-6 border-l-4 border-yellow-500">
             <p className="text-yellow-800 dark:text-yellow-300 text-sm md:text-base font-medium">
@@ -177,26 +180,14 @@ export async function getPokemonDetails(nameOrId: string | number): Promise<Poke
             </li>
             <li>Managing state in the React frontend</li>
           </ul>
-          <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-5 border-l-4 border-green-500">
+          <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-5 border-l-4 border-green-500 mt-6">
             <p className="text-green-800 dark:text-green-300 text-sm md:text-base font-medium">
               This project was an excellent learning experience in full-stack
               development with the MERN stack and working with external APIs.
             </p>
           </div>
         </div>
-      ),
-    },
-  ];
-
-  return (
-    <div>
-      <TabContainer
-        tabs={tabs}
-        defaultTabId="overview"
-        transitionDirection="fade"
-        transitionDuration={0.3}
-        className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6"
-      />
+      </section>
     </div>
   );
 };

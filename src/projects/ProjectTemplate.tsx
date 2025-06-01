@@ -1,95 +1,118 @@
 // src/projects/ProjectTemplate.tsx
-import React from 'react';
-import { ProjectData } from './types';
-import Button from '@/components/ui/Button';
+// This is a template for converting other project components to the new format
+import React from "react";
+import { ProjectData } from "./types";
 
-// Project-specifieke metadata die later gebruikt wordt voor lijsten en SEO
+// Export the project metadata
 export const metadata: ProjectData = {
-  slug: 'project-slug',
-  title: 'Project Title',
-  date: '2023-01-01',
-  overview: 'A brief overview of the project',
-  imageUrl: '/images/projects/project-image.jpg',
-  techStack: ['React', 'TypeScript', 'Next.js'],
-  liveUrl: 'https://example.com',
-  repoUrl: 'https://github.com/username/repo',
+  slug: "project-slug",
+  title: "Project Title",
+  date: "2025-01-01",
+  overview: "Brief overview of the project",
+  imageUrl: "/images/projects/project-image.png",
+  techStack: ["React", "TypeScript", "etc"],
+  liveUrl: "https://example.com",
+  repoUrl: "https://github.com/username/repo",
   featured: true,
 };
 
-// Dit is een voorbeeld van hoe een projectcomponent eruit kan zien
 const ProjectTemplate: React.FC = () => {
-
-  // De daadwerkelijke projectpagina component
   return (
-    <div className="project-content">
-      {/* Je kunt hier direct JSX/TSX gebruiken met volledige styling controle */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-4">Problem/Motivation</h1>
-        <p className="text-gray-700 dark:text-gray-300">
-          Explain the problem this project solved or what motivated you to create it.
-          This is much easier to style directly in TSX compared to markdown or MDX!
-        </p>
-      </div>
-
-      {/* Code voorbeeld met betere controle */}
-      <div className="bg-gray-900 rounded-lg p-6 mb-8">
-        <div className="flex justify-between items-center mb-2">
-          <span className="text-gray-400 text-sm">example.tsx</span>
-          <Button 
-            variant="secondary" 
-            className="text-xs py-1"
-            onClick={() => navigator.clipboard.writeText(`const example = () => {\n  console.log("Hello world");\n};`)}
-          >
-            Copy
-          </Button>
-        </div>
-        <pre className="text-gray-100 overflow-x-auto">
-          <code>
-            {`const example = () => {\n  console.log("Hello world");\n};`}
-          </code>
-        </pre>
-      </div>
-
-      {/* Proces/Aanpak sectie */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-4">Process/Approach</h1>
-        <p className="text-gray-700 dark:text-gray-300">
-          Explain your approach to solving the problem. What technologies 
-          did you choose and why? What was your development process like?
-        </p>
-      </div>
-
-      {/* Andere secties kunnen direct worden toegevoegd met volledige React-kracht */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-4">Solution/Features</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-          <div className="bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500 p-4">
-            <h3 className="font-bold text-blue-800 dark:text-blue-300">Feature 1</h3>
-            <p className="text-blue-700 dark:text-blue-400">Description of feature 1</p>
+    <div className="prose prose-lg dark:prose-invert max-w-none">
+      {/* Each section should have:
+          - An id for the ToC to link to
+          - A descriptive h2 title
+          - mb-12 pb-12 for spacing
+          - border-b (except last section)
+      */}
+      
+      {/* Section 1 */}
+      <section className="mb-12 pb-12 border-b border-gray-200 dark:border-gray-700">
+        <h2 id="overview" className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+          Overview
+        </h2>
+        <div className="space-y-6">
+          {/* Use colored boxes for important information */}
+          <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-5 mb-6 border-l-4 border-blue-500">
+            <p className="text-blue-800 dark:text-blue-300 text-sm md:text-base font-medium">
+              Important highlight or summary
+            </p>
           </div>
-          <div className="bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500 p-4">
-            <h3 className="font-bold text-blue-800 dark:text-blue-300">Feature 2</h3>
-            <p className="text-blue-700 dark:text-blue-400">Description of feature 2</p>
-          </div>
-        </div>
-        <p className="text-gray-700 dark:text-gray-300">
-          Further explanation of your solution and its key features.
-        </p>
-      </div>
-
-      {/* Challenges & Learnings */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-4">Challenges & Learnings</h1>
-        <div className="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-500 p-4 mb-4">
-          <h3 className="font-bold text-yellow-800 dark:text-yellow-300">Key Challenge</h3>
-          <p className="text-yellow-700 dark:text-yellow-400">
-            Description of a key challenge you faced during development.
+          <p className="text-gray-700 dark:text-gray-300">
+            Main content paragraph...
           </p>
         </div>
-        <p className="text-gray-700 dark:text-gray-300">
-          Additional challenges you faced and what you learned from them.
-        </p>
-      </div>
+      </section>
+
+      {/* Section 2 */}
+      <section className="mb-12 pb-12 border-b border-gray-200 dark:border-gray-700">
+        <h2 id="features" className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+          Features
+        </h2>
+        <div className="space-y-6">
+          <p className="text-gray-700 dark:text-gray-300">
+            Introduction to features...
+          </p>
+          {/* Use ordered lists for step-by-step flows */}
+          <ol className="list-decimal pl-6 space-y-4 mb-6">
+            <li className="text-gray-700 dark:text-gray-300">
+              <span className="font-semibold">Feature 1:</span> Description
+            </li>
+            <li className="text-gray-700 dark:text-gray-300">
+              <span className="font-semibold">Feature 2:</span> Description
+            </li>
+          </ol>
+          {/* Use unordered lists for general points */}
+          <ul className="list-disc pl-6 text-gray-700 dark:text-gray-300 space-y-2 mb-6">
+            <li>Point 1</li>
+            <li>Point 2</li>
+          </ul>
+        </div>
+      </section>
+
+      {/* Section 3 - Code Example */}
+      <section className="mb-12 pb-12 border-b border-gray-200 dark:border-gray-700">
+        <h2 id="implementation" className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+          Implementation Details
+        </h2>
+        <div className="space-y-6">
+          <p className="text-gray-700 dark:text-gray-300">
+            Explanation of implementation...
+          </p>
+          {/* Code blocks need not-prose class to avoid prose styling */}
+          <div className="bg-gray-900 rounded-lg p-6 mb-6 not-prose">
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-gray-400 text-xs">filename.tsx</span>
+            </div>
+            <pre className="text-gray-100 overflow-x-auto text-sm">
+              <code>
+                {`// Your code here
+const example = "Hello World";`}
+              </code>
+            </pre>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 4 - Last section (no border) */}
+      <section className="mb-6">
+        <h2 id="lessons-learned" className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+          Lessons Learned
+        </h2>
+        <div className="space-y-6">
+          {/* Use different colored boxes for different types of information */}
+          <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-5 mb-6 border-l-4 border-yellow-500">
+            <p className="text-yellow-800 dark:text-yellow-300 text-sm md:text-base font-medium">
+              Challenges or warnings
+            </p>
+          </div>
+          <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-5 border-l-4 border-green-500">
+            <p className="text-green-800 dark:text-green-300 text-sm md:text-base font-medium">
+              Success or achievements
+            </p>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
