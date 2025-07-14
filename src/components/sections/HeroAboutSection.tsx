@@ -4,20 +4,18 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FaArrowRight, FaGithub, FaLinkedin } from "react-icons/fa";
+import {  FaGithub, FaLinkedin } from "react-icons/fa";
 import {
   FaReact,
   FaNodeJs,
-  FaHtml5,
-  FaCss3Alt,
-  FaDatabase
+
+  FaDatabase,
 } from "react-icons/fa";
 import {
   SiTypescript,
-  SiTailwindcss,
   SiNextdotjs,
   SiMongodb,
-  SiSharp
+  SiSharp,
 } from "react-icons/si";
 import profilePic from "../../../public/profilepic.png";
 import FadeIn from "@/components/animations/FadeIn";
@@ -41,10 +39,20 @@ const HeroAboutSection = () => {
                 />
               </div>
               <div className="flex justify-center mt-4 space-x-4">
-                <a href="https://github.com/Prometheus1993" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors">
+                <a
+                  href="https://github.com/Prometheus1993"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors"
+                >
                   <FaGithub size={24} />
                 </a>
-                <a href="https://linkedin.com/in/jesus-o-bulan-9964802a2" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 transition-colors">
+                <a
+                  href="https://linkedin.com/in/jesus-o-bulan-9964802a2"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+                >
                   <FaLinkedin size={24} />
                 </a>
               </div>
@@ -60,17 +68,18 @@ const HeroAboutSection = () => {
               <p className="text-xl md:text-2xl text-blue-600 dark:text-blue-400 mt-2 mb-2">
                 Full-Stack Developer
               </p>
-              <div className="inline-block bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-3 py-1 rounded-full text-sm font-medium">
+              {/* <div className="inline-block bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-3 py-1 rounded-full text-sm font-medium">
                 Available for Junior Developer Roles
-              </div>
+              </div> */}
             </FadeIn>
 
             <FadeIn direction="up" delay={0.2}>
               <p className="text-lg text-gray-700 dark:text-gray-300">
-                I&apos;m completing my Programming Associate Degree at AP University College Antwerp and 
-                passionate about building applications with modern technologies. My retail management 
-                background has given me strong communication and problem-solving skills that I now apply 
-                to creating effective web solutions.
+                I’m starting my Bachelor’s in IT & Software at AP Antwerp, after
+                earning my Associate Degree in Programming. I love building
+                modern applications, and my experience in retail management gave
+                me real-world communication and problem-solving skills I use in
+                every project.
               </p>
             </FadeIn>
 
@@ -81,33 +90,25 @@ const HeroAboutSection = () => {
               </h3>
               <div className="flex flex-wrap gap-3">
                 <div className="flex items-center bg-white dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm">
-                  <FaHtml5 className="text-orange-500 mr-2" size={20} />
-                  <span>HTML</span>
-                </div>
-                <div className="flex items-center bg-white dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm">
-                  <FaCss3Alt className="text-blue-500 mr-2" size={20} />
-                  <span>CSS</span>
-                </div>
-                <div className="flex items-center bg-white dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm">
                   <SiSharp className="text-purple-600 mr-2" size={18} />
                   <span>C#</span>
                 </div>
                 <div className="flex items-center bg-white dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm">
                   <SiTypescript className="text-blue-600 mr-2" size={18} />
-                  <span>JavaScript/TypeScript</span>
+                  <span>TypeScript</span>
                 </div>
                 <div className="flex items-center bg-white dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm">
                   <FaReact className="text-blue-500 mr-2" size={20} />
                   <span>React</span>
                 </div>
                 <div className="flex items-center bg-white dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm">
-                  <SiNextdotjs className="text-black dark:text-white mr-2" size={18} />
+                  <SiNextdotjs
+                    className="text-black dark:text-white mr-2"
+                    size={18}
+                  />
                   <span>Next.js</span>
                 </div>
-                <div className="flex items-center bg-white dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm">
-                  <SiTailwindcss className="text-blue-400 mr-2" size={18} />
-                  <span>Tailwind</span>
-                </div>
+
                 <div className="flex items-center bg-white dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm">
                   <FaNodeJs className="text-green-600 mr-2" size={20} />
                   <span>Node.js</span>
@@ -129,11 +130,11 @@ const HeroAboutSection = () => {
                 <Link href="/projects">
                   <Button variant="primary">View Projects</Button>
                 </Link>
-                <Link href="/contact">
+                {/* <Link href="/contact">
                   <Button variant="secondary" className="flex items-center">
                     Get In Touch <FaArrowRight className="ml-2" />
                   </Button>
-                </Link>
+                </Link> */}
               </div>
             </FadeIn>
           </div>

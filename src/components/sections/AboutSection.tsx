@@ -147,26 +147,30 @@ const AboutSection = () => {
           {/* Text Column - Order 2 on mobile, order 1 on desktop */}
           <div className="md:col-span-2 space-y-6 text-lg text-gray-700 dark:text-gray-300 order-2 md:order-1">
             <p>
-              Hello! I&apos;m Jesus O&apos;Bulan, an enthusiastic Full-Stack
-              Developer currently completing my Programming Associate Degree at
-              AP University College Antwerp (final month of my last year). My
-              passion lies in building applications from start to finish that
-              are not only functional but also a pleasure to use.
+              Hi! I&apos;m Jesus O&apos;Bulan, a passionate Full-Stack Developer
+              who just graduated{" "}
+              <span className="font-semibold text-blue-700 dark:text-blue-300">
+                cum laude
+              </span>{" "}
+              with an Associate Degree in Programming from AP University College
+              Antwerp. I&apos;m excited to be starting my Bachelor&apos;s in IT
+              &amp; Software this fall, where I&apos;ll keep building on my
+              skills and knowledge.
             </p>
             <p>
-              I enjoy diving deep into both frontend and backend development and
-              am always curious about new technologies. In my free time,
-              I&apos;m currently exploring iOS development with Swift and
-              experimenting with Raspberry Pi for server and automation
-              projects. I&apos;m constantly looking for ways to expand my skills
-              and solve complex problems.
+              I love creating applications from scratch and making sure
+              they&apos;re both useful and enjoyable to use. I&apos;m really
+              into both frontend and backend development, and I&apos;m always
+              eager to learn about new tech. Lately, I&apos;ve been exploring
+              iOS development with Swift and tinkering with Raspberry Pi for
+              some fun automation projects.
             </p>
             <p>
-              My experience includes working with React, Next.js, TypeScript,
-              Node.js, C#, databases like PostgreSQL and MongoDB, and tools such
-              as Docker and Git. I thrive in Agile environments and believe
-              strongly in clear communication and collaboration to achieve the
-              best results.
+              My experience so far includes working with React, Next.js,
+              TypeScript, Node.js, C#, PostgreSQL, MongoDB, Docker, and Git. I
+              enjoy working in Agile teams and believe that good communication
+              and teamwork are key to building great software. I&apos;m always
+              looking for new challenges and ways to grow as a developer!
             </p>
           </div>
 
@@ -192,10 +196,19 @@ const AboutSection = () => {
         <div className="space-y-6 text-lg text-gray-700 dark:text-gray-300 mt-6">
           <div className="border-l-4 border-blue-500 pl-4">
             <h4 className="font-bold">Programming Associate Degree</h4>
-            <p>AP University College Antwerp, 2023-2025</p>
-            <p>Final year - Expected graduation: June 2025</p>
+            <p>
+              AP University College Antwerp, 2023-2025
+              <span className="ml-2 px-2 py-0.5 rounded bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 text-sm font-medium align-middle">
+                Graduated <span className="italic">cum laude</span>
+              </span>
+            </p>
           </div>
-          {/* You can add more education details here */}
+          <div className="border-l-4 border-green-500 pl-4">
+            <h4 className="font-bold">
+              Upcoming: Bachelor&apos;s in IT &amp; Software
+            </h4>
+            <p>Starting September 2025 &ndash; Expected completion: 2027</p>
+          </div>
         </div>
       ),
     },
