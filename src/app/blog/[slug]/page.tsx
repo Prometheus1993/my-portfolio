@@ -6,14 +6,15 @@ import BlogPostDetail from "@/components/sections/BlogPostDetail";
 import { notFound } from "next/navigation";
 
 interface BlogPostPageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 // Generate static metadata for the page
 export async function generateMetadata({
   params,
 }: BlogPostPageProps): Promise<Metadata> {
-  const { slug } = params;
+  // Await the params as per Next.js 15 documentation
+  const { slug } = await params;
 
   try {
     const post = await getPostBySlug(slug);
@@ -45,7 +46,8 @@ export function generateStaticParams() {
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const { slug } = params;
+  // Await the params as per Next.js 15 documentation
+  const { slug } = await params;
 
   // Try to get the post, but handle the case where it's not found
   try {

@@ -12,12 +12,13 @@ import TableOfContents from "@/components/ui/TableOfContents";
 
 // Props type for the page component
 type Props = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 // Generate Metadata dynamically
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = params;
+  // Await the params as per Next.js 15 documentation
+  const { slug } = await params;
   const project = getProjectBySlug(slug);
 
   if (!project) {
@@ -41,7 +42,8 @@ export function generateStaticParams() {
 
 // The page component itself
 export default async function ProjectDetailPage({ params }: Props) {
-  const { slug } = params;
+  // Await the params as per Next.js 15 documentation
+  const { slug } = await params;
   const project = getProjectBySlug(slug);
 
   // If project doesn't exist, return 404

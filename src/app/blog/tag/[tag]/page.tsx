@@ -6,14 +6,14 @@ import BlogListingSection from "@/components/sections/BlogListingSection";
 import { notFound } from "next/navigation";
 
 interface TagPageProps {
-  params: { tag: string };
+  params: Promise<{ tag: string }>;
 }
 
 // Generate metadata for SEO
 export async function generateMetadata({
   params,
 }: TagPageProps): Promise<Metadata> {
-  const { tag } = params;
+  const { tag } = await params;
   const decodedTag = decodeURIComponent(tag);
 
   // Check if tag exists
@@ -45,7 +45,7 @@ export function generateStaticParams() {
 }
 
 export default async function TagPage({ params }: TagPageProps) {
-  const { tag } = params;
+  const { tag } = await params;
   const decodedTag = decodeURIComponent(tag);
 
   // Check if tag exists
