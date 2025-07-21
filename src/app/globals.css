@@ -28,3 +28,43 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Mobile-first optimizations */
+@media (max-width: 640px) {
+  /* Ensure minimum touch target sizes */
+  button, a, input, select, textarea {
+    min-height: 44px;
+  }
+  
+  /* Improve tap targets for form elements */
+  input, select, textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 12px 16px;
+  }
+  
+  /* Better text contrast and readability */
+  body {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  
+  /* Reduce animation for users who prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+  
+  /* Ensure cards have proper spacing */
+  .project-card, .blog-card {
+    margin-bottom: 24px;
+  }
+  
+  /* Better focus indicators */
+  button:focus, a:focus, input:focus, select:focus, textarea:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+  }
+}

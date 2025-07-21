@@ -2,7 +2,7 @@
 import React from "react";
 import { getAllPosts, getAllTags} from "@/lib/blog/utils";
 import type { Metadata } from "next";
-import BlogListingSection from "@/components/sections/BlogListingSection";
+import BlogGridSection from "@/components/sections/BlogGridSection";
 import { notFound } from "next/navigation";
 
 interface TagPageProps {
@@ -63,6 +63,6 @@ export default async function TagPage({ params }: TagPageProps) {
 
   // Pass down the active tag as selectedTag
   return (
-    <BlogListingSection posts={posts} tags={tags} selectedTag={decodedTag} />
+    <BlogGridSection posts={posts} tags={tags} selectedTag={decodedTag} />
   );
 }

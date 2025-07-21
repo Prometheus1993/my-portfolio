@@ -3,7 +3,7 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-interface TabTransitionProps {
+interface SlideTransitionProps {
   children: React.ReactNode;
   isActive: boolean;
   direction?: "up" | "down" | "left" | "right" | "fade";
@@ -12,7 +12,7 @@ interface TabTransitionProps {
   className?: string;
 }
 
-const TabTransition: React.FC<TabTransitionProps> = ({
+const SlideTransition: React.FC<SlideTransitionProps> = ({
   children,
   isActive,
   direction = "fade",
@@ -83,4 +83,4 @@ const TabTransition: React.FC<TabTransitionProps> = ({
   );
 };
 
-export default TabTransition;
+export default SlideTransition;

@@ -8,13 +8,13 @@ import FadeIn from "@/components/animations/FadeIn";
 import TabContainer from "@/components/ui/TabContainer";
 import { BlogPost } from "@/lib/blog/types";
 
-interface BlogListingSectionProps {
+interface BlogGridSectionProps {
   posts: BlogPost[];
   tags: string[];
   selectedTag?: string;
 }
 
-const BlogListingSection: React.FC<BlogListingSectionProps> = ({
+const BlogGridSection: React.FC<BlogGridSectionProps> = ({
   posts,
   tags,
   selectedTag,
@@ -162,4 +162,4 @@ const BlogListingSection: React.FC<BlogListingSectionProps> = ({
   );
 };
 
-export default BlogListingSection;
+export default BlogGridSection;

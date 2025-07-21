@@ -4,7 +4,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import TabTransition from "@/components/animations/TabTransition";
+import SlideTransition from "@/components/animations/SlideTransition";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 interface TabContainerProps {
@@ -157,14 +157,14 @@ const TabContainer: React.FC<TabContainerProps> = ({
       {/* Tab Content */}
       <div className={`tab-content ${contentClassName}`}>
         {tabs.map((tab) => (
-          <TabTransition
+          <SlideTransition
             key={tab.id}
             isActive={activeTabId === tab.id}
             direction={transitionDirection}
             duration={transitionDuration}
           >
             {tab.content}
-          </TabTransition>
+          </SlideTransition>
         ))}
       </div>
     </div>

@@ -21,7 +21,7 @@ import profilePic from "../../../public/profilepic.png";
 import FadeIn from "@/components/animations/FadeIn";
 import Button from "@/components/ui/Button";
 
-const HeroAboutSection = () => {
+const HeroSection = () => {
   return (
     <section className="py-20 md:py-28 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
       <div className="container mx-auto px-4">
@@ -38,22 +38,24 @@ const HeroAboutSection = () => {
                   priority
                 />
               </div>
-              <div className="flex justify-center mt-4 space-x-4">
+              <div className="flex justify-center mt-6 space-x-6">
                 <a
                   href="https://github.com/Prometheus1993"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors"
+                  className="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors flex items-center justify-center min-w-[44px] min-h-[44px] touch-manipulation"
+                  aria-label="Visit GitHub profile"
                 >
-                  <FaGithub size={24} />
+                  <FaGithub size={28} />
                 </a>
                 <a
                   href="https://linkedin.com/in/jesus-o-bulan-9964802a2"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+                  className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 transition-colors flex items-center justify-center min-w-[44px] min-h-[44px] touch-manipulation"
+                  aria-label="Visit LinkedIn profile"
                 >
-                  <FaLinkedin size={24} />
+                  <FaLinkedin size={28} />
                 </a>
               </div>
             </FadeIn>
@@ -144,4 +146,4 @@ const HeroAboutSection = () => {
   );
 };
 
-export default HeroAboutSection;
+export default HeroSection;

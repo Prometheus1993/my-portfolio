@@ -33,7 +33,7 @@ const BlogCard: React.FC<BlogCardProps> = ({
           {!isCompact &&
             tags.slice(0, 2).map((tag) => (
               <Link key={tag} href={`/blog/tag/${tag.toLowerCase()}`}>
-                <span className="inline-block text-xs font-medium px-2.5 py-0.5 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">
+                <span className="inline-block text-sm md:text-xs font-medium px-3 py-1 min-h-[32px] flex items-center rounded-full bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 touch-manipulation">
                   {tag}
                 </span>
               </Link>
@@ -56,9 +56,9 @@ const BlogCard: React.FC<BlogCardProps> = ({
         </p>
 
         {/* Meta Info */}
-        <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 mt-auto mb-3">
+        <div className="flex items-center text-sm md:text-xs text-gray-500 dark:text-gray-400 mt-auto mb-3">
           <div className="flex items-center">
-            <FaCalendarAlt className="mr-1" size={10} />
+            <FaCalendarAlt className="mr-2" size={14} />
             <span>{formattedDate}</span>
           </div>
         </div>
@@ -66,10 +66,10 @@ const BlogCard: React.FC<BlogCardProps> = ({
         {/* Read More Link */}
         <Link
           href={`/blog/${slug}`}
-          className="inline-flex items-center text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline"
+          className="inline-flex items-center text-base md:text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline min-h-[44px] touch-manipulation"
         >
           Read more
-          <FaArrowRight className="ml-1" size={12} />
+          <FaArrowRight className="ml-2" size={16} />
         </Link>
       </div>
     </div>

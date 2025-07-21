@@ -32,7 +32,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   return (
     <div className="bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col border border-gray-200 dark:border-gray-700">
       {/* Project Image - always white background */}
-      <div className="relative w-full h-40 md:h-48 bg-white">
+      <div className="relative w-full h-48 md:h-48 bg-white">
         <Image
           src={imageUrl}
           alt={`Thumbnail for ${title}`}
@@ -47,7 +47,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
           {title}
         </h3>
-        <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 flex-grow">
+        <p className="text-gray-600 dark:text-gray-400 text-base md:text-sm mb-4 flex-grow">
           {overview}
         </p>
         {/* Tech Stack Badges */}
@@ -55,29 +55,29 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           {technologies.map((tech) => (
             <span
               key={tech}
-              className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs font-medium px-2.5 py-0.5 rounded"
+              className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm md:text-xs font-medium px-3 py-1 min-h-[32px] flex items-center rounded touch-manipulation"
             >
               {tech}
             </span>
           ))}
         </div>
-        {/* Buttons / Links */}
-        <div className="mt-auto flex space-x-3">
-          <Link href={`/projects/${slug}`}>
-            <Button variant="secondary" className="text-xs px-3 py-1">
+        {/* Buttons / Links - Mobile optimized */}
+        <div className="mt-auto flex flex-col sm:flex-row gap-3 sm:gap-2">
+          <Link href={`/projects/${slug}`} className="flex-1">
+            <Button variant="secondary" className="w-full sm:w-auto text-sm px-4 py-2">
               Details
             </Button>
           </Link>
           {liveUrl && (
-            <a href={liveUrl} target="_blank" rel="noopener noreferrer">
-              <Button variant="primary" className="text-xs px-3 py-1">
+            <a href={liveUrl} target="_blank" rel="noopener noreferrer" className="flex-1">
+              <Button variant="primary" className="w-full sm:w-auto text-sm px-4 py-2">
                 Live Demo
               </Button>
             </a>
           )}
           {repoUrl && (
-            <a href={repoUrl} target="_blank" rel="noopener noreferrer">
-              <Button variant="secondary" className="text-xs px-3 py-1">
+            <a href={repoUrl} target="_blank" rel="noopener noreferrer" className="flex-1">
+              <Button variant="secondary" className="w-full sm:w-auto text-sm px-4 py-2">
                 Code
               </Button>
             </a>

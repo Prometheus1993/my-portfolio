@@ -35,24 +35,24 @@ const Navbar = () => {
 
           {/* Mobile Menu Button and CV download for mobile */}
           <div className="md:hidden flex items-center space-x-4">
-            {/* CV Download for mobile */}
+            {/* CV Download for mobile - larger touch target */}
             <a
               href="/cv-jesus-obulan.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-600 dark:text-blue-400 flex items-center"
+              className="text-blue-600 dark:text-blue-400 flex items-center justify-center min-w-[44px] min-h-[44px] touch-manipulation"
               aria-label="Download CV"
             >
-              <FaDownload size={20} />
+              <FaDownload size={24} />
             </a>
             
-            {/* Menu toggle button */}
+            {/* Menu toggle button - larger touch target */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="text-gray-700 dark:text-gray-300 focus:outline-none"
+              className="text-gray-700 dark:text-gray-300 focus:outline-none flex items-center justify-center min-w-[44px] min-h-[44px] touch-manipulation"
               aria-label={menuOpen ? "Close menu" : "Open menu"}
             >
-              {menuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+              {menuOpen ? <FaTimes size={28} /> : <FaBars size={28} />}
             </button>
           </div>
 
@@ -86,24 +86,35 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Menu (Dropdown) */}
+        {/* Mobile Menu (Dropdown) - improved spacing and touch targets */}
         {menuOpen && (
-          <div className="md:hidden pt-4 pb-2">
-            <div className="flex flex-col space-y-3">
+          <div className="md:hidden pt-6 pb-4 border-t border-gray-200 dark:border-gray-700 mt-4">
+            <div className="flex flex-col space-y-1">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   className={`${
                     isActive(link.href)
-                      ? "text-blue-600 dark:text-blue-400 font-medium"
-                      : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                  } py-2`}
+                      ? "text-blue-600 dark:text-blue-400 font-medium bg-blue-50 dark:bg-blue-900/20"
+                      : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700"
+                  } py-3 px-4 rounded-md min-h-[44px] flex items-center text-base transition-colors duration-200 touch-manipulation`}
                   onClick={() => setMenuOpen(false)}
                 >
                   {link.label}
                 </Link>
               ))}
+              
+              {/* Mobile CV Download in menu */}
+              <a
+                href="/cv-jesus-obulan.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-md flex items-center justify-center text-base font-medium min-h-[44px] mt-4 transition-colors duration-200 touch-manipulation"
+                onClick={() => setMenuOpen(false)}
+              >
+                <FaDownload size={16} className="mr-2" /> Download CV
+              </a>
             </div>
           </div>
         )}

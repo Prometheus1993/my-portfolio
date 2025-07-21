@@ -129,7 +129,7 @@ const FilteredProjectsSection: React.FC<FilteredProjectsSectionProps> = ({
               type="text"
               value={searchQuery}
               onChange={handleSearchChange}
-              placeholder="Search projects..."
+              placeholder="    Search projects..."
               className="block w-full pl-10 pr-4 py-3 text-sm bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-gray-900 dark:text-white"
             />
           </div>

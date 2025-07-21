@@ -8,11 +8,11 @@ import StaggerContainer from "@/components/animations/StaggerContainer";
 import { FaArrowRight } from "react-icons/fa";
 import { BlogPost } from "@/lib/blog/types";
 
-interface BlogSectionProps {
+interface RecentBlogSectionProps {
   posts: BlogPost[];
 }
 
-const BlogSection: React.FC<BlogSectionProps> = ({ posts }) => {
+const RecentBlogSection: React.FC<RecentBlogSectionProps> = ({ posts }) => {
   return (
     <section className="py-16 md:py-24 bg-gray-50 dark:bg-gray-800">
       <div className="container mx-auto px-4">
@@ -70,4 +70,4 @@ const BlogSection: React.FC<BlogSectionProps> = ({ posts }) => {
   );
 };
 
-export default BlogSection;
+export default RecentBlogSection;

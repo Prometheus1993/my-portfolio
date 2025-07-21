@@ -1,7 +1,7 @@
 // src/app/page.tsx
-import HeroAboutSection from "@/components/sections/HeroAboutSection"; // New combined component
+import HeroSection from "@/components/sections/HeroSection"; // Main hero section
 import FeaturedProjectsSection from "@/components/sections/FeaturedProjectsSection";
-import BlogSection from "@/components/sections/BlogSection";
+import RecentBlogSection from "@/components/sections/RecentBlogSection";
 import { getFeaturedProjectsData, getAllProjectsData } from "@/projects";
 import { getRecentPosts } from "@/lib/blog/utils";
 
@@ -19,9 +19,9 @@ export default function Home() {
 
   return (
     <>
-      <HeroAboutSection /> {/* Combined hero and about section */}
+      <HeroSection /> {/* Main hero section */}
       <FeaturedProjectsSection projects={featuredProjects} />
-      <BlogSection posts={recentPosts} />
+      <RecentBlogSection posts={recentPosts} />
     </>
   );
 }
