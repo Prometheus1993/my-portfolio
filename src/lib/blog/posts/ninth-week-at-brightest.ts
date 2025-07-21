@@ -8,8 +8,8 @@ export const ninthWeekAtBrightest: BlogPost = {
   date: "2025-04-07", // Example date - update as needed
   excerpt:
     "This week we implemented a substantial upgrade to our architecture, completely transitioning from a simple db.json setup to a MongoDB database, while preserving our existing TypeScript API endpoints.",
-  tags: ["Internship"],
-  readingTime: "4 min read",
+  tags: ["Internship", "Week 9"],
+  category: "Brightest Internship",
   sections: [
     {
       id: "week9-overview",

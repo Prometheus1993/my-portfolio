@@ -1,37 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Jesus Obulan's Portfolio
+
+A modern, responsive portfolio website built with Next.js 15, TypeScript, and Tailwind CSS. Features a clean design with smooth animations, project showcases, blog functionality, and an interactive contact form.
+
+## Features
+
+- **Modern Tech Stack**: Next.js 15 with TypeScript and Tailwind CSS
+- **Responsive Design**: Mobile-first approach with optimized layouts
+- **Smooth Animations**: Framer Motion animations and custom components
+- **Project Showcase**: Detailed project pages with live demos and repositories
+- **Blog System**: Structured blog posts with tags and filtering
+- **Contact Form**: Interactive contact section
+- **Analytics**: Vercel Analytics and Speed Insights integration
+- **SEO Optimized**: Meta tags and structured data
+
+## Tech Stack
+
+- **Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS 4
+- **Animations**: Framer Motion
+- **Icons**: React Icons
+- **Content**: MDX and structured data
+- **Analytics**: Vercel Analytics & Speed Insights
+- **Deployment**: Vercel
+
+## Project Structure
+
+```
+src/
+├── app/                    # Next.js App Router pages
+│   ├── about/             # About page
+│   ├── blog/              # Blog listing and individual posts
+│   ├── contact/           # Contact page
+│   ├── projects/          # Projects listing and individual projects
+│   └── layout.tsx         # Root layout
+├── components/            # Reusable components
+│   ├── animations/        # Animation components
+│   ├── layout/           # Layout components (Navbar, Footer)
+│   ├── sections/         # Page sections
+│   └── ui/               # UI components
+├── lib/
+│   └── blog/             # Blog utilities and types
+└── projects/             # Project data and components
+```
 
 ## Getting Started
 
-First, run the development server:
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/my-portfolio.git
+   cd my-portfolio
+   ```
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. **Run the development server**
+   ```bash
+   npm run dev
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+4. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Available Scripts
 
-## Learn More
+- `npm run dev` - Start development server
+- `npm run build` - Create production build
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
 
-To learn more about Next.js, take a look at the following resources:
+## Key Components
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Projects
+- Individual project components in `src/projects/`
+- Structured project data with metadata
+- Live demo and repository links
+- Technology stack highlighting
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Blog
+- Structured blog posts with sections
+- Tag-based filtering and organization
+- Reading time estimation
+- Responsive blog layout
 
-## Deploy on Vercel
+### Animations
+- Custom Framer Motion components
+- Fade-in animations
+- Hover effects and scale transitions
+- Staggered container animations
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deployment
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# my-portfolio
+This project is optimized for deployment on Vercel:
+
+1. Push your code to GitHub
+2. Connect your repository to Vercel
+3. Deploy automatically with each push
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/my-portfolio)
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).

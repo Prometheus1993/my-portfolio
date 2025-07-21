@@ -7,8 +7,8 @@ export const thirdWeekAtBrightest: BlogPost = {
   date: "2025-02-23", // Example date - update as needed
   excerpt:
     "My third week at Brightest featured a productive presentation to the product manager, implementation of UI improvements, code optimization, and a brief trip to Madrid to recharge.",
-  tags: ["Internship"],
-  readingTime: "3 min read",
+  tags: ["Internship", "Week 3"],
+  category: "Brightest Internship",
   sections: [
     {
       id: "week3-monday",

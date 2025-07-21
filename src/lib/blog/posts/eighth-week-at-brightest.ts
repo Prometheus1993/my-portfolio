@@ -8,8 +8,8 @@ export const eighthWeekAtBrightest: BlogPost = {
   date: "2025-03-31", // Example date - update as needed
   excerpt:
     "This week was entirely dedicated to making our project future-proof, with emphasis on extensive documentation, user convenience, and preparing the project for further development by future colleagues at Brightest.",
-  tags: ["Internship"],
-  readingTime: "4 min read",
+  tags: ["Internship", "Week 8"],
+  category: "Brightest Internship",
   sections: [
     {
       id: "week8-overview",

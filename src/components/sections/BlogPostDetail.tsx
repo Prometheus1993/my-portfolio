@@ -138,11 +138,6 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
                 <FaCalendarAlt className="mr-1" size={12} />
                 <span>{formattedDate}</span>
               </div>
-              {post.readingTime && (
-                <div className="flex items-center">
-                  <span>{post.readingTime}</span>
-                </div>
-              )}
             </div>
           </header>
         </FadeIn>
@@ -292,7 +287,6 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
                     excerpt={post.excerpt}
                     date={post.date}
                     tags={post.tags}
-                    readingTime={post.readingTime || "5 min read"}
                     isCompact={true}
                   />
                 </FadeIn>

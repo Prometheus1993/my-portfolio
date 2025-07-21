@@ -13,9 +13,16 @@ export interface BlogPost {
   date: string;
   excerpt: string;
   tags: string[];
-  readingTime?: string;
+  category: string;
   // Instead of MDX content, we'll use structured sections
   sections: BlogSection[];
 }
 
 export type BlogPostList = Array<BlogPost>;
+
+export interface BlogCategory {
+  name: string;
+  slug: string;
+  description: string;
+  posts: BlogPost[];
+}

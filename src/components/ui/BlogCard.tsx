@@ -2,7 +2,7 @@
 import React from "react";
 import Link from "next/link";
 import { format } from "date-fns";
-import { FaCalendarAlt, FaClock, FaArrowRight } from "react-icons/fa";
+import { FaCalendarAlt, FaArrowRight } from "react-icons/fa";
 
 interface BlogCardProps {
   slug: string;
@@ -10,7 +10,6 @@ interface BlogCardProps {
   excerpt: string;
   date: string;
   tags: string[];
-  readingTime?: string;
   isCompact?: boolean;
 }
 
@@ -20,7 +19,6 @@ const BlogCard: React.FC<BlogCardProps> = ({
   excerpt,
   date,
   tags,
-  readingTime = "5 min read",
   isCompact = false,
 }) => {
   // Format the date
@@ -59,13 +57,9 @@ const BlogCard: React.FC<BlogCardProps> = ({
 
         {/* Meta Info */}
         <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 mt-auto mb-3">
-          <div className="flex items-center mr-4">
+          <div className="flex items-center">
             <FaCalendarAlt className="mr-1" size={10} />
             <span>{formattedDate}</span>
-          </div>
-          <div className="flex items-center">
-            <FaClock className="mr-1" size={10} />
-            <span>{readingTime}</span>
           </div>
         </div>
 

@@ -7,8 +7,8 @@ export const fourthWeekAtBrightest: BlogPost = {
   date: "2025-03-02", // Example date - update as needed
   excerpt:
     "A lighter week with small application updates, an informative Brown Bag session about Leapwork, attending a job fair at Antwerp Expo, and wrapping up with minor optimization tasks.",
-  tags: ["Internship"],
-  readingTime: "3 min read",
+  tags: ["Internship", "Week 4"],
+  category: "Brightest Internship",
   sections: [
     {
       id: "week4-monday",

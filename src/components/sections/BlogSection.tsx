@@ -39,7 +39,6 @@ const BlogSection: React.FC<BlogSectionProps> = ({ posts }) => {
                     excerpt={post.excerpt}
                     date={post.date}
                     tags={post.tags}
-                    readingTime={post.readingTime || "5 min read"}
                     isCompact={true}
                   />
                 </div>

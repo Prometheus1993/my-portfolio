@@ -92,7 +92,6 @@ const BlogListingSection: React.FC<BlogListingSectionProps> = ({
                   excerpt={post.excerpt}
                   date={post.date}
                   tags={post.tags}
-                  readingTime={post.readingTime || "5 min read"}
                 />
               ))}
             </div>

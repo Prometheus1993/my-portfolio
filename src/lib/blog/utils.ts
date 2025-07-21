@@ -1,5 +1,5 @@
 // src/lib/blog/utils.ts
-import { BlogPost, BlogPostList } from "./types";
+import { BlogPost, BlogPostList, BlogCategory } from "./types";
 import { firstWeekAtBrightest } from "./posts/first-week-at-brightest";
 import { secondWeekAtBrightest } from "./posts/second-week-at-brightest";
 import { thirdWeekAtBrightest } from "./posts/third-week-at-brightest";
@@ -75,6 +75,14 @@ export function getPostsByTag(tag: string): BlogPostList {
   );
 }
 
+// Get posts by category slug
+export function getPostsByCategorySlug(categorySlug: string): BlogPostList {
+  const categoryName = categorySlug.replace(/-/g, ' ');
+  return getAllPosts().filter((post) =>
+    post.category.toLowerCase() === categoryName.toLowerCase()
+  );
+}
+
 // Get related posts by tags (excluding the given post)
 export function getRelatedPosts(slug: string, count: number = 3): BlogPostList {
   const currentPost = getAllPosts().find((post) => post.slug === slug);
@@ -101,4 +109,47 @@ export function getRelatedPosts(slug: string, count: number = 3): BlogPostList {
     });
 
   return related.slice(0, count);
+}
+
+// Get all unique categories from posts
+export function getAllCategories(): string[] {
+  const categories = new Set<string>();
+
+  getAllPosts().forEach((post) => {
+    categories.add(post.category);
+  });
+
+  return Array.from(categories).sort();
+}
+
+// Get posts by category
+export function getPostsByCategory(category: string): BlogPostList {
+  return getAllPosts().filter((post) =>
+    post.category.toLowerCase() === category.toLowerCase()
+  );
+}
+
+// Get organized blog categories with posts
+export function getBlogCategories(): BlogCategory[] {
+  const categories = getAllCategories();
+  
+  return categories.map(categoryName => {
+    const posts = getPostsByCategory(categoryName);
+    
+    return {
+      name: categoryName,
+      slug: categoryName.toLowerCase().replace(/\s+/g, '-'),
+      description: getCategoryDescription(categoryName),
+      posts: posts
+    };
+  });
+}
+
+// Get category description
+function getCategoryDescription(categoryName: string): string {
+  const descriptions: { [key: string]: string } = {
+    "brightest internship": "My journey through a 12-week internship at Brightest, documenting weekly progress, learnings, and experiences in test automation development."
+  };
+  
+  return descriptions[categoryName.toLowerCase()] || `Posts related to ${categoryName}`;
 }
