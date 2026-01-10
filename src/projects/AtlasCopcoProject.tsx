@@ -28,8 +28,8 @@ const AtlasCopcoProject: React.FC = () => {
           Overview
         </h2>
         <div className="space-y-6">
-          <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-5 mb-6 border-l-4 border-blue-500">
-            <p className="text-blue-800 dark:text-blue-300 text-sm md:text-base font-medium">
+          <div className="bg-primary-50 dark:bg-primary-900/20 rounded-lg p-5 mb-6 border-l-4 border-primary-500">
+            <p className="text-primary-800 dark:text-primary-300 text-sm md:text-base font-medium">
               This web application was developed for Atlas Copco to streamline
               the process of logging and sharing measurement data from their
               machines.

@@ -103,7 +103,7 @@ const BlogGridSection: React.FC<BlogGridSectionProps> = ({
               {searchQuery && (
                 <button
                   onClick={clearSearch}
-                  className="text-blue-600 dark:text-blue-400 hover:underline"
+                  className="text-primary-600 dark:text-primary-400 hover:underline"
                 >
                   Clear search
                 </button>
@@ -139,7 +139,7 @@ const BlogGridSection: React.FC<BlogGridSectionProps> = ({
               value={searchQuery}
               onChange={handleSearchChange}
               placeholder="Search posts..."
-              className="block w-full pl-10 pr-4 py-3 text-sm bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-gray-900 dark:text-white shadow-sm"
+              className="block w-full pl-10 pr-4 py-3 text-sm bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-primary-500 focus:border-primary-500 text-gray-900 dark:text-white shadow-sm"
             />
           </div>
         </FadeIn>

@@ -39,7 +39,7 @@ const ScrollToTop: React.FC = () => {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}
           transition={{ duration: 0.2 }}
-          className="fixed bottom-6 right-6 p-3 rounded-full bg-blue-600 text-white shadow-lg z-50 hover:bg-blue-700 transition-colors"
+          className="fixed bottom-6 right-6 p-3 rounded-full bg-primary-600 text-white shadow-lg z-50 hover:bg-primary-700 transition-colors"
           aria-label="Scroll to top"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}

@@ -21,8 +21,8 @@ const Button: React.FC<ButtonProps> = ({
   // Specifieke styling per variant
   const variantStyle =
     variant === 'primary'
-      ? 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500' // Primaire knop (blauw)
-      : 'bg-gray-200 text-gray-800 hover:bg-gray-300 focus:ring-gray-400 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600'; // Secundaire knop (grijs)
+      ? 'bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500' // Primaire knop (oranje)
+      : 'bg-secondary-700 text-white hover:bg-secondary-800 focus:ring-secondary-600 dark:bg-secondary-800 dark:text-gray-200 dark:hover:bg-secondary-900'; // Secundaire knop (donkerblauw)
 
   return (
     // Combineer basisstijl, variantstijl en eventuele extra klassen

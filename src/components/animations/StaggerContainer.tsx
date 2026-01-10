@@ -33,8 +33,7 @@ const StaggerContainer: React.FC<StaggerContainerProps> = ({
     <motion.div
       variants={containerVariants}
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once }}
+      animate="visible"
       className={className}
     >
       {React.Children.map(children, (child) => {

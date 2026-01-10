@@ -108,7 +108,7 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
             <div className="mb-6">
               <Link
                 href="/blog"
-                className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline"
+                className="inline-flex items-center text-primary-600 dark:text-primary-400 hover:underline"
               >
                 <FaArrowLeft className="mr-2" size={12} />
                 Back to all posts
@@ -119,7 +119,7 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
             <div className="flex flex-wrap justify-center gap-2 mb-4">
               {post.tags.map((tag) => (
                 <Link key={tag} href={`/blog/tag/${tag.toLowerCase()}`}>
-                  <span className="inline-flex items-center text-xs font-medium px-2.5 py-0.5 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">
+                  <span className="inline-flex items-center text-xs font-medium px-2.5 py-0.5 rounded-full bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200">
                     <FaTag className="mr-1" size={10} />
                     {tag}
                   </span>
@@ -198,7 +198,7 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
                     onClick={() => scrollToSection("overview")}
                     className={`block w-full text-left px-3 py-2 rounded-md text-sm transition-all duration-200 ${
                       activeSection === "overview"
-                        ? "bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 font-medium"
+                        ? "bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 font-medium"
                         : "text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
                     }`}
                   >
@@ -210,7 +210,7 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
                       onClick={() => scrollToSection(section.id)}
                       className={`block w-full text-left px-3 py-2 rounded-md text-sm transition-all duration-200 ${
                         activeSection === section.id
-                          ? "bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 font-medium"
+                          ? "bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 font-medium"
                           : "text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
                       }`}
                     >
@@ -228,21 +228,21 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
                 <div className="flex space-x-4">
                   <button
                     onClick={shareOnTwitter}
-                    className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors"
+                    className="p-2 bg-secondary-600 text-white rounded-full hover:bg-secondary-700 transition-colors"
                     aria-label="Share on Twitter"
                   >
                     <FaTwitter size={18} />
                   </button>
                   <button
                     onClick={shareOnLinkedIn}
-                    className="p-2 bg-blue-700 text-white rounded-full hover:bg-blue-800 transition-colors"
+                    className="p-2 bg-secondary-700 text-white rounded-full hover:bg-secondary-800 transition-colors"
                     aria-label="Share on LinkedIn"
                   >
                     <FaLinkedin size={18} />
                   </button>
                   <button
                     onClick={shareOnFacebook}
-                    className="p-2 bg-blue-900 text-white rounded-full hover:bg-blue-950 transition-colors"
+                    className="p-2 bg-secondary-900 text-white rounded-full hover:bg-secondary-950 transition-colors"
                     aria-label="Share on Facebook"
                   >
                     <FaFacebook size={18} />
@@ -258,7 +258,7 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
                 <div className="flex flex-wrap gap-2">
                   {post.tags.map((tag) => (
                     <Link key={tag} href={`/blog/tag/${tag.toLowerCase()}`}>
-                      <span className="inline-flex items-center text-xs font-medium px-2.5 py-0.5 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">
+                      <span className="inline-flex items-center text-xs font-medium px-2.5 py-0.5 rounded-full bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200">
                         {tag}
                       </span>
                     </Link>

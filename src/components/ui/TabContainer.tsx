@@ -133,8 +133,8 @@ const TabContainer: React.FC<TabContainerProps> = ({
               data-tab-id={tab.id}
               className={`py-2 px-4 text-sm font-medium transition duration-200 flex-shrink-0 whitespace-nowrap ${
                 activeTabId === tab.id
-                  ? "text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400"
-                  : "text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
+                  ? "text-primary-600 dark:text-primary-400 border-b-2 border-primary-600 dark:border-primary-400"
+                  : "text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400"
               }`}
               onClick={() => handleTabClick(tab.id)}
             >

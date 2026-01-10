@@ -98,7 +98,7 @@ const FilteredProjectsSection: React.FC<FilteredProjectsSectionProps> = ({
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery("")}
-                  className="text-blue-600 dark:text-blue-400 hover:underline mt-2"
+                  className="text-primary-600 dark:text-primary-400 hover:underline mt-2"
                 >
                   Clear search
                 </button>
@@ -130,7 +130,7 @@ const FilteredProjectsSection: React.FC<FilteredProjectsSectionProps> = ({
               value={searchQuery}
               onChange={handleSearchChange}
               placeholder="    Search projects..."
-              className="block w-full pl-10 pr-4 py-3 text-sm bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-gray-900 dark:text-white"
+              className="block w-full pl-10 pr-4 py-3 text-sm bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-primary-500 focus:border-primary-500 text-gray-900 dark:text-white"
             />
           </div>
         </FadeIn>

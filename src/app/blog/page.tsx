@@ -37,8 +37,8 @@ export default function BlogPage() {
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-3">
-                        <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-                          <FiFolder className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                        <div className="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-lg">
+                          <FiFolder className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                         </div>
                         <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
                           {category.name}
@@ -63,7 +63,7 @@ export default function BlogPage() {
                     </div>
                     
                     <div className="ml-4 flex items-center">
-                      <FiArrowRight className="w-5 h-5 text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200" />
+                      <FiArrowRight className="w-5 h-5 text-gray-400 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200" />
                     </div>
                   </div>
                 </motion.div>

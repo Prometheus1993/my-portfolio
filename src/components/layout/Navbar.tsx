@@ -4,7 +4,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaBars, FaTimes, FaDownload } from "react-icons/fa";
+import { FaBars, FaTimes } from "react-icons/fa";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -18,6 +18,7 @@ const Navbar = () => {
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
     { href: "/projects", label: "Projects" },
+    { href: "/experience", label: "Experience" },
     //{ href: "/contact", label: "Contact" },
   ];
 
@@ -28,24 +29,13 @@ const Navbar = () => {
           {/* Logo or Name */}
           <Link
             href="/"
-            className="text-xl font-bold text-blue-600 dark:text-blue-400"
+            className="text-xl font-bold text-primary-600 dark:text-primary-400"
           >
             Jesus O&apos;Bulan
           </Link>
 
-          {/* Mobile Menu Button and CV download for mobile */}
-          <div className="md:hidden flex items-center space-x-4">
-            {/* CV Download for mobile - larger touch target */}
-            <a
-              href="/cv-jesus-obulan.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 dark:text-blue-400 flex items-center justify-center min-w-[44px] min-h-[44px] touch-manipulation"
-              aria-label="Download CV"
-            >
-              <FaDownload size={24} />
-            </a>
-            
+          {/* Mobile Menu Button */}
+          <div className="md:hidden flex items-center">
             {/* Menu toggle button - larger touch target */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
@@ -58,31 +48,19 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
-            <div className="space-x-6">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`${
-                    isActive(link.href)
-                      ? "text-blue-600 dark:text-blue-400 font-medium"
-                      : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-            
-            {/* CV Download button for desktop */}
-            <a
-              href="/cv-jesus-obulan.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center text-sm transition-colors duration-200"
-            >
-              <FaDownload size={14} className="mr-2" /> CV
-            </a>
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`${
+                  isActive(link.href)
+                    ? "text-primary-600 dark:text-primary-400 font-medium"
+                    : "text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
         </div>
 
@@ -96,25 +74,14 @@ const Navbar = () => {
                   href={link.href}
                   className={`${
                     isActive(link.href)
-                      ? "text-blue-600 dark:text-blue-400 font-medium bg-blue-50 dark:bg-blue-900/20"
-                      : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700"
+                      ? "text-primary-600 dark:text-primary-400 font-medium bg-primary-50 dark:bg-primary-900/20"
+                      : "text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-50 dark:hover:bg-gray-700"
                   } py-3 px-4 rounded-md min-h-[44px] flex items-center text-base transition-colors duration-200 touch-manipulation`}
                   onClick={() => setMenuOpen(false)}
                 >
                   {link.label}
                 </Link>
               ))}
-              
-              {/* Mobile CV Download in menu */}
-              <a
-                href="/cv-jesus-obulan.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-md flex items-center justify-center text-base font-medium min-h-[44px] mt-4 transition-colors duration-200 touch-manipulation"
-                onClick={() => setMenuOpen(false)}
-              >
-                <FaDownload size={16} className="mr-2" /> Download CV
-              </a>
             </div>
           </div>
         )}

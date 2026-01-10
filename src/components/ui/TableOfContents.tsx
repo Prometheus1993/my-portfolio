@@ -102,7 +102,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ sections: propSection
             onClick={() => scrollToSection(section.id)}
             className={`block w-full text-left px-3 py-2 rounded-md text-sm transition-all duration-200 ${
               activeSection === section.id
-                ? "bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 font-medium"
+                ? "bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 font-medium"
                 : "text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
             }`}
           >

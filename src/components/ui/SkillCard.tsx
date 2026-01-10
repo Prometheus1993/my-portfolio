@@ -23,7 +23,7 @@ const SkillCard: React.FC<SkillCardProps> = ({
       transition={{ duration: 0.3 }}
     >
       <div className="flex flex-col items-center text-center">
-        <div className="text-3xl mb-3 text-blue-600 dark:text-blue-400">
+        <div className="text-3xl mb-3 text-primary-600 dark:text-primary-400">
           {icon}
         </div>
         <h3 className="font-medium text-gray-800 dark:text-gray-200 mb-1">
@@ -34,11 +34,10 @@ const SkillCard: React.FC<SkillCardProps> = ({
           <div className="w-full mt-2 mb-2">
             <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
               <motion.div
-                className="h-1.5 rounded-full bg-blue-500 dark:bg-blue-600"
+                className="h-1.5 rounded-full bg-primary-500 dark:bg-primary-600"
                 initial={{ width: 0 }}
-                whileInView={{ width: `${level}%` }}
+                animate={{ width: `${level}%` }}
                 transition={{ duration: 1, ease: "easeOut" }}
-                viewport={{ once: true }}
               />
             </div>
           </div>

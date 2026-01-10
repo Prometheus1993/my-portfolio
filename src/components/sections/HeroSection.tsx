@@ -8,14 +8,15 @@ import {  FaGithub, FaLinkedin } from "react-icons/fa";
 import {
   FaReact,
   FaNodeJs,
-
   FaDatabase,
+  FaJava,
 } from "react-icons/fa";
 import {
   SiTypescript,
   SiNextdotjs,
   SiMongodb,
   SiSharp,
+  SiAngular,
 } from "react-icons/si";
 import profilePic from "../../../public/profilepic.png";
 import FadeIn from "@/components/animations/FadeIn";
@@ -33,8 +34,8 @@ const HeroSection = () => {
                 <Image
                   src={profilePic}
                   alt="Profile photo of Jesus O'Bulan"
-                  layout="fill"
-                  objectFit="cover"
+                  fill
+                  className="object-cover"
                   priority
                 />
               </div>
@@ -52,7 +53,7 @@ const HeroSection = () => {
                   href="https://linkedin.com/in/jesus-o-bulan-9964802a2"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 transition-colors flex items-center justify-center min-w-[44px] min-h-[44px] touch-manipulation"
+                  className="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 transition-colors flex items-center justify-center min-w-[44px] min-h-[44px] touch-manipulation"
                   aria-label="Visit LinkedIn profile"
                 >
                   <FaLinkedin size={28} />
@@ -67,50 +68,45 @@ const HeroSection = () => {
               <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">
                 Jesus O&apos;Bulan
               </h1>
-              <p className="text-xl md:text-2xl text-blue-600 dark:text-blue-400 mt-2 mb-2">
-                Full-Stack Developer
+              <p className="text-xl md:text-2xl text-primary-600 dark:text-primary-400 mt-2 mb-2">
+                IT & Software Student
               </p>
-              {/* <div className="inline-block bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-3 py-1 rounded-full text-sm font-medium">
-                Available for Junior Developer Roles
-              </div> */}
             </FadeIn>
 
             <FadeIn direction="up" delay={0.2}>
               <p className="text-lg text-gray-700 dark:text-gray-300">
-                I’m starting my Bachelor’s in IT & Software at AP Antwerp, after
-                earning my Associate Degree in Programming. I love building
-                modern applications, and my experience in retail management gave
-                me real-world communication and problem-solving skills I use in
-                every project.
+                IT & Software student at AP University College Antwerp. I enjoy building
+                modern applications with various technologies. Currently focusing on
+                Angular and Java, with experience in full-stack development.
               </p>
             </FadeIn>
 
             {/* Key Skills */}
             <FadeIn direction="up" delay={0.3}>
               <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mt-6 mb-4">
-                Technical Skills
+                Tech Stack
               </h3>
               <div className="flex flex-wrap gap-3">
+                <div className="flex items-center bg-white dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm">
+                  <SiAngular className="text-red-600 mr-2" size={18} />
+                  <span>Angular</span>
+                </div>
+                <div className="flex items-center bg-white dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm">
+                  <FaJava className="text-red-500 mr-2" size={18} />
+                  <span>Java</span>
+                </div>
+                <div className="flex items-center bg-white dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm">
+                  <FaReact className="text-secondary-600 mr-2" size={20} />
+                  <span>React</span>
+                </div>
+                <div className="flex items-center bg-white dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm">
+                  <SiTypescript className="text-secondary-700 mr-2" size={18} />
+                  <span>TypeScript</span>
+                </div>
                 <div className="flex items-center bg-white dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm">
                   <SiSharp className="text-purple-600 mr-2" size={18} />
                   <span>C#</span>
                 </div>
-                <div className="flex items-center bg-white dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm">
-                  <SiTypescript className="text-blue-600 mr-2" size={18} />
-                  <span>TypeScript</span>
-                </div>
-                <div className="flex items-center bg-white dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm">
-                  <FaReact className="text-blue-500 mr-2" size={20} />
-                  <span>React</span>
-                </div>
-                <div className="flex items-center bg-white dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm">
-                  <SiNextdotjs
-                    className="text-black dark:text-white mr-2"
-                    size={18}
-                  />
-                  <span>Next.js</span>
-                </div>
-
                 <div className="flex items-center bg-white dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm">
                   <FaNodeJs className="text-green-600 mr-2" size={20} />
                   <span>Node.js</span>
@@ -120,7 +116,7 @@ const HeroSection = () => {
                   <span>MongoDB</span>
                 </div>
                 <div className="flex items-center bg-white dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm">
-                  <FaDatabase className="text-blue-500 mr-2" size={18} />
+                  <FaDatabase className="text-secondary-600 mr-2" size={18} />
                   <span>MySQL</span>
                 </div>
               </div>

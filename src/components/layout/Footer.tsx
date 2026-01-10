@@ -16,7 +16,7 @@ const Footer = () => {
             href="https://github.com/Prometheus1993"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-blue-600 dark:hover:text-blue-400"
+            className="hover:text-primary-600 dark:hover:text-primary-400"
           >
             GitHub
           </a>
@@ -24,7 +24,7 @@ const Footer = () => {
             href="https://www.linkedin.com/in/jesus-o-bulan-9964802a2/"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-blue-600 dark:hover:text-blue-400"
+            className="hover:text-primary-600 dark:hover:text-primary-400"
           >
             LinkedIn
           </a>

@@ -20,33 +20,16 @@ const FadeIn: React.FC<FadeInProps> = ({
   className = '',
   once = true,
 }) => {
-  // Define different initial positions based on direction
-  let initialY = 0;
-  let initialX = 0;
-  
-  if (direction === 'up') initialY = 20;
-  if (direction === 'down') initialY = -20;
-  if (direction === 'left') initialX = 20;
-  if (direction === 'right') initialX = -20;
-
+  // Simple fade-in animation without scroll detection
   return (
     <motion.div
-      initial={{ 
-        opacity: 0, 
-        y: initialY,
-        x: initialX 
-      }}
-      whileInView={{ 
-        opacity: 1, 
-        y: 0,
-        x: 0 
-      }}
-      transition={{ 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{
         duration: duration,
         delay: delay,
         ease: 'easeOut'
       }}
-      viewport={{ once }}
       className={className}
     >
       {children}

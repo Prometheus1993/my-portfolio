@@ -55,7 +55,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           {technologies.map((tech) => (
             <span
               key={tech}
-              className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm md:text-xs font-medium px-3 py-1 min-h-[32px] flex items-center rounded touch-manipulation"
+              className="bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-sm md:text-xs font-medium px-3 py-1 min-h-[32px] flex items-center rounded touch-manipulation"
             >
               {tech}
             </span>

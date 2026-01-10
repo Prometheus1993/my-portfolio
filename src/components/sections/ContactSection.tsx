@@ -178,7 +178,7 @@ const ContactSection = () => {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className={`w-full px-4 py-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 ${
+                    className={`w-full px-4 py-2 border rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 ${
                       formState.hasError && !formData.name
                         ? "border-red-500 dark:border-red-500"
                         : "border-gray-300 dark:border-gray-600"
@@ -199,7 +199,7 @@ const ContactSection = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className={`w-full px-4 py-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 ${
+                    className={`w-full px-4 py-2 border rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 ${
                       formState.hasError && !formData.email
                         ? "border-red-500 dark:border-red-500"
                         : "border-gray-300 dark:border-gray-600"
@@ -222,7 +222,7 @@ const ContactSection = () => {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                 />
               </div>
 
@@ -239,7 +239,7 @@ const ContactSection = () => {
                   rows={6}
                   value={formData.message}
                   onChange={handleChange}
-                  className={`w-full px-4 py-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 ${
+                  className={`w-full px-4 py-2 border rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 ${
                     formState.hasError && !formData.message
                       ? "border-red-500 dark:border-red-500"
                       : "border-gray-300 dark:border-gray-600"
@@ -292,31 +292,31 @@ const ContactSection = () => {
           </h3>
           <div className="space-y-6">
             <div className="flex items-center">
-              <FaEnvelope className="text-blue-600 dark:text-blue-400 mr-3 text-xl" />
+              <FaEnvelope className="text-primary-600 dark:text-primary-400 mr-3 text-xl" />
               <a
                 href="mailto:jesusobulan@hotmail.com"
-                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
               >
                 jesusobulan@hotmail.com
               </a>
             </div>
             <div className="flex items-center">
-              <FaPhone className="text-blue-600 dark:text-blue-400 mr-3 text-xl" />
+              <FaPhone className="text-primary-600 dark:text-primary-400 mr-3 text-xl" />
               <a
                 href="tel:+32483416601"
-                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
               >
                 +32 483 41 66 01
               </a>
             </div>
             <div className="flex items-center">
-              <FaMapMarkerAlt className="text-blue-600 dark:text-blue-400 mr-3 text-xl" />
+              <FaMapMarkerAlt className="text-primary-600 dark:text-primary-400 mr-3 text-xl" />
               <span className="text-gray-700 dark:text-gray-300">
                 Antwerp, Belgium
               </span>
             </div>
             <div className="flex items-center">
-              <FaCalendarAlt className="text-blue-600 dark:text-blue-400 mr-3 text-xl" />
+              <FaCalendarAlt className="text-primary-600 dark:text-primary-400 mr-3 text-xl" />
               <span className="text-gray-700 dark:text-gray-300">
                 Available for junior developer roles now
               </span>
@@ -334,18 +334,18 @@ const ContactSection = () => {
                   href="https://github.com/Prometheus1993"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                  className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
                 >
                   GitHub
                 </a>
               </div>
               <div className="flex items-center">
-                <FaLinkedin className="text-blue-700 dark:text-blue-500 mr-3 text-xl" />
+                <FaLinkedin className="text-secondary-700 dark:text-secondary-500 mr-3 text-xl" />
                 <a
                   href="https://www.linkedin.com/in/jesus-o-bulan-9964802a2/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                  className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
                 >
                   LinkedIn
                 </a>
@@ -367,8 +367,8 @@ const ContactSection = () => {
             I am currently available for:
           </p>
           <div className="space-y-4 mb-8">
-            <div className="flex items-start p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800">
-              <div className="mr-4 mt-1 text-blue-600 dark:text-blue-400">
+            <div className="flex items-start p-4 bg-primary-50 dark:bg-primary-900/20 rounded-lg border border-primary-100 dark:border-primary-800">
+              <div className="mr-4 mt-1 text-primary-600 dark:text-primary-400">
                 <FaUserAlt />
               </div>
               <div>
@@ -380,9 +380,9 @@ const ContactSection = () => {
                 </p>
               </div>
             </div>
-            
-            <div className="flex items-start p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800">
-              <div className="mr-4 mt-1 text-blue-600 dark:text-blue-400">
+
+            <div className="flex items-start p-4 bg-primary-50 dark:bg-primary-900/20 rounded-lg border border-primary-100 dark:border-primary-800">
+              <div className="mr-4 mt-1 text-primary-600 dark:text-primary-400">
                 <FaUserAlt />
               </div>
               <div>
@@ -394,8 +394,8 @@ const ContactSection = () => {
                 </p>
               </div>
             </div>
-            <div className="flex items-start p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800">
-              <div className="mr-4 mt-1 text-blue-600 dark:text-blue-400">
+            <div className="flex items-start p-4 bg-primary-50 dark:bg-primary-900/20 rounded-lg border border-primary-100 dark:border-primary-800">
+              <div className="mr-4 mt-1 text-primary-600 dark:text-primary-400">
                 <FaUserAlt />
               </div>
               <div>
