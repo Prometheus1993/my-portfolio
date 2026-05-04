@@ -5,91 +5,95 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Cream / warm palette — Anthropic-inspired */
+  --background: #faf9f5;
+  --surface: #f0eee6;
+  --foreground: #1f1e1c;
+  --foreground-muted: #6a6660;
+  --border: #e3dfd5;
+  --accent: #cc785c;
+}
+
+.dark, [data-theme="dark"] {
+  --background: #1a1916;
+  --surface: #22211e;
+  --foreground: #f0eee6;
+  --foreground-muted: #a8a39a;
+  --border: #3a3833;
+  --accent: #e3a78f;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-
-  /* Primary colors (Orange) */
-  --color-primary-50: #fff7ed;
-  --color-primary-100: #ffedd5;
-  --color-primary-200: #fed7aa;
-  --color-primary-300: #fdba74;
-  --color-primary-400: #fb923c;
-  --color-primary-500: #f97316;
-  --color-primary-600: #ea580c;
-  --color-primary-700: #c2410c;
-  --color-primary-800: #9a3412;
-  --color-primary-900: #7c2d12;
-
-  /* Secondary colors (Dark Blue) */
-  --color-secondary-50: #eff6ff;
-  --color-secondary-100: #dbeafe;
-  --color-secondary-200: #bfdbfe;
-  --color-secondary-300: #93c5fd;
-  --color-secondary-400: #60a5fa;
-  --color-secondary-500: #1e3a8a;
-  --color-secondary-600: #1e40af;
-  --color-secondary-700: #1d4ed8;
-  --color-secondary-800: #1e3a8a;
-  --color-secondary-900: #172554;
-  --color-secondary-950: #0f172a;
+  --color-foreground-muted: var(--foreground-muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not(.light) {
+    --background: #1a1916;
+    --surface: #22211e;
+    --foreground: #f0eee6;
+    --foreground-muted: #a8a39a;
+    --border: #3a3833;
+    --accent: #e3a78f;
   }
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: "ss01", "cv01";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Mobile-first optimizations */
+::selection {
+  background: var(--accent);
+  color: var(--background);
+}
+
+/* Editorial heading styles */
+.font-serif {
+  font-family: var(--font-instrument-serif), ui-serif, Georgia, serif;
+  font-feature-settings: "lnum";
+  letter-spacing: -0.01em;
+}
+
+/* Subtle link underline animation */
+a.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s ease;
+}
+a.link-underline:hover {
+  background-size: 100% 1px;
+}
+
 @media (max-width: 640px) {
-  /* Ensure minimum touch target sizes */
   button, a, input, select, textarea {
     min-height: 44px;
   }
-  
-  /* Improve tap targets for form elements */
   input, select, textarea {
-    font-size: 16px; /* Prevents zoom on iOS */
-    padding: 12px 16px;
-  }
-  
-  /* Better text contrast and readability */
-  body {
     font-size: 16px;
-    line-height: 1.6;
   }
-  
-  /* Reduce animation for users who prefer reduced motion */
-  @media (prefers-reduced-motion: reduce) {
-    * {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-    }
-  }
-  
-  /* Ensure cards have proper spacing */
-  .project-card, .blog-card {
-    margin-bottom: 24px;
-  }
-  
-  /* Better focus indicators */
-  button:focus, a:focus, input:focus, select:focus, textarea:focus {
-    outline: 2px solid #f97316;
-    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }

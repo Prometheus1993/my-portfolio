@@ -1,93 +1,62 @@
-// src/app/blog/page.tsx
-'use client';
+"use client";
 
 import React from "react";
-import { getBlogCategories } from "@/lib/blog/utils";
 import Link from "next/link";
+import { getBlogCategories } from "@/lib/blog/utils";
 import FadeIn from "@/components/animations/FadeIn";
-import { motion } from "framer-motion";
-import { FiArrowRight, FiFolder, FiFileText } from "react-icons/fi";
 
 export default function BlogPage() {
   const categories = getBlogCategories();
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeIn>
-          <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Blog
-            </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              Read my latest thoughts, tutorials, and insights about development, technology, and my experiences.
-            </p>
-          </div>
-        </FadeIn>
+    <section className="max-w-4xl mx-auto px-6 md:px-10 pt-10 md:pt-14 pb-6">
+      <FadeIn direction="up">
+        <p className="text-xs uppercase tracking-[0.2em] text-foreground-muted mb-3">
+          Writing
+        </p>
+        <h1 className="font-serif text-3xl md:text-5xl leading-tight tracking-tight text-foreground mb-6 md:mb-8">
+          Notes &amp; reflections.
+        </h1>
+      </FadeIn>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-1">
-          {categories.map((category, index) => (
-            <FadeIn key={category.slug} delay={index * 0.1}>
-              <Link href={`/blog/category/${category.slug}`}>
-                <motion.div
-                  className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-300 border border-gray-200 dark:border-gray-700"
-                  whileHover={{ y: -2, scale: 1.01 }}
-                  transition={{ duration: 0.2 }}
+      {categories.length > 0 ? (
+        <ul>
+          {categories.map((cat, idx) => (
+            <FadeIn key={cat.slug} direction="up" delay={0.05 * (idx + 1)}>
+              <li className="border-b border-border">
+                <Link
+                  href={`/blog/category/${cat.slug}`}
+                  className="group grid grid-cols-12 gap-3 py-4 md:py-5 items-baseline transition-colors hover:bg-surface/40 -mx-3 px-3 rounded-sm"
                 >
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-3">
-                        <div className="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-lg">
-                          <FiFolder className="w-5 h-5 text-primary-600 dark:text-primary-400" />
-                        </div>
-                        <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-                          {category.name}
-                        </h2>
-                      </div>
-                      
-                      <p className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
-                        {category.description}
-                      </p>
-                      
-                      <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-500">
-                        <div className="flex items-center gap-1">
-                          <FiFileText className="w-4 h-4" />
-                          {category.posts.length} {category.posts.length === 1 ? 'post' : 'posts'}
-                        </div>
-                        {category.posts.length > 0 && (
-                          <div className="text-xs">
-                            Latest: {new Date(category.posts[0].date).toLocaleDateString()}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    
-                    <div className="ml-4 flex items-center">
-                      <FiArrowRight className="w-5 h-5 text-gray-400 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200" />
-                    </div>
+                  <div className="col-span-12 md:col-span-9">
+                    <h2 className="font-serif text-lg md:text-2xl text-foreground tracking-tight leading-tight group-hover:italic transition-all">
+                      {cat.name}
+                    </h2>
+                    <p className="hidden md:block text-foreground-muted mt-1 text-sm leading-snug max-w-prose line-clamp-1">
+                      {cat.description}
+                    </p>
                   </div>
-                </motion.div>
-              </Link>
+                  <div className="col-span-12 md:col-span-3 md:text-right md:pt-2">
+                    <span className="text-xs text-foreground-muted">
+                      {cat.posts.length} {cat.posts.length === 1 ? "post" : "posts"}
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="hidden md:inline-block ml-2 text-foreground-muted group-hover:translate-x-1 transition-transform"
+                    >
+                      →
+                    </span>
+                  </div>
+                </Link>
+              </li>
             </FadeIn>
           ))}
-        </div>
-
-        {categories.length === 0 && (
-          <FadeIn>
-            <div className="text-center py-12">
-              <div className="text-gray-400 dark:text-gray-600 mb-4">
-                <FiFileText className="w-12 h-12 mx-auto" />
-              </div>
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
-                No blog posts yet
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                Check back soon for new content!
-              </p>
-            </div>
-          </FadeIn>
-        )}
-      </div>
-    </div>
+        </ul>
+      ) : (
+        <p className="py-6 text-sm text-foreground-muted">
+          No posts yet. Check back soon.
+        </p>
+      )}
+    </section>
   );
 }

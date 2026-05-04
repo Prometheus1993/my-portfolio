@@ -1,141 +1,81 @@
-// src/components/sections/HeroAboutSection.tsx
 "use client";
 
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import {  FaGithub, FaLinkedin } from "react-icons/fa";
-import {
-  FaReact,
-  FaNodeJs,
-  FaDatabase,
-  FaJava,
-} from "react-icons/fa";
-import {
-  SiTypescript,
-  SiNextdotjs,
-  SiMongodb,
-  SiSharp,
-  SiAngular,
-} from "react-icons/si";
 import profilePic from "../../../public/profilepic.png";
 import FadeIn from "@/components/animations/FadeIn";
-import Button from "@/components/ui/Button";
 
 const HeroSection = () => {
   return (
-    <section className="py-20 md:py-28 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-          {/* Image Column */}
-          <div className="md:col-span-1 flex flex-col items-center mb-8 md:mb-0">
-            <FadeIn direction="up">
-              <div className="relative w-64 h-64 md:w-72 md:h-72 rounded-full overflow-hidden shadow-xl border-4 border-white dark:border-gray-700">
-                <Image
-                  src={profilePic}
-                  alt="Profile photo of Jesus O'Bulan"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
-              <div className="flex justify-center mt-6 space-x-6">
-                <a
-                  href="https://github.com/Prometheus1993"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors flex items-center justify-center min-w-[44px] min-h-[44px] touch-manipulation"
-                  aria-label="Visit GitHub profile"
-                >
-                  <FaGithub size={28} />
-                </a>
-                <a
-                  href="https://linkedin.com/in/jesus-o-bulan-9964802a2"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 transition-colors flex items-center justify-center min-w-[44px] min-h-[44px] touch-manipulation"
-                  aria-label="Visit LinkedIn profile"
-                >
-                  <FaLinkedin size={28} />
-                </a>
-              </div>
-            </FadeIn>
-          </div>
+    <section className="max-w-5xl mx-auto px-6 md:px-10 pt-10 md:pt-14 pb-6 md:pb-8">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-10 items-start">
+        {/* Text */}
+        <div className="md:col-span-8 order-2 md:order-1">
+          <FadeIn direction="up">
+            <p className="text-xs uppercase tracking-[0.2em] text-foreground-muted mb-4">
+              Antwerp, Belgium
+            </p>
+          </FadeIn>
 
-          {/* Text Column */}
-          <div className="md:col-span-2 space-y-6">
-            <FadeIn direction="up" delay={0.1}>
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">
-                Jesus O&apos;Bulan
-              </h1>
-              <p className="text-xl md:text-2xl text-primary-600 dark:text-primary-400 mt-2 mb-2">
-                IT & Software Student
-              </p>
-            </FadeIn>
+          <FadeIn direction="up" delay={0.1}>
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl leading-[1.05] tracking-tight text-foreground">
+              Jesus O&apos;Bulan
+            </h1>
+          </FadeIn>
 
-            <FadeIn direction="up" delay={0.2}>
-              <p className="text-lg text-gray-700 dark:text-gray-300">
-                IT & Software student at AP University College Antwerp. I enjoy building
-                modern applications with various technologies. Currently focusing on
-                Angular and Java, with experience in full-stack development.
-              </p>
-            </FadeIn>
+          <FadeIn direction="up" delay={0.2}>
+            <p className="font-serif text-xl md:text-2xl text-foreground-muted italic mt-2 leading-snug">
+              Full-stack developer.
+            </p>
+          </FadeIn>
 
-            {/* Key Skills */}
-            <FadeIn direction="up" delay={0.3}>
-              <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mt-6 mb-4">
-                Tech Stack
-              </h3>
-              <div className="flex flex-wrap gap-3">
-                <div className="flex items-center bg-white dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm">
-                  <SiAngular className="text-red-600 mr-2" size={18} />
-                  <span>Angular</span>
-                </div>
-                <div className="flex items-center bg-white dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm">
-                  <FaJava className="text-red-500 mr-2" size={18} />
-                  <span>Java</span>
-                </div>
-                <div className="flex items-center bg-white dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm">
-                  <FaReact className="text-secondary-600 mr-2" size={20} />
-                  <span>React</span>
-                </div>
-                <div className="flex items-center bg-white dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm">
-                  <SiTypescript className="text-secondary-700 mr-2" size={18} />
-                  <span>TypeScript</span>
-                </div>
-                <div className="flex items-center bg-white dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm">
-                  <SiSharp className="text-purple-600 mr-2" size={18} />
-                  <span>C#</span>
-                </div>
-                <div className="flex items-center bg-white dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm">
-                  <FaNodeJs className="text-green-600 mr-2" size={20} />
-                  <span>Node.js</span>
-                </div>
-                <div className="flex items-center bg-white dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm">
-                  <SiMongodb className="text-green-500 mr-2" size={18} />
-                  <span>MongoDB</span>
-                </div>
-                <div className="flex items-center bg-white dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm">
-                  <FaDatabase className="text-secondary-600 mr-2" size={18} />
-                  <span>MySQL</span>
-                </div>
-              </div>
-            </FadeIn>
+          <FadeIn direction="up" delay={0.3}>
+            <p className="text-sm md:text-base text-foreground-muted leading-relaxed mt-5 max-w-xl">
+              Currently studying IT &amp; Software at AP Hogeschool Antwerpen,
+              after completing a Programming degree with distinction. I build
+              modern web applications with React, Next.js and Angular.
+            </p>
+          </FadeIn>
 
-            {/* Call to Action Buttons */}
-            <FadeIn direction="up" delay={0.4}>
-              <div className="mt-8 flex flex-wrap gap-4">
-                <Link href="/projects">
-                  <Button variant="primary">View Projects</Button>
-                </Link>
-                {/* <Link href="/contact">
-                  <Button variant="secondary" className="flex items-center">
-                    Get In Touch <FaArrowRight className="ml-2" />
-                  </Button>
-                </Link> */}
-              </div>
-            </FadeIn>
-          </div>
+          <FadeIn direction="up" delay={0.4}>
+            <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
+              <Link
+                href="/projects"
+                className="link-underline text-foreground inline-flex items-center gap-2"
+              >
+                <span>View projects</span>
+                <span aria-hidden="true">→</span>
+              </Link>
+              <Link
+                href="/experience"
+                className="link-underline text-foreground-muted hover:text-foreground transition-colors"
+              >
+                Experience
+              </Link>
+              <Link
+                href="/about"
+                className="link-underline text-foreground-muted hover:text-foreground transition-colors"
+              >
+                About
+              </Link>
+            </div>
+          </FadeIn>
+        </div>
+
+        {/* Portrait */}
+        <div className="md:col-span-3 md:col-start-10 order-1 md:order-2 md:pt-2">
+          <FadeIn direction="up" delay={0.05}>
+            <div className="relative w-20 h-24 md:w-full md:h-auto md:aspect-[4/5] overflow-hidden rounded-sm grayscale hover:grayscale-0 transition-all duration-700">
+              <Image
+                src={profilePic}
+                alt="Portrait of Jesus O'Bulan"
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
+          </FadeIn>
         </div>
       </div>
     </section>

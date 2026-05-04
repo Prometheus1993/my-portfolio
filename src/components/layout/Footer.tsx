@@ -1,34 +1,37 @@
-// src/components/layout/Footer.tsx
 import React from "react";
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear(); // Haal het huidige jaar op
+  const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-gray-100 dark:bg-gray-800 py-4 mt-12 transition-colors duration-200">
-      {" "}
-      {/* mt-12 voegt wat ruimte toe boven de footer */}
-      <div className="container mx-auto px-4 text-center text-gray-600 dark:text-gray-400">
-        <p>© {currentYear} Jesus O&apos;Bulan. Alle rechten voorbehouden.</p>
-        {/* Voeg hier later links toe naar GitHub, LinkedIn etc. */}
-        <div className="mt-2 space-x-4">
+    <footer className="border-t border-border mt-8">
+      <div className="max-w-5xl mx-auto px-6 md:px-10 py-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+        <p className="text-sm text-foreground-muted">
+          © {year} Jesus O&apos;Bulan
+        </p>
+        <div className="flex gap-6 text-sm">
           <a
             href="https://github.com/Prometheus1993"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-primary-600 dark:hover:text-primary-400"
+            className="text-foreground-muted hover:text-foreground transition-colors link-underline"
           >
             GitHub
           </a>
           <a
-            href="https://www.linkedin.com/in/jesus-o-bulan-9964802a2/"
+            href="https://www.linkedin.com/in/jesus-o-9964802a2"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-primary-600 dark:hover:text-primary-400"
+            className="text-foreground-muted hover:text-foreground transition-colors link-underline"
           >
             LinkedIn
           </a>
-          {/* Voeg eventueel andere links toe */}
+          <a
+            href="mailto:jesusobulan@hotmail.com"
+            className="text-foreground-muted hover:text-foreground transition-colors link-underline"
+          >
+            Email
+          </a>
         </div>
       </div>
     </footer>

@@ -1,449 +1,186 @@
 "use client";
 
 import React, { useState } from "react";
-import Button from "@/components/ui/Button";
-import {
-  FaGithub,
-  FaLinkedin,
-  FaEnvelope,
-  FaPhone,
-  FaDownload,
-  FaSpinner,
-  FaCheckCircle,
-  FaExclamationCircle,
-  FaUserAlt,
-  FaMapMarkerAlt,
-  FaCalendarAlt,
-} from "react-icons/fa";
-import TabContainer from "@/components/ui/TabContainer";
+import FadeIn from "@/components/animations/FadeIn";
 
 const ContactSection = () => {
-  // Form state
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
+    "idle"
+  );
+  const [errorMsg, setErrorMsg] = useState("");
 
-  // Form submission state
-  const [formState, setFormState] = useState({
-    isSubmitting: false,
-    isSubmitted: false,
-    hasError: false,
-    errorMessage: "",
-  });
-
-  // Handle input changes
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-  // Handle form submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    // Simple validation
     if (!formData.name || !formData.email || !formData.message) {
-      setFormState({
-        isSubmitting: false,
-        isSubmitted: false,
-        hasError: true,
-        errorMessage: "Please fill in all required fields.",
-      });
+      setStatus("error");
+      setErrorMsg("Please fill in all fields.");
       return;
     }
 
-    // Email validation with regex
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      setFormState({
-        isSubmitting: false,
-        isSubmitted: false,
-        hasError: true,
-        errorMessage: "Please enter a valid email address.",
-      });
-      return;
-    }
-
-    // Set submitting state
-    setFormState({
-      isSubmitting: true,
-      isSubmitted: false,
-      hasError: false,
-      errorMessage: "",
-    });
-
+    setStatus("sending");
     try {
-      // Get the form element and send it via Formspree
-      const form = e.currentTarget;
-      const formData = new FormData(form);
-
-      // Send to Formspree
-      const response = await fetch("https://formspree.io/f/mrbqejaa", {
+      const fd = new FormData(e.currentTarget);
+      const res = await fetch("https://formspree.io/f/mrbqejaa", {
         method: "POST",
-        body: formData,
-        headers: {
-          Accept: "application/json",
-        },
+        body: fd,
+        headers: { Accept: "application/json" },
       });
-
-      if (response.ok) {
-        // Success state
-        setFormState({
-          isSubmitting: false,
-          isSubmitted: true,
-          hasError: false,
-          errorMessage: "",
-        });
-
-        // Reset form
-        setFormData({
-          name: "",
-          email: "",
-          subject: "",
-          message: "",
-        });
-
-        // Reset success message after 5 seconds
-        setTimeout(() => {
-          setFormState((prev) => ({
-            ...prev,
-            isSubmitted: false,
-          }));
-        }, 5000);
-      } else {
-        // Handle server error
-        const data = await response.json();
-        throw new Error(data.error || "Something went wrong");
-      }
-    } catch (error) {
-      // Error state
-      setFormState({
-        isSubmitting: false,
-        isSubmitted: false,
-        hasError: true,
-        errorMessage:
-          error instanceof Error
-            ? error.message
-            : "Something went wrong. Please try again.",
-      });
+      if (!res.ok) throw new Error("Network error");
+      setStatus("sent");
+      setFormData({ name: "", email: "", message: "" });
+    } catch {
+      setStatus("error");
+      setErrorMsg("Something went wrong. Please try again.");
     }
   };
-  // Create the tabs for the contact section
-  const contactTabs = [
-    {
-      id: "form",
-      label: "Message Form",
-      content: (
-        <div className="bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md p-6 md:p-8 border border-gray-200 dark:border-gray-700">
-          <h3 className="text-2xl font-semibold mb-6 text-gray-800 dark:text-gray-200">
-            Send a message
-          </h3>
 
-          {formState.isSubmitted ? (
-            <div className="bg-green-50 dark:bg-green-900/30 p-6 rounded-lg border border-green-200 dark:border-green-800 flex flex-col items-center justify-center text-center">
-              <FaCheckCircle className="text-green-500 dark:text-green-400 text-4xl mb-4" />
-              <h4 className="text-xl font-medium text-green-800 dark:text-green-300 mb-2">
-                Message sent!
-              </h4>
-              <p className="text-green-700 dark:text-green-400">
-                Thank you for your message. I will contact you as soon as
-                possible.
-              </p>
-            </div>
-          ) : (
-            <form
-              className="space-y-6"
-              onSubmit={handleSubmit}
-              action="https://formspree.io/f/mrbqejaa" // You already have this ID in your fetch request
-              method="POST"
-            >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-                  >
-                    Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-2 border rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 ${
-                      formState.hasError && !formData.name
-                        ? "border-red-500 dark:border-red-500"
-                        : "border-gray-300 dark:border-gray-600"
-                    }`}
-                    required
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-                  >
-                    Email *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-2 border rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 ${
-                      formState.hasError && !formData.email
-                        ? "border-red-500 dark:border-red-500"
-                        : "border-gray-300 dark:border-gray-600"
-                    }`}
-                    required
-                  />
-                </div>
-              </div>
+  return (
+    <section className="max-w-3xl mx-auto px-6 md:px-10 pt-10 md:pt-14 pb-6">
+      <FadeIn direction="up">
+        <p className="text-xs uppercase tracking-[0.2em] text-foreground-muted mb-3">
+          Contact
+        </p>
+        <h1 className="font-serif text-3xl md:text-5xl leading-tight tracking-tight text-foreground mb-6">
+          Let&apos;s get in touch.
+        </h1>
+        <p className="text-sm md:text-base text-foreground-muted leading-relaxed mb-8 max-w-xl">
+          Open to junior developer positions, freelance work, and collaborations.
+          Drop a line below or reach me directly.
+        </p>
+      </FadeIn>
 
-              <div>
-                <label
-                  htmlFor="subject"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-                >
-                  Subject
-                </label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="message"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-                >
-                  Message *
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows={6}
-                  value={formData.message}
-                  onChange={handleChange}
-                  className={`w-full px-4 py-2 border rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 ${
-                    formState.hasError && !formData.message
-                      ? "border-red-500 dark:border-red-500"
-                      : "border-gray-300 dark:border-gray-600"
-                  }`}
-                  required
-                ></textarea>
-              </div>
-
-              {/* Error message */}
-              {formState.hasError && (
-                <div className="bg-red-50 dark:bg-red-900/30 p-3 rounded-md border border-red-200 dark:border-red-800">
-                  <div className="flex items-center">
-                    <FaExclamationCircle className="text-red-500 mr-2 flex-shrink-0" />
-                    <p className="text-sm text-red-700 dark:text-red-400">
-                      {formState.errorMessage}
-                    </p>
-                  </div>
-                </div>
-              )}
-
-              <div>
-                <Button
-                  variant="primary"
-                  type="submit"
-                  className="w-full md:w-auto relative"
-                  disabled={formState.isSubmitting}
-                >
-                  {formState.isSubmitting ? (
-                    <>
-                      <FaSpinner className="animate-spin mr-2 inline" />
-                      Sending...
-                    </>
-                  ) : (
-                    "Send"
-                  )}
-                </Button>
-              </div>
-            </form>
-          )}
-        </div>
-      ),
-    },
-    {
-      id: "info",
-      label: "Contact Info",
-      content: (
-        <div className="bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md p-6 md:p-8 border border-gray-200 dark:border-gray-700">
-          <h3 className="text-2xl font-semibold mb-6 text-gray-800 dark:text-gray-200">
-            Contact Information
-          </h3>
-          <div className="space-y-6">
-            <div className="flex items-center">
-              <FaEnvelope className="text-primary-600 dark:text-primary-400 mr-3 text-xl" />
-              <a
-                href="mailto:jesusobulan@hotmail.com"
-                className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
-              >
-                jesusobulan@hotmail.com
-              </a>
-            </div>
-            <div className="flex items-center">
-              <FaPhone className="text-primary-600 dark:text-primary-400 mr-3 text-xl" />
-              <a
-                href="tel:+32483416601"
-                className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
-              >
-                +32 483 41 66 01
-              </a>
-            </div>
-            <div className="flex items-center">
-              <FaMapMarkerAlt className="text-primary-600 dark:text-primary-400 mr-3 text-xl" />
-              <span className="text-gray-700 dark:text-gray-300">
-                Antwerp, Belgium
-              </span>
-            </div>
-            <div className="flex items-center">
-              <FaCalendarAlt className="text-primary-600 dark:text-primary-400 mr-3 text-xl" />
-              <span className="text-gray-700 dark:text-gray-300">
-                Available for junior developer roles now
-              </span>
-            </div>
-          </div>
-
-          <div className="mt-8">
-            <h4 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
-              Social Media
-            </h4>
-            <div className="space-y-4">
-              <div className="flex items-center">
-                <FaGithub className="text-gray-800 dark:text-gray-200 mr-3 text-xl" />
-                <a
-                  href="https://github.com/Prometheus1993"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
-                >
-                  GitHub
-                </a>
-              </div>
-              <div className="flex items-center">
-                <FaLinkedin className="text-secondary-700 dark:text-secondary-500 mr-3 text-xl" />
-                <a
-                  href="https://www.linkedin.com/in/jesus-o-bulan-9964802a2/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
-                >
-                  LinkedIn
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      ),
-    },
-    {
-      id: "availability",
-      label: "Availability",
-      content: (
-        <div className="bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md p-6 md:p-8 border border-gray-200 dark:border-gray-700">
-          <h3 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
-            Availability
-          </h3>
-          <p className="text-gray-700 dark:text-gray-300 mb-6">
-            I am currently available for:
-          </p>
-          <div className="space-y-4 mb-8">
-            <div className="flex items-start p-4 bg-primary-50 dark:bg-primary-900/20 rounded-lg border border-primary-100 dark:border-primary-800">
-              <div className="mr-4 mt-1 text-primary-600 dark:text-primary-400">
-                <FaUserAlt />
-              </div>
-              <div>
-                <h4 className="font-semibold text-gray-900 dark:text-white">
-                  Freelance projects
-                </h4>
-                <p className="text-sm text-gray-700 dark:text-gray-300">
-                  For short to medium-term web development projects
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start p-4 bg-primary-50 dark:bg-primary-900/20 rounded-lg border border-primary-100 dark:border-primary-800">
-              <div className="mr-4 mt-1 text-primary-600 dark:text-primary-400">
-                <FaUserAlt />
-              </div>
-              <div>
-                <h4 className="font-semibold text-gray-900 dark:text-white">
-                  Junior Developer Positions
-                </h4>
-                <p className="text-sm text-gray-700 dark:text-gray-300">
-                  Actively seeking junior full-stack or frontend developer roles
-                </p>
-              </div>
-            </div>
-            <div className="flex items-start p-4 bg-primary-50 dark:bg-primary-900/20 rounded-lg border border-primary-100 dark:border-primary-800">
-              <div className="mr-4 mt-1 text-primary-600 dark:text-primary-400">
-                <FaUserAlt />
-              </div>
-              <div>
-                <h4 className="font-semibold text-gray-900 dark:text-white">
-                  Collaborations
-                </h4>
-                <p className="text-sm text-gray-700 dark:text-gray-300">
-                  Open to collaborating on interesting projects and initiatives
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-6">
+      {/* Direct links */}
+      <FadeIn direction="up" delay={0.1}>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 border-y border-border py-4 mb-6 text-sm">
+          <div>
+            <p className="text-[11px] uppercase tracking-wider text-foreground-muted mb-1">
+              Email
+            </p>
             <a
-              href="/cv-jesus-obulan.pdf"
+              href="mailto:jesusobulan@hotmail.com"
+              className="link-underline text-foreground"
+            >
+              jesusobulan@hotmail.com
+            </a>
+          </div>
+          <div>
+            <p className="text-[11px] uppercase tracking-wider text-foreground-muted mb-1">
+              LinkedIn
+            </p>
+            <a
+              href="https://www.linkedin.com/in/jesus-o-9964802a2"
               target="_blank"
               rel="noopener noreferrer"
+              className="link-underline text-foreground"
             >
-              <Button
-                variant="secondary"
-                className="flex items-center w-full justify-center"
-              >
-                <FaDownload className="mr-2" /> Download CV
-              </Button>
+              /in/jesus-o
+            </a>
+          </div>
+          <div>
+            <p className="text-[11px] uppercase tracking-wider text-foreground-muted mb-1">
+              GitHub
+            </p>
+            <a
+              href="https://github.com/Prometheus1993"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-underline text-foreground"
+            >
+              @Prometheus1993
             </a>
           </div>
         </div>
-      ),
-    },
-  ];
+      </FadeIn>
 
-  return (
-    <section className="py-16 md:py-24">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white">
-          Contact
-        </h2>
+      {/* Form */}
+      <FadeIn direction="up" delay={0.15}>
+        {status === "sent" ? (
+          <div className="border border-border p-5 text-sm">
+            <p className="font-serif text-lg text-foreground mb-1">
+              Message sent.
+            </p>
+            <p className="text-foreground-muted">
+              Thanks — I&apos;ll get back to you soon.
+            </p>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-4 text-sm">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label
+                  htmlFor="name"
+                  className="block text-[11px] uppercase tracking-wider text-foreground-muted mb-1"
+                >
+                  Name
+                </label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  value={formData.name}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
+                  className="w-full bg-transparent border-b border-border py-2 text-foreground focus:outline-none focus:border-foreground transition-colors"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-[11px] uppercase tracking-wider text-foreground-muted mb-1"
+                >
+                  Email
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  value={formData.email}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
+                  className="w-full bg-transparent border-b border-border py-2 text-foreground focus:outline-none focus:border-foreground transition-colors"
+                />
+              </div>
+            </div>
+            <div>
+              <label
+                htmlFor="message"
+                className="block text-[11px] uppercase tracking-wider text-foreground-muted mb-1"
+              >
+                Message
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                rows={4}
+                required
+                value={formData.message}
+                onChange={(e) =>
+                  setFormData({ ...formData, message: e.target.value })
+                }
+                className="w-full bg-transparent border-b border-border py-2 text-foreground focus:outline-none focus:border-foreground transition-colors resize-none"
+              />
+            </div>
 
-        <TabContainer
-          tabs={contactTabs}
-          defaultTabId="form"
-          transitionDirection="fade"
-          transitionDuration={0.3}
-          className="max-w-4xl mx-auto"
-          contentClassName="mt-1"
-        />
-      </div>
+            {status === "error" && (
+              <p className="text-xs text-foreground-muted">{errorMsg}</p>
+            )}
+
+            <button
+              type="submit"
+              disabled={status === "sending"}
+              className="link-underline text-foreground text-sm inline-flex items-center gap-2 disabled:opacity-50"
+            >
+              <span>{status === "sending" ? "Sending..." : "Send message"}</span>
+              <span aria-hidden="true">→</span>
+            </button>
+          </form>
+        )}
+      </FadeIn>
     </section>
   );
 };

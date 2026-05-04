@@ -1,26 +1,21 @@
 "use client";
 
-// src/components/sections/FeaturedProjectsSection.tsx
 import React from "react";
 import Link from "next/link";
-import ProjectCard from "@/components/ui/ProjectCard";
-import Button from "@/components/ui/Button";
-import { FaArrowRight } from "react-icons/fa";
 import FadeIn from "@/components/animations/FadeIn";
-import StaggerContainer from "@/components/animations/StaggerContainer";
 
-// Define the project interface
 interface Project {
   slug: string;
   title: string;
   overview: string;
-  excerpt?: string; // For MDX files
+  excerpt?: string;
   techStack?: string[];
-  tags?: string[]; // For MDX files
+  tags?: string[];
   imageUrl?: string;
-  coverImage?: string; // For MDX files
+  coverImage?: string;
   liveUrl?: string | null;
   repoUrl?: string | null;
+  date?: string;
 }
 
 interface FeaturedProjectsSectionProps {
@@ -30,61 +25,75 @@ interface FeaturedProjectsSectionProps {
 const FeaturedProjectsSection: React.FC<FeaturedProjectsSectionProps> = ({
   projects,
 }) => {
+  const getYear = (date?: string) => {
+    if (!date) return "";
+    const match = date.match(/\d{4}/);
+    return match ? match[0] : "";
+  };
+
   return (
-    <section className="py-16 md:py-24 bg-gray-50 dark:bg-gray-800">
-      <div className="container mx-auto px-4">
-        <FadeIn direction="up">
-          <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
-              Featured Projects
-            </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              A selection of my best work. These projects showcase my skills and
-              expertise.
-            </p>
-          </div>
-        </FadeIn>
+    <section className="max-w-5xl mx-auto px-6 md:px-10 pt-6 md:pt-8 pb-6">
+      <FadeIn direction="up">
+        <div className="flex items-baseline justify-between border-b border-border pb-2 mb-1">
+          <h2 className="font-serif text-lg md:text-xl text-foreground">
+            Selected work
+          </h2>
+          <Link
+            href="/projects"
+            className="text-xs text-foreground-muted hover:text-foreground transition-colors link-underline"
+          >
+            All projects →
+          </Link>
+        </div>
+      </FadeIn>
 
-        {projects.length > 0 ? (
-          <StaggerContainer staggerDelay={0.1} delay={0.2}>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 mb-12 ">
-              {projects.map((project) => (
-                <div key={project.slug}>
-                  <ProjectCard
-                    slug={project.slug}
-                    title={project.title}
-                    overview={project.overview || project.excerpt || ""}
-                    techStack={project.techStack}
-                    tags={project.tags}
-                    imageUrl={project.imageUrl || project.coverImage || ""}
-                    liveUrl={project.liveUrl}
-                    repoUrl={project.repoUrl}
-                  />
-                </div>
-              ))}
-            </div>
-          </StaggerContainer>
-        ) : (
-          <div className="text-center py-10">
-            <p className="text-gray-600 dark:text-gray-400">
-              No projects available yet.
-            </p>
-          </div>
-        )}
+      {projects.length > 0 ? (
+        <ul>
+          {projects.map((project, idx) => (
+            <FadeIn key={project.slug} direction="up" delay={0.05 * (idx + 1)}>
+              <li className="border-b border-border">
+                <Link
+                  href={`/projects/${project.slug}`}
+                  className="group grid grid-cols-12 gap-3 py-3 md:py-4 items-baseline transition-colors hover:bg-surface/40 -mx-3 px-3 rounded-sm"
+                >
+                  <div className="col-span-12 md:col-span-7">
+                    <h3 className="font-serif text-lg md:text-2xl text-foreground tracking-tight leading-tight group-hover:italic transition-all">
+                      {project.title}
+                    </h3>
+                    <p className="hidden md:block text-foreground-muted mt-1 text-sm leading-snug max-w-prose line-clamp-1">
+                      {project.overview || project.excerpt}
+                    </p>
+                  </div>
 
-        <FadeIn direction="up" delay={0.4}>
-          <div className="text-center">
-            <Link href="/projects">
-              <Button
-                variant="secondary"
-                className="inline-flex items-center hover:translate-x-1 transition-transform"
-              >
-                View all projects <FaArrowRight className="ml-2" />
-              </Button>
-            </Link>
-          </div>
-        </FadeIn>
-      </div>
+                  <div className="col-span-12 md:col-span-3 md:pt-2">
+                    <div className="flex flex-wrap gap-x-2 gap-y-0.5 text-[11px] text-foreground-muted">
+                      {(project.techStack || project.tags || [])
+                        .slice(0, 3)
+                        .map((tech) => (
+                          <span key={tech}>{tech}</span>
+                        ))}
+                    </div>
+                  </div>
+
+                  <div className="col-span-12 md:col-span-2 md:text-right md:pt-2">
+                    <span className="font-serif text-xs text-foreground-muted tabular-nums">
+                      {getYear(project.date)}
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="hidden md:inline-block ml-2 text-foreground-muted group-hover:translate-x-1 transition-transform"
+                    >
+                      →
+                    </span>
+                  </div>
+                </Link>
+              </li>
+            </FadeIn>
+          ))}
+        </ul>
+      ) : (
+        <p className="py-6 text-foreground-muted">No projects available yet.</p>
+      )}
     </section>
   );
 };

@@ -1,12 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import ProjectCard from "@/components/ui/ProjectCard";
+import React, { useState, useMemo } from "react";
+import Link from "next/link";
 import FadeIn from "@/components/animations/FadeIn";
-import TabContainer from "@/components/ui/TabContainer";
-import { FaSearch } from "react-icons/fa";
 
-// Define the type for the project prop
 interface Project {
   slug: string;
   title: string;
@@ -15,6 +12,7 @@ interface Project {
   imageUrl: string;
   liveUrl?: string | null;
   repoUrl?: string | null;
+  date?: string;
 }
 
 interface FilteredProjectsSectionProps {
@@ -24,129 +22,108 @@ interface FilteredProjectsSectionProps {
 const FilteredProjectsSection: React.FC<FilteredProjectsSectionProps> = ({
   projects,
 }) => {
-  // State for filtered projects
-  const [filteredProjects, setFilteredProjects] = useState<Project[]>(projects);
+  const allTechs = useMemo(
+    () => ["All", ...Array.from(new Set(projects.flatMap((p) => p.techStack))).sort()],
+    [projects]
+  );
 
-  // State for search query
-  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [activeTech, setActiveTech] = useState<string>("All");
 
-  // Extract all unique technologies from projects - fix de sortering
-  const allTechnologies = [
-    "All",
-    ...Array.from(
-      new Set(projects.flatMap((project) => project.techStack))
-    ).sort(),
-  ];
+  const filtered =
+    activeTech === "All"
+      ? projects
+      : projects.filter((p) => p.techStack.includes(activeTech));
 
-  // Filter projects by search query
-  useEffect(() => {
-    if (searchQuery.trim() === "") {
-      setFilteredProjects(projects);
-    } else {
-      const query = searchQuery.toLowerCase();
-      const filtered = projects.filter(
-        (project) =>
-          project.title.toLowerCase().includes(query) ||
-          project.overview.toLowerCase().includes(query) ||
-          project.techStack.some((tech) => tech.toLowerCase().includes(query))
-      );
-      setFilteredProjects(filtered);
-    }
-  }, [searchQuery, projects]);
-
-  // Handle search input change
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
+  const getYear = (date?: string) => {
+    if (!date) return "";
+    const match = date.match(/\d{4}/);
+    return match ? match[0] : "";
   };
 
-  // Create tab content for each technology
-  const techTabs = allTechnologies.map((tech) => {
-    // Filter projects based on the selected technology
-    const techProjects =
-      tech === "All"
-        ? filteredProjects
-        : filteredProjects.filter((project) =>
-            project.techStack.includes(tech)
-          );
-
-    return {
-      id: tech.toLowerCase().replace(/\s+/g, "-"),
-      label: tech,
-      content: (
-        <div className="mt-6">
-          {techProjects.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-              {techProjects.map((project) => (
-                <ProjectCard
-                  key={project.slug}
-                  slug={project.slug}
-                  title={project.title}
-                  overview={project.overview}
-                  techStack={project.techStack}
-                  imageUrl={project.imageUrl}
-                  liveUrl={project.liveUrl}
-                  repoUrl={project.repoUrl}
-                />
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-12">
-              <p className="text-gray-600 dark:text-gray-400">
-                No projects found with the technology &apos;{tech}&apos;
-                {searchQuery ? " and your search query" : ""}.
-              </p>
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery("")}
-                  className="text-primary-600 dark:text-primary-400 hover:underline mt-2"
-                >
-                  Clear search
-                </button>
-              )}
-            </div>
-          )}
-        </div>
-      ),
-    };
-  });
-
   return (
-    <section className="py-16 md:py-24">
-      <div className="container mx-auto px-4">
-        <FadeIn direction="up">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12 text-gray-900 dark:text-white">
-            My Projects
-          </h2>
-        </FadeIn>
+    <section className="max-w-5xl mx-auto px-6 md:px-10 pt-10 md:pt-14 pb-6">
+      <FadeIn direction="up">
+        <p className="text-xs uppercase tracking-[0.2em] text-foreground-muted mb-3">
+          Projects
+        </p>
+        <h1 className="font-serif text-3xl md:text-5xl leading-tight tracking-tight text-foreground mb-6 md:mb-8">
+          A list of things I&apos;ve built.
+        </h1>
+      </FadeIn>
 
-        {/* Search bar */}
-        <FadeIn direction="up" delay={0.1}>
-          <div className="relative max-w-md mx-auto mb-10">
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <FaSearch className="text-gray-500 dark:text-gray-400" />
-            </div>
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={handleSearchChange}
-              placeholder="    Search projects..."
-              className="block w-full pl-10 pr-4 py-3 text-sm bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-primary-500 focus:border-primary-500 text-gray-900 dark:text-white"
-            />
-          </div>
-        </FadeIn>
+      {/* Tech filter — text-only chips */}
+      <FadeIn direction="up" delay={0.1}>
+        <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs mb-3 pb-3 border-b border-border">
+          {allTechs.map((tech) => (
+            <button
+              key={tech}
+              onClick={() => setActiveTech(tech)}
+              className={`transition-colors ${
+                activeTech === tech
+                  ? "text-foreground"
+                  : "text-foreground-muted hover:text-foreground"
+              }`}
+            >
+              {tech}
+            </button>
+          ))}
+        </div>
+      </FadeIn>
 
-        {/* Projects tabs */}
-        <FadeIn direction="up" delay={0.2}>
-          <TabContainer
-            tabs={techTabs}
-            defaultTabId="all"
-            transitionDirection="fade"
-            transitionDuration={0.3}
-            className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6"
-            tabsClassName="flex flex-wrap -mb-6"
-          />
-        </FadeIn>
-      </div>
+      {filtered.length > 0 ? (
+        <ul>
+          {filtered.map((project, idx) => (
+            <FadeIn key={project.slug} direction="up" delay={0.04 * (idx + 1)}>
+              <li className="border-b border-border">
+                <Link
+                  href={`/projects/${project.slug}`}
+                  className="group grid grid-cols-12 gap-3 py-3 md:py-4 items-baseline transition-colors hover:bg-surface/40 -mx-3 px-3 rounded-sm"
+                >
+                  <div className="col-span-12 md:col-span-7">
+                    <h3 className="font-serif text-lg md:text-2xl text-foreground tracking-tight leading-tight group-hover:italic transition-all">
+                      {project.title}
+                    </h3>
+                    <p className="hidden md:block text-foreground-muted mt-1 text-sm leading-snug max-w-prose line-clamp-1">
+                      {project.overview}
+                    </p>
+                  </div>
+
+                  <div className="col-span-12 md:col-span-3 md:pt-2">
+                    <div className="flex flex-wrap gap-x-2 gap-y-0.5 text-[11px] text-foreground-muted">
+                      {project.techStack.slice(0, 3).map((tech) => (
+                        <span key={tech}>{tech}</span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="col-span-12 md:col-span-2 md:text-right md:pt-2">
+                    <span className="font-serif text-xs text-foreground-muted tabular-nums">
+                      {getYear(project.date)}
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="hidden md:inline-block ml-2 text-foreground-muted group-hover:translate-x-1 transition-transform"
+                    >
+                      →
+                    </span>
+                  </div>
+                </Link>
+              </li>
+            </FadeIn>
+          ))}
+        </ul>
+      ) : (
+        <p className="py-6 text-sm text-foreground-muted">
+          No projects with{" "}
+          <span className="text-foreground">&apos;{activeTech}&apos;</span>.{" "}
+          <button
+            onClick={() => setActiveTech("All")}
+            className="link-underline text-foreground"
+          >
+            Reset
+          </button>
+        </p>
+      )}
     </section>
   );
 };

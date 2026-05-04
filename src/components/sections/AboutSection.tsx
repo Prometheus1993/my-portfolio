@@ -1,254 +1,134 @@
 "use client";
 
-// src/components/sections/AboutSection.tsx
 import React from "react";
-import Image from "next/image";
-import { FaReact, FaNodeJs, FaDocker, FaGitAlt } from "react-icons/fa";
-import {
-  SiTypescript,
-  SiTailwindcss,
-  SiSharp,
-  SiPostgresql,
-  SiMongodb,
-  SiExpress,
-  SiSwift,
-  SiRaspberrypi,
-  SiNextdotjs,
-  SiAngular,
-} from "react-icons/si";
-import { FaJava } from "react-icons/fa";
-import profilePic from "../../../public/profilepic.png";
-import SkillCard from "@/components/ui/SkillCard";
 import FadeIn from "@/components/animations/FadeIn";
-import TabContainer from "@/components/ui/TabContainer";
 
-// Technologies bekeken tijdens mijn graduaat IT & Software
-const skillsByCategory = [
+const skills = [
+  { label: "Frontend", items: ["React", "Next.js", "Angular", "TypeScript", "JavaScript"] },
+  { label: "Backend & Data", items: ["Node.js", "Java", "C#", "MongoDB", "PostgreSQL"] },
+  { label: "Tools", items: ["GitHub", "Auth0", "Docker", "Autodesk Fusion"] },
+  { label: "AI", items: ["AI Agents", "LLM-integratie"] },
+];
+
+const education = [
   {
-    title: "Frontend",
-    skills: [
-      {
-        name: "React",
-        icon: <FaReact />,
-      },
-      {
-        name: "Angular",
-        icon: <SiAngular />,
-      },
-      {
-        name: "Next.js",
-        icon: <SiNextdotjs />,
-      },
-      {
-        name: "TypeScript",
-        icon: <SiTypescript />,
-      },
-      {
-        name: "Tailwind CSS",
-        icon: <SiTailwindcss />,
-      },
-    ],
+    degree: "Bachelor IT & Software (Verkort traject)",
+    school: "AP Hogeschool Antwerpen",
+    period: "2025 — 2027",
+    note: null,
   },
   {
-    title: "Backend",
-    skills: [
-      {
-        name: "Java",
-        icon: <FaJava />,
-      },
-      {
-        name: "C#",
-        icon: <SiSharp />,
-      },
-      {
-        name: "Node.js",
-        icon: <FaNodeJs />,
-      },
-      {
-        name: "Express.js",
-        icon: <SiExpress />,
-      },
-      {
-        name: "MongoDB",
-        icon: <SiMongodb />,
-      },
-      {
-        name: "PostgreSQL",
-        icon: <SiPostgresql />,
-      },
-    ],
-  },
-  {
-    title: "Tools & Other",
-    skills: [
-      {
-        name: "Docker",
-        icon: <FaDocker />,
-      },
-      {
-        name: "Git",
-        icon: <FaGitAlt />,
-      },
-      {
-        name: "Swift",
-        icon: <SiSwift />,
-      },
-      {
-        name: "Raspberry Pi",
-        icon: <SiRaspberrypi />,
-      },
-    ],
+    degree: "Graduaat Programmeren",
+    school: "AP Hogeschool Antwerpen",
+    period: "2023 — 2025",
+    note: "Met onderscheiding",
   },
 ];
 
+const interests = ["Homelabbing", "3D printen", "Technologietrends", "Fitness", "Gaming"];
+const languages = ["Engels (moedertaal)", "Nederlands (moedertaal)", "Frans (gevorderd beginner)"];
+
 const AboutSection = () => {
-  // Create tab content from skillsByCategory
-  const skillTabs = skillsByCategory.map((category) => ({
-    id: category.title.toLowerCase().replace(/\s+&\s+/g, '-'),
-    label: category.title,
-    content: (
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
-        {category.skills.map((skill) => (
-          <SkillCard
-            key={skill.name}
-            name={skill.name}
-            icon={skill.icon}
-          />
-        ))}
-      </div>
-    ),
-  }));
-
-  // Define about me content tab
-  const aboutMeTabs = [
-    {
-      id: "profile",
-      label: "Profile",
-      content: (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-center mt-6">
-          {/* Text Column - Order 2 on mobile, order 1 on desktop */}
-          <div className="md:col-span-2 space-y-6 text-lg text-gray-700 dark:text-gray-300 order-2 md:order-1">
-            <p>
-              Hi! I&apos;m Jesus O&apos;Bulan, a passionate IT & Software student
-              who enjoys working on both frontend and backend development. I recently graduated{" "}
-              <span className="font-semibold text-primary-700 dark:text-primary-300">
-                cum laude
-              </span>{" "}
-              with an Associate Degree in Programming from AP University College Antwerp
-              and am currently pursuing my Bachelor&apos;s in IT & Software.
-            </p>
-            <p>
-              I enjoy building applications that are both functional and user-friendly.
-              During my studies, I&apos;ve gained experience with various technologies
-              and frameworks, and I&apos;m always eager to learn new things. Recently,
-              I&apos;ve been working extensively with Angular and Java, alongside my
-              experience with React, TypeScript, and Node.js.
-            </p>
-            <p>
-              Additionally, I like experimenting with iOS development (Swift) and
-              home automation projects using Raspberry Pi. I believe in good
-              communication and teamwork, and I&apos;m always looking for new
-              challenges to further develop myself as a developer.
-            </p>
-          </div>
-
-          {/* Image Column - Order 1 on mobile, order 2 on desktop */}
-          <div className="md:col-span-1 flex justify-center order-1 md:order-2 mb-8 md:mb-0">
-            <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden shadow-lg">
-              <Image
-                src={profilePic}
-                alt="Profile photo of Jesus O'Bulan"
-                fill
-                className="object-cover"
-                priority
-              />
-            </div>
-          </div>
-        </div>
-      ),
-    },
-    {
-      id: "education",
-      label: "Education",
-      content: (
-        <div className="space-y-6 text-lg text-gray-700 dark:text-gray-300 mt-6">
-          <div className="border-l-4 border-green-500 pl-4">
-            <h4 className="font-bold">
-              Bachelor IT &amp; Software
-            </h4>
-            <p>AP University College Antwerp, 2025-2027</p>
-          </div>
-          <div className="border-l-4 border-primary-500 pl-4">
-            <h4 className="font-bold">Associate Degree in Programming</h4>
-            <p>
-              AP University College Antwerp, 2023-2025
-              <span className="ml-2 px-2 py-0.5 rounded bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200 text-sm font-medium align-middle">
-                <span className="italic">cum laude</span>
-              </span>
-            </p>
-          </div>
-        </div>
-      ),
-    },
-    {
-      id: "interests",
-      label: "Interests",
-      content: (
-        <div className="space-y-6 text-lg text-gray-700 dark:text-gray-300 mt-6">
-          <p>
-            Beyond coding, I&apos;m passionate about technology exploration,
-            including:
-          </p>
-          <ul className="list-disc pl-6 space-y-2">
-            <li>iOS development with Swift</li>
-            <li>Home automation with Raspberry Pi</li>
-            <li>Learning new programming languages and frameworks</li>
-            <li>Solving complex technical problems</li>
-            <li>Keeping up with industry trends and best practices</li>
-          </ul>
-        </div>
-      ),
-    },
-  ];
-
   return (
-    <section className="py-16 md:py-24">
-      <div className="container mx-auto px-4">
-        {/* --- About Me Section --- */}
-        <FadeIn direction="up">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white">
-            About Me
-          </h2>
-        </FadeIn>
+    <section className="max-w-5xl mx-auto px-6 md:px-10 pt-10 md:pt-14 pb-6">
+      <FadeIn direction="up">
+        <p className="text-xs uppercase tracking-[0.2em] text-foreground-muted mb-3">
+          About
+        </p>
+        <h1 className="font-serif text-3xl md:text-5xl leading-tight tracking-tight text-foreground mb-6 md:mb-8">
+          A few notes on me.
+        </h1>
+      </FadeIn>
 
-        {/* About Me Tab Container */}
-        <FadeIn direction="up" className="mb-16 md:mb-24">
-          <TabContainer
-            tabs={aboutMeTabs}
-            defaultTabId="profile"
-            transitionDirection="fade"
-            transitionDuration={0.4}
-            className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md"
-            contentClassName="mt-6"
-          />
-        </FadeIn>
+      <FadeIn direction="up" delay={0.1}>
+        <p className="text-sm md:text-base text-foreground-muted leading-relaxed max-w-2xl mb-8 md:mb-10">
+          I&apos;m a full-stack developer based in Antwerp. I recently completed
+          my Programming degree with distinction and now study IT &amp; Software
+          (fast-track) at AP Hogeschool. I enjoy clean architecture, modern web
+          frameworks, and the occasional 3D-printing project on the side.
+        </p>
+      </FadeIn>
 
-        {/* --- Skills Section --- */}
-        <FadeIn direction="up" className="mb-12">
-          <h3 className="text-3xl font-bold text-center mb-8 text-gray-900 dark:text-white">
-            Technologies
-          </h3>
-        </FadeIn>
+      {/* Two-column dense layout */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10">
+        {/* Left: Education + Languages */}
+        <div className="md:col-span-5 space-y-6">
+          <FadeIn direction="up" delay={0.15}>
+            <div>
+              <h2 className="font-serif text-base md:text-lg text-foreground border-b border-border pb-1 mb-2">
+                Education
+              </h2>
+              <ul className="space-y-2">
+                {education.map((edu) => (
+                  <li key={edu.degree} className="text-sm">
+                    <div className="flex items-baseline justify-between gap-2">
+                      <span className="text-foreground">{edu.degree}</span>
+                      <span className="text-xs text-foreground-muted tabular-nums whitespace-nowrap">
+                        {edu.period}
+                      </span>
+                    </div>
+                    <p className="text-xs text-foreground-muted">
+                      {edu.school}
+                      {edu.note && (
+                        <span className="italic"> · {edu.note}</span>
+                      )}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </FadeIn>
 
-        {/* Skills Tab Container */}
-        <TabContainer
-          tabs={skillTabs}
-          defaultTabId="frontend"
-          transitionDirection="fade"
-          transitionDuration={0.4}
-          className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md"
-          contentClassName="mt-6"
-        />
+          <FadeIn direction="up" delay={0.2}>
+            <div>
+              <h2 className="font-serif text-base md:text-lg text-foreground border-b border-border pb-1 mb-2">
+                Languages
+              </h2>
+              <ul className="text-sm text-foreground-muted space-y-1">
+                {languages.map((l) => (
+                  <li key={l}>{l}</li>
+                ))}
+              </ul>
+            </div>
+          </FadeIn>
+        </div>
+
+        {/* Right: Skills + Interests */}
+        <div className="md:col-span-7 space-y-6">
+          <FadeIn direction="up" delay={0.25}>
+            <div>
+              <h2 className="font-serif text-base md:text-lg text-foreground border-b border-border pb-1 mb-2">
+                Skills
+              </h2>
+              <dl className="space-y-1.5">
+                {skills.map((group) => (
+                  <div
+                    key={group.label}
+                    className="grid grid-cols-12 gap-3 text-sm"
+                  >
+                    <dt className="col-span-4 md:col-span-3 text-foreground-muted text-xs uppercase tracking-wider pt-0.5">
+                      {group.label}
+                    </dt>
+                    <dd className="col-span-8 md:col-span-9 text-foreground">
+                      {group.items.join(", ")}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </FadeIn>
+
+          <FadeIn direction="up" delay={0.3}>
+            <div>
+              <h2 className="font-serif text-base md:text-lg text-foreground border-b border-border pb-1 mb-2">
+                Interests
+              </h2>
+              <p className="text-sm text-foreground-muted">
+                {interests.join(" · ")}
+              </p>
+            </div>
+          </FadeIn>
+        </div>
       </div>
     </section>
   );

@@ -1,18 +1,31 @@
-// src/app/layout.tsx
 import type { Metadata } from "next";
-import "./globals.css"; // Behoud deze import voor Tailwind stijlen
+import { Inter, Instrument_Serif } from "next/font/google";
+import "./globals.css";
 
-// Importeer hier straks je Navbar en Footer componenten
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ScrollToTop from "@/components/ui/ScrollToTop";
+import ChatAssistant from "@/components/ui/ChatAssistant";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Analytics } from '@vercel/analytics/next';
+import { Analytics } from "@vercel/analytics/next";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-instrument-serif",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: "Jesus O'Bulan - Full-Stack Developer Portfolio",
+  title: "Jesus O'Bulan — Full-Stack Developer",
   description:
-    "Portfolio van Jesus O'Bulan, met projecten in React, Next.js, TypeScript en meer.",
+    "Portfolio of Jesus O'Bulan — Full-Stack Developer based in Antwerp. Projects in React, Next.js, TypeScript and more.",
 };
 
 export default function RootLayout({
@@ -21,24 +34,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      {/*
-        suppressHydrationWarning is added to prevent warnings when the theme changes during hydration.
-        
-        We don't add a default dark class here because our ThemeToggle component will 
-        handle adding it based on user preferences.
-      */}
-      <body className="flex flex-col min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${inter.variable} ${instrumentSerif.variable}`}
+    >
+      <body className="flex flex-col min-h-screen bg-background text-foreground antialiased">
         <Navbar />
-
-        <main className="flex-grow container mx-auto px-4 py-8">
-          {children}
-          <SpeedInsights />
-          <Analytics />
-        </main>
-
+        <main className="flex-grow">{children}</main>
         <Footer />
         <ScrollToTop />
+        <ChatAssistant />
+        <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );

@@ -1,61 +1,96 @@
-// src/components/layout/Navbar.tsx
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaBars, FaTimes } from "react-icons/fa";
+
+const navLinks = [
+  { href: "/", label: "Work" },
+  { href: "/about", label: "About" },
+  { href: "/projects", label: "Projects" },
+  { href: "/experience", label: "Experience" },
+];
 
 const Navbar = () => {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  // Function to determine if a link is active
-  const isActive = (path: string) => pathname === path;
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-  // Links array for easier management
-  const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
-    { href: "/projects", label: "Projects" },
-    { href: "/experience", label: "Experience" },
-    //{ href: "/contact", label: "Contact" },
-  ];
+  const isActive = (path: string) =>
+    path === "/" ? pathname === "/" : pathname.startsWith(path);
 
   return (
-    <nav className="bg-gray-100 dark:bg-gray-800 shadow-md transition-colors duration-200">
-      <div className="container mx-auto px-4 py-3">
-        <div className="flex justify-between items-center">
-          {/* Logo or Name */}
-          <Link
-            href="/"
-            className="text-xl font-bold text-primary-600 dark:text-primary-400"
-          >
-            Jesus O&apos;Bulan
-          </Link>
+    <nav
+      className={`sticky top-0 z-40 transition-all duration-300 ${
+        scrolled
+          ? "backdrop-blur-md bg-background/80 border-b border-border"
+          : "bg-transparent border-b border-transparent"
+      }`}
+    >
+      <div className="max-w-5xl mx-auto px-6 md:px-10 py-5 flex items-center justify-between">
+        <Link
+          href="/"
+          className="font-serif text-xl tracking-tight text-foreground hover:opacity-70 transition-opacity"
+        >
+          Jesus O&apos;Bulan
+        </Link>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center">
-            {/* Menu toggle button - larger touch target */}
-            <button
-              onClick={() => setMenuOpen(!menuOpen)}
-              className="text-gray-700 dark:text-gray-300 focus:outline-none flex items-center justify-center min-w-[44px] min-h-[44px] touch-manipulation"
-              aria-label={menuOpen ? "Close menu" : "Open menu"}
+        {/* Desktop nav */}
+        <div className="hidden md:flex items-center gap-8 text-sm">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`transition-colors ${
+                isActive(link.href)
+                  ? "text-foreground"
+                  : "text-foreground-muted hover:text-foreground"
+              }`}
             >
-              {menuOpen ? <FaTimes size={28} /> : <FaBars size={28} />}
-            </button>
-          </div>
+              {link.label}
+            </Link>
+          ))}
+        </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-6">
+        {/* Mobile toggle */}
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="md:hidden flex flex-col gap-1.5 p-2 -mr-2"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+        >
+          <span
+            className={`block w-5 h-px bg-foreground transition-transform ${
+              menuOpen ? "translate-y-[3px] rotate-45" : ""
+            }`}
+          />
+          <span
+            className={`block w-5 h-px bg-foreground transition-transform ${
+              menuOpen ? "-translate-y-[3px] -rotate-45" : ""
+            }`}
+          />
+        </button>
+      </div>
+
+      {/* Mobile menu */}
+      {menuOpen && (
+        <div className="md:hidden border-t border-border bg-background">
+          <div className="max-w-5xl mx-auto px-6 py-4 flex flex-col">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`${
+                onClick={() => setMenuOpen(false)}
+                className={`py-3 text-base ${
                   isActive(link.href)
-                    ? "text-primary-600 dark:text-primary-400 font-medium"
-                    : "text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
+                    ? "text-foreground"
+                    : "text-foreground-muted"
                 }`}
               >
                 {link.label}
@@ -63,29 +98,7 @@ const Navbar = () => {
             ))}
           </div>
         </div>
-
-        {/* Mobile Menu (Dropdown) - improved spacing and touch targets */}
-        {menuOpen && (
-          <div className="md:hidden pt-6 pb-4 border-t border-gray-200 dark:border-gray-700 mt-4">
-            <div className="flex flex-col space-y-1">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`${
-                    isActive(link.href)
-                      ? "text-primary-600 dark:text-primary-400 font-medium bg-primary-50 dark:bg-primary-900/20"
-                      : "text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-50 dark:hover:bg-gray-700"
-                  } py-3 px-4 rounded-md min-h-[44px] flex items-center text-base transition-colors duration-200 touch-manipulation`}
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
+      )}
     </nav>
   );
 };
