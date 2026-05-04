@@ -5,27 +5,27 @@ import FadeIn from "@/components/animations/FadeIn";
 
 const experiences = [
   {
-    role: "Barman",
-    company: "Zaowang — Sushirestaurant",
-    period: "Aug 2025 — Heden",
-    badge: "Studentenjob",
+    role: "Bartender",
+    company: "Zaowang — Sushi Restaurant",
+    period: "Aug 2025 — Present",
+    badge: "Student job",
     description: null,
   },
   {
-    role: "Software Development Stagiair",
+    role: "Software Development Intern",
     company: "Brightest",
-    period: "Feb 2025 — Mei 2025",
+    period: "Feb 2025 — May 2025",
     badge: null,
     description:
-      "Ontwikkelde testautomatiseringstools in een professionele softwareomgeving. Werkte samen met projectmanagers en stakeholders. Praktische ervaring met moderne ontwikkelworkflows en code reviews.",
+      "Developed test automation tools in a professional software environment. Collaborated with project managers and stakeholders. Practical experience with modern development workflows and code reviews.",
   },
   {
-    role: "Winkelmanager",
-    company: "Hans Anders Opticiens",
-    period: "Mrt 2021 — Aug 2023",
+    role: "Store Manager",
+    company: "Hans Anders Opticians",
+    period: "Mar 2021 — Aug 2023",
     badge: null,
     description:
-      "Leidde een team van 5 medewerkers. Beheerde inventarissystemen en paste zich flexibel aan aan snel veranderende prioriteiten.",
+      "Led a team of 5 associates. Managed inventory systems and adapted to rapidly changing priorities.",
   },
 ];
 

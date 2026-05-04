@@ -1,7 +1,7 @@
 export const portfolioData = {
   name: "Jesus O'Bulan",
   title: "Full-Stack Developer | Student IT & Software",
-  location: "2100 Antwerpen",
+  location: "2100 Antwerp, Belgium",
   contact: {
     email: "jesusobulan@hotmail.com",
     phone: "+32 483 41 66 01",
@@ -11,67 +11,63 @@ export const portfolioData = {
   },
   education: [
     {
-      degree: "Bachelor IT en Software (Verkort traject)",
-      school: "Artesis Plantijn Hogeschool Antwerpen",
+      degree: "Bachelor IT & Software (Fast-track)",
+      school: "AP University College of Antwerp",
       period: "Sep 2025 – Jun 2027",
-      status: "Lopend",
+      status: "Ongoing",
     },
     {
-      degree: "Graduaat Programmeren",
-      school: "Artesis Plantijn Hogeschool Antwerpen",
+      degree: "Associate Degree in Programming",
+      school: "AP University College of Antwerp",
       period: "Sep 2023 – Jun 2025",
-      status: "Afgerond met onderscheiding",
+      status: "Graduated with distinction",
     },
   ],
   projects: [
     {
       name: "Test Automation Code Generator",
       company: "Brightest",
-      period: "Feb 2025 – Mei 2025",
+      period: "Feb 2025 – May 2025",
       description:
-        "Tool om Page Object Models te extraheren uit GitHub-repositories en automatisch testcode te genereren.",
+        "A tool that extracts Page Object Models from GitHub repositories and automatically generates test code.",
       tech: ["React", "Next.js", "MongoDB", "Microsoft Authentication", "TypeScript", "C#"],
     },
     {
       name: "Atlas Copco Logger/Display App",
-      period: "Okt 2024 – Dec 2024",
+      period: "Oct 2024 – Dec 2024",
       description:
-        "Frontend developer voor industriële apparatuur data logging webapplicatie met Auth0-authenticatie en rolgebaseerd toegangssysteem.",
+        "Frontend developer for an industrial equipment data-logging web application with Auth0 authentication and role-based access control.",
       tech: ["TypeScript", "Auth0", "React"],
     },
   ],
   experience: [
     {
-      title: "Barman",
-      company: "Zaowang (Sushirestaurant)",
-      period: "Aug 2025 – Heden",
-      type: "Studentenjob",
+      title: "Bartender",
+      company: "Zaowang (Sushi Restaurant)",
+      period: "Aug 2025 – Present",
+      type: "Student job",
     },
     {
-      title: "Software Development Stagiair",
+      title: "Software Development Intern",
       company: "Brightest",
-      period: "Feb 2025 – Mei 2025",
+      period: "Feb 2025 – May 2025",
       description:
-        "Ontwikkelde testautomatiseringstools in een professionele omgeving. Werkte samen met projectmanagers en stakeholders. Praktische ervaring met moderne ontwikkelworkflows en code reviews.",
+        "Developed test automation tools in a professional environment. Collaborated with project managers and stakeholders. Practical experience with modern development workflows and code reviews.",
     },
     {
-      title: "Winkelmanager",
-      company: "Hans Anders Opticiens",
-      period: "Mrt 2021 – Aug 2023",
-      description: "Leidde een team van 5 medewerkers. Beheerde inventarissystemen.",
+      title: "Store Manager",
+      company: "Hans Anders Opticians",
+      period: "Mar 2021 – Aug 2023",
+      description: "Led a team of 5 associates. Managed inventory systems.",
     },
   ],
   skills: {
     frontend: ["React", "Next.js", "Angular", "TypeScript", "JavaScript"],
     backend: ["Node.js", "Java", "C#", "MongoDB", "PostgreSQL"],
     tools: ["GitHub", "Auth0", "Docker", "Autodesk Fusion"],
-    ai: ["AI Agents", "LLM-integratie"],
+    ai: ["AI Agents", "LLM integration"],
   },
-  languages: [
-    "Engels (moedertaal)",
-    "Nederlands (moedertaal)",
-    "Frans (gevorderd beginner)",
-  ],
-  drivingLicense: ["Categorie A (Motor)", "Categorie B (Auto)"],
-  interests: ["Homelabbing", "3D printen", "Technologietrends", "Fitness", "Gaming"],
+  languages: ["English (native)", "Dutch (native)", "French (intermediate)"],
+  drivingLicense: ["Category A (Motorcycle)", "Category B (Car)"],
+  interests: ["Homelabbing", "3D printing", "Tech trends", "Fitness", "Gaming"],
 };

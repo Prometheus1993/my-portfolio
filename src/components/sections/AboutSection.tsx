@@ -1,32 +1,34 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
+import profilePic from "../../../public/profilepic.png";
 import FadeIn from "@/components/animations/FadeIn";
 
 const skills = [
   { label: "Frontend", items: ["React", "Next.js", "Angular", "TypeScript", "JavaScript"] },
   { label: "Backend & Data", items: ["Node.js", "Java", "C#", "MongoDB", "PostgreSQL"] },
   { label: "Tools", items: ["GitHub", "Auth0", "Docker", "Autodesk Fusion"] },
-  { label: "AI", items: ["AI Agents", "LLM-integratie"] },
+  { label: "AI", items: ["AI Agents", "LLM integration"] },
 ];
 
 const education = [
   {
-    degree: "Bachelor IT & Software (Verkort traject)",
-    school: "AP Hogeschool Antwerpen",
+    degree: "Bachelor IT & Software (Fast-track)",
+    school: "AP University College of Antwerp",
     period: "2025 — 2027",
     note: null,
   },
   {
-    degree: "Graduaat Programmeren",
-    school: "AP Hogeschool Antwerpen",
+    degree: "Associate Degree in Programming",
+    school: "AP University College of Antwerp",
     period: "2023 — 2025",
-    note: "Met onderscheiding",
+    note: "With distinction",
   },
 ];
 
-const interests = ["Homelabbing", "3D printen", "Technologietrends", "Fitness", "Gaming"];
-const languages = ["Engels (moedertaal)", "Nederlands (moedertaal)", "Frans (gevorderd beginner)"];
+const interests = ["Homelabbing", "3D printing", "Tech trends", "Fitness", "Gaming"];
+const languages = ["English (native)", "Dutch (native)", "French (intermediate)"];
 
 const AboutSection = () => {
   return (
@@ -35,23 +37,47 @@ const AboutSection = () => {
         <p className="text-xs uppercase tracking-[0.2em] text-foreground-muted mb-3">
           About
         </p>
-        <h1 className="font-serif text-3xl md:text-5xl leading-tight tracking-tight text-foreground mb-6 md:mb-8">
-          A few notes on me.
-        </h1>
       </FadeIn>
 
-      <FadeIn direction="up" delay={0.1}>
-        <p className="text-sm md:text-base text-foreground-muted leading-relaxed max-w-2xl mb-8 md:mb-10">
-          I&apos;m a full-stack developer based in Antwerp. I recently completed
-          my Programming degree with distinction and now study IT &amp; Software
-          (fast-track) at AP Hogeschool. I enjoy clean architecture, modern web
-          frameworks, and the occasional 3D-printing project on the side.
-        </p>
-      </FadeIn>
+      {/* Heading + portrait */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start mb-8 md:mb-10">
+        <div className="md:col-span-9 order-2 md:order-1">
+          <FadeIn direction="up" delay={0.05}>
+            <h1 className="font-serif text-3xl md:text-5xl leading-tight tracking-tight text-foreground mb-5">
+              A few notes on me.
+            </h1>
+          </FadeIn>
+          <FadeIn direction="up" delay={0.1}>
+            <p className="text-sm md:text-base text-foreground-muted leading-relaxed max-w-2xl">
+              I&apos;m a full-stack developer based in Antwerp. I recently
+              completed my Programming degree with distinction and now study IT
+              &amp; Software (fast-track) at AP University College of Antwerp.
+              I enjoy clean architecture, modern web frameworks, and the
+              occasional 3D-printing project on the side.
+            </p>
+          </FadeIn>
+        </div>
+
+        <div className="md:col-span-3 order-1 md:order-2">
+          <FadeIn direction="up">
+            <div className="relative w-24 h-32 md:w-full md:h-auto md:aspect-[4/5] overflow-hidden rounded-sm grayscale hover:grayscale-0 transition-all duration-700">
+              <Image
+                src={profilePic}
+                alt="Portrait of Jesus O'Bulan"
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
+            <p className="hidden md:block mt-2 text-[11px] text-foreground-muted italic">
+              — A portrait, 2025
+            </p>
+          </FadeIn>
+        </div>
+      </div>
 
       {/* Two-column dense layout */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10">
-        {/* Left: Education + Languages */}
         <div className="md:col-span-5 space-y-6">
           <FadeIn direction="up" delay={0.15}>
             <div>
@@ -93,7 +119,6 @@ const AboutSection = () => {
           </FadeIn>
         </div>
 
-        {/* Right: Skills + Interests */}
         <div className="md:col-span-7 space-y-6">
           <FadeIn direction="up" delay={0.25}>
             <div>
