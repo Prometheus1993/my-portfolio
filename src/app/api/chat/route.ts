@@ -18,11 +18,11 @@ import {
 } from "@/lib/ai/guard";
 
 // ── Limits ──
-const RATE_LIMIT_MAX = 15;
+const RATE_LIMIT_MAX = 10;
 const RATE_WINDOW_MS = 60 * 60 * 1000; // 1 hour
 const MAX_INPUT_LENGTH = 500;
 const MAX_MESSAGES = 30; // total messages in conversation history
-const MAX_OUTPUT_TOKENS = 500;
+const MAX_OUTPUT_TOKENS = 300;
 
 // In-memory rate limiter (per-instance on Vercel, fine for a portfolio)
 const rateLimit = new Map<string, number[]>();
@@ -52,6 +52,26 @@ function jsonError(message: string, status: number) {
   });
 }
 
+// Only accept chat requests that come from the site itself. A scripted abuser
+// hitting the API directly usually has no matching Origin/Referer, so this
+// blocks the cheapest form of abuse before any (paid) model call is made.
+function isAllowedOrigin(req: NextRequest): boolean {
+  const source = req.headers.get("origin") || req.headers.get("referer") || "";
+  if (!source) return false;
+  try {
+    const host = new URL(source).hostname;
+    return (
+      host === "localhost" ||
+      host === "127.0.0.1" ||
+      host === "jesusobulan.xyz" ||
+      host.endsWith(".jesusobulan.xyz") ||
+      host.endsWith(".vercel.app")
+    );
+  } catch {
+    return false;
+  }
+}
+
 // Stream a canned refusal in the UI-message format, without calling the model.
 function refusalResponse() {
   const stream = createUIMessageStream({
@@ -66,6 +86,11 @@ function refusalResponse() {
 }
 
 export async function POST(req: NextRequest) {
+  // Block direct/cross-site abuse before doing anything else.
+  if (!isAllowedOrigin(req)) {
+    return jsonError("Forbidden.", 403);
+  }
+
   const ip = getClientIp(req);
 
   if (isRateLimited(ip)) {
@@ -107,11 +132,11 @@ export async function POST(req: NextRequest) {
   }
 
   const result = streamText({
-    model: google("gemini-2.5-flash"),
+    model: google("gemini-2.5-flash-lite"),
     system: buildSystemPrompt(),
     messages: await convertToModelMessages(messages),
     tools: portfolioTools,
-    stopWhen: stepCountIs(3), // allow: tool call → tool result → text answer
+    stopWhen: stepCountIs(2), // tool call, then the text answer
     maxOutputTokens: MAX_OUTPUT_TOKENS,
     onFinish: ({ text }) => {
       // Output monitoring: flag any canary / system-prompt leak for alerting.
