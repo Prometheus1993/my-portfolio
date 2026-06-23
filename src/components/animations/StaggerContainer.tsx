@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 interface StaggerContainerProps {
   children: React.ReactNode;
@@ -30,7 +30,7 @@ const StaggerContainer: React.FC<StaggerContainerProps> = ({
   };
 
   return (
-    <motion.div
+    <m.div
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -40,19 +40,19 @@ const StaggerContainer: React.FC<StaggerContainerProps> = ({
         // Only wrap direct children that aren't already motion components
         if (React.isValidElement(child) && typeof child.props === 'object' && child.props !== null && !('variants' in child.props)) {
           return (
-            <motion.div
+            <m.div
               variants={{
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0 },
               }}
             >
               {child}
-            </motion.div>
+            </m.div>
           );
         }
         return child;
       })}
-    </motion.div>
+    </m.div>
   );
 };
 

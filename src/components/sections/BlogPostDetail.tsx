@@ -108,7 +108,7 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
             <div className="mb-6">
               <Link
                 href="/blog"
-                className="inline-flex items-center text-primary-600 dark:text-primary-400 hover:underline"
+                className="inline-flex items-center text-accent hover:underline"
               >
                 <FaArrowLeft className="mr-2" size={12} />
                 Back to all posts
@@ -119,7 +119,7 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
             <div className="flex flex-wrap justify-center gap-2 mb-4">
               {post.tags.map((tag) => (
                 <Link key={tag} href={`/blog/tag/${tag.toLowerCase()}`}>
-                  <span className="inline-flex items-center text-xs font-medium px-2.5 py-0.5 rounded-full bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200">
+                  <span className="inline-flex items-center text-xs font-medium px-2.5 py-0.5 rounded-full bg-red-ink text-accent">
                     <FaTag className="mr-1" size={10} />
                     {tag}
                   </span>
@@ -128,12 +128,12 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
             </div>
 
             {/* Title */}
-            <h1 className="text-3xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
+            <h1 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">
               {post.title}
             </h1>
 
             {/* Meta info */}
-            <div className="flex flex-wrap justify-center items-center text-sm text-gray-500 dark:text-gray-400 mb-6 gap-x-4 gap-y-2">
+            <div className="flex flex-wrap justify-center items-center text-sm text-foreground-muted mb-6 gap-x-4 gap-y-2">
               <div className="flex items-center">
                 <FaCalendarAlt className="mr-1" size={12} />
                 <span>{formattedDate}</span>
@@ -146,16 +146,16 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 max-w-6xl mx-auto">
           {/* Main Content */}
           <FadeIn direction="up" delay={0.2} className="lg:col-span-3">
-            <div className="prose prose-lg dark:prose-invert max-w-none">
+            <div className="prose prose-yorha max-w-none">
               {/* Overview Section */}
               <section
                 id="overview"
-                className="mb-12 pb-12 border-b border-gray-200 dark:border-gray-700"
+                className="mb-12 pb-12 border-b border-border"
               >
-                <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+                <h2 className="text-2xl font-bold mb-6 text-foreground">
                   Overview
                 </h2>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                <p className="text-foreground-muted leading-relaxed">
                   {post.excerpt}
                 </p>
               </section>
@@ -167,17 +167,17 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
                   id={section.id}
                   className={`mb-12 pb-12 ${
                     index < post.sections.length - 1
-                      ? "border-b border-gray-200 dark:border-gray-700"
+                      ? "border-b border-border"
                       : ""
                   }`}
                 >
-                  <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white flex items-center">
+                  <h2 className="text-2xl font-bold mb-6 text-foreground flex items-center">
                     {section.title}
                     {section.emoji && (
                       <span className="ml-3 text-2xl">{section.emoji}</span>
                     )}
                   </h2>
-                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                  <p className="text-foreground-muted leading-relaxed">
                     {section.content}
                   </p>
                 </section>
@@ -189,8 +189,8 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
           <FadeIn direction="up" delay={0.3} className="lg:col-span-1">
             <aside className="sticky top-24 space-y-8">
               {/* Table of Contents */}
-              <div className="bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700">
-                <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white flex items-center">
+              <div className="bg-surface rounded-lg shadow-md p-6 border border-border">
+                <h3 className="text-lg font-semibold mb-4 text-foreground flex items-center">
                   <FaListUl className="mr-2" /> Table of Contents
                 </h3>
                 <nav className="space-y-2">
@@ -198,8 +198,8 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
                     onClick={() => scrollToSection("overview")}
                     className={`block w-full text-left px-3 py-2 rounded-md text-sm transition-all duration-200 ${
                       activeSection === "overview"
-                        ? "bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 font-medium"
-                        : "text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+                        ? "bg-red-ink text-accent font-medium"
+                        : "text-foreground-muted hover:bg-bone-raised"
                     }`}
                   >
                     Overview
@@ -210,8 +210,8 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
                       onClick={() => scrollToSection(section.id)}
                       className={`block w-full text-left px-3 py-2 rounded-md text-sm transition-all duration-200 ${
                         activeSection === section.id
-                          ? "bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 font-medium"
-                          : "text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+                          ? "bg-red-ink text-accent font-medium"
+                          : "text-foreground-muted hover:bg-bone-raised"
                       }`}
                     >
                       {section.title.split(":")[0]}
@@ -221,28 +221,28 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
               </div>
 
               {/* Share */}
-              <div className="bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700">
-                <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white flex items-center">
+              <div className="bg-surface rounded-lg shadow-md p-6 border border-border">
+                <h3 className="text-lg font-semibold mb-4 text-foreground flex items-center">
                   <FaShare className="mr-2" /> Share this post
                 </h3>
                 <div className="flex space-x-4">
                   <button
                     onClick={shareOnTwitter}
-                    className="p-2 bg-secondary-600 text-white rounded-full hover:bg-secondary-700 transition-colors"
+                    className="p-2 bg-ink text-bone rounded-full hover:bg-ink transition-colors"
                     aria-label="Share on Twitter"
                   >
                     <FaTwitter size={18} />
                   </button>
                   <button
                     onClick={shareOnLinkedIn}
-                    className="p-2 bg-secondary-700 text-white rounded-full hover:bg-secondary-800 transition-colors"
+                    className="p-2 bg-ink text-bone rounded-full hover:bg-ink transition-colors"
                     aria-label="Share on LinkedIn"
                   >
                     <FaLinkedin size={18} />
                   </button>
                   <button
                     onClick={shareOnFacebook}
-                    className="p-2 bg-secondary-900 text-white rounded-full hover:bg-secondary-950 transition-colors"
+                    className="p-2 bg-ink text-bone rounded-full hover:bg-ink transition-colors"
                     aria-label="Share on Facebook"
                   >
                     <FaFacebook size={18} />
@@ -251,14 +251,14 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
               </div>
 
               {/* Tags */}
-              <div className="bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700">
-                <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
+              <div className="bg-surface rounded-lg shadow-md p-6 border border-border">
+                <h3 className="text-lg font-semibold mb-4 text-foreground">
                   Tags
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {post.tags.map((tag) => (
                     <Link key={tag} href={`/blog/tag/${tag.toLowerCase()}`}>
-                      <span className="inline-flex items-center text-xs font-medium px-2.5 py-0.5 rounded-full bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200">
+                      <span className="inline-flex items-center text-xs font-medium px-2.5 py-0.5 rounded-full bg-red-ink text-accent">
                         {tag}
                       </span>
                     </Link>
@@ -273,7 +273,7 @@ const BlogPostDetail: React.FC<BlogPostDetailProps> = ({
         {relatedPosts.length > 0 && (
           <div className="mt-20">
             <FadeIn direction="up">
-              <h2 className="text-2xl font-bold mb-8 text-gray-900 dark:text-white">
+              <h2 className="text-2xl font-bold mb-8 text-foreground">
                 You might also like
               </h2>
             </FadeIn>

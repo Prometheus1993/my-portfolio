@@ -91,8 +91,8 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ sections: propSection
   }
 
   return (
-    <div className={`bg-gray-50 dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700 lg:sticky lg:top-24 ${className}`}>
-      <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white flex items-center">
+    <div className={`bg-surface rounded-lg shadow-md p-6 border border-border lg:sticky lg:top-24 ${className}`}>
+      <h3 className="text-lg font-semibold mb-4 text-foreground flex items-center">
         <FaListUl className="mr-2" /> Table of Contents
       </h3>
       <nav className="space-y-2">
@@ -102,8 +102,8 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ sections: propSection
             onClick={() => scrollToSection(section.id)}
             className={`block w-full text-left px-3 py-2 rounded-md text-sm transition-all duration-200 ${
               activeSection === section.id
-                ? "bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 font-medium"
-                : "text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+                ? "bg-red-ink text-accent font-medium"
+                : "text-foreground-muted hover:bg-bone-raised"
             }`}
           >
             {section.title}

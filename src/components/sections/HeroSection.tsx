@@ -1,62 +1,93 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import Link from "next/link";
-import FadeIn from "@/components/animations/FadeIn";
+import { gsap, useGSAP, prefersReducedMotion } from "@/lib/gsap";
+import { getAllCaseStudies } from "@/work/case-studies";
+import { portfolioData } from "@/data/portfolio-data";
+
+const ext = (u: string) => (u.startsWith("http") ? u : `https://${u}`);
+const studies = getAllCaseStudies();
 
 const HeroSection = () => {
+  const scope = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      if (prefersReducedMotion()) return;
+      gsap.from(".hero-line", {
+        y: 22,
+        opacity: 0,
+        duration: 0.6,
+        ease: "power2.out",
+        stagger: 0.07,
+      });
+    },
+    { scope }
+  );
+
   return (
-    <section className="max-w-5xl mx-auto px-6 md:px-10 pt-12 md:pt-20 pb-8 md:pb-12">
-      <div className="max-w-3xl">
-        <FadeIn direction="up">
-          <p className="text-xs uppercase tracking-[0.2em] text-foreground-muted mb-4">
-            Antwerp, Belgium
-          </p>
-        </FadeIn>
+    <section className="max-w-5xl mx-auto px-6 md:px-10 pt-14 md:pt-24 pb-10 md:pb-16">
+      <div ref={scope} className="max-w-3xl">
+        <p className="hero-line mb-6 flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground-muted">
+          <span aria-hidden className="inline-block h-1.5 w-1.5 bg-red-ink" />
+          Antwerp, BE
+          <span aria-hidden className="text-ink-muted/60">//</span>
+          Looking for a fullstack internship, spring 2027
+        </p>
 
-        <FadeIn direction="up" delay={0.1}>
-          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl leading-[1.05] tracking-tight text-foreground">
-            Jesus O&apos;Bulan
-          </h1>
-        </FadeIn>
+        <h1 className="hero-line font-display text-5xl md:text-7xl uppercase leading-[0.92] tracking-tight text-foreground">
+          Fullstack developer
+        </h1>
 
-        <FadeIn direction="up" delay={0.2}>
-          <p className="font-serif text-xl md:text-2xl text-foreground-muted italic mt-2 leading-snug">
-            Full-stack developer.
-          </p>
-        </FadeIn>
+        <p className="hero-line mt-5 max-w-2xl text-lg md:text-2xl leading-snug text-foreground">
+          I like building things that are put together well, and I use AI tools
+          to build faster.
+        </p>
 
-        <FadeIn direction="up" delay={0.3}>
-          <p className="text-sm md:text-base text-foreground-muted leading-relaxed mt-5 max-w-xl">
-            Currently studying IT &amp; Software at AP University College of
-            Antwerp, after graduating with distinction in Programming. I build
-            modern web applications with React, Next.js and Angular.
-          </p>
-        </FadeIn>
+        <p className="hero-line mt-5 font-mono text-xs uppercase tracking-[0.15em] text-foreground-muted">
+          CS student, AP Hogeschool Antwerpen
+        </p>
 
-        <FadeIn direction="up" delay={0.4}>
-          <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
+        {/* Immediate proof: jump straight to a case study */}
+        <div className="hero-line mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-xs uppercase tracking-[0.12em]">
+          <span className="text-foreground-muted">Selected work</span>
+          {studies.map((s) => (
             <Link
-              href="/projects"
-              className="link-underline text-foreground inline-flex items-center gap-2"
+              key={s.slug}
+              href={`/work/${s.slug}`}
+              className="group inline-flex items-center gap-1.5 text-foreground transition-colors hover:text-red-ink"
             >
-              <span>View projects</span>
-              <span aria-hidden="true">→</span>
+              <span aria-hidden className="text-red-ink">&gt;</span>
+              {s.shortTitle}
             </Link>
-            <Link
-              href="/experience"
-              className="link-underline text-foreground-muted hover:text-foreground transition-colors"
-            >
-              Experience
-            </Link>
-            <Link
-              href="/about"
-              className="link-underline text-foreground-muted hover:text-foreground transition-colors"
-            >
-              About
-            </Link>
-          </div>
-        </FadeIn>
+          ))}
+        </div>
+
+        <div className="hero-line mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-xs uppercase tracking-[0.12em] text-foreground-muted">
+          <a
+            href={ext(portfolioData.contact.github)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="transition-colors hover:text-foreground"
+          >
+            GitHub ↗
+          </a>
+          <a
+            href="/cv-jesus-obulan-en.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="transition-colors hover:text-foreground"
+          >
+            CV ↗
+          </a>
+          <a
+            href={`mailto:${portfolioData.contact.email}`}
+            className="transition-colors hover:text-foreground"
+          >
+            Email
+          </a>
+        </div>
       </div>
     </section>
   );

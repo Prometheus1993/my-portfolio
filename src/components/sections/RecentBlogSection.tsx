@@ -14,14 +14,14 @@ interface RecentBlogSectionProps {
 
 const RecentBlogSection: React.FC<RecentBlogSectionProps> = ({ posts }) => {
   return (
-    <section className="py-16 md:py-24 bg-gray-50 dark:bg-gray-800">
+    <section className="py-16 md:py-24 bg-surface">
       <div className="container mx-auto px-4">
         <FadeIn direction="up">
           <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
               Recent Blog Posts
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            <p className="text-lg text-foreground-muted max-w-2xl mx-auto">
               Insights, tutorials, and stories from my experiences as a
               developer.
             </p>
@@ -47,7 +47,7 @@ const RecentBlogSection: React.FC<RecentBlogSectionProps> = ({ posts }) => {
           </StaggerContainer>
         ) : (
           <div className="text-center py-10">
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-foreground-muted">
               No blog posts available yet.
             </p>
           </div>

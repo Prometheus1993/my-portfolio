@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 interface FadeInProps {
   children: React.ReactNode;
@@ -22,7 +22,7 @@ const FadeIn: React.FC<FadeInProps> = ({
 }) => {
   // Simple fade-in animation without scroll detection
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{
@@ -33,7 +33,7 @@ const FadeIn: React.FC<FadeInProps> = ({
       className={className}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 };
 

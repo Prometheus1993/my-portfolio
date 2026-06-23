@@ -1,21 +1,19 @@
-// src/app/page.tsx
-import HeroSection from "@/components/sections/HeroSection"; // Main hero section
-import FeaturedProjectsSection from "@/components/sections/FeaturedProjectsSection";
-import { getFeaturedProjectsData, getAllProjectsData } from "@/projects";
+import HeroSection from "@/components/sections/HeroSection";
+import SelectedWorkSection from "@/components/sections/SelectedWorkSection";
+import CapabilitiesSection from "@/components/sections/CapabilitiesSection";
+import AboutSummarySection from "@/components/sections/AboutSummarySection";
+import AskSection from "@/components/sections/AskSection";
+import ContactSection from "@/components/sections/ContactSection";
 
 export default function Home() {
-  // Get featured projects first
-  let featuredProjects = getFeaturedProjectsData();
-
-  // If no projects are marked as featured, fall back to the most recent projects
-  if (featuredProjects.length === 0) {
-    featuredProjects = getAllProjectsData().slice(0, 3);
-  }
-
   return (
     <>
-      <HeroSection /> {/* Main hero section */}
-      <FeaturedProjectsSection projects={featuredProjects} />
+      <HeroSection />
+      <SelectedWorkSection />
+      <CapabilitiesSection />
+      <AboutSummarySection />
+      <AskSection />
+      <ContactSection />
     </>
   );
 }

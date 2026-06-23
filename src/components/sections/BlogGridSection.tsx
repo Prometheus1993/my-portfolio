@@ -97,13 +97,13 @@ const BlogGridSection: React.FC<BlogGridSectionProps> = ({
             </div>
           ) : (
             <div className="text-center py-12">
-              <p className="text-gray-600 dark:text-gray-400 mb-4">
+              <p className="text-foreground-muted mb-4">
                 No posts found matching your criteria.
               </p>
               {searchQuery && (
                 <button
                   onClick={clearSearch}
-                  className="text-primary-600 dark:text-primary-400 hover:underline"
+                  className="text-accent hover:underline"
                 >
                   Clear search
                 </button>
@@ -119,10 +119,10 @@ const BlogGridSection: React.FC<BlogGridSectionProps> = ({
     <section className="py-16 md:py-24">
       <div className="container mx-auto px-4">
         <FadeIn direction="up">
-          <h1 className="text-3xl md:text-5xl font-bold text-center mb-6 text-gray-900 dark:text-white">
+          <h1 className="text-3xl md:text-5xl font-bold text-center mb-6 text-foreground">
             Blog
           </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400 text-center max-w-2xl mx-auto mb-12">
+          <p className="text-lg text-foreground-muted text-center max-w-2xl mx-auto mb-12">
             Thoughts, tutorials, and insights about development, technology, and
             my experiences.
           </p>
@@ -132,14 +132,14 @@ const BlogGridSection: React.FC<BlogGridSectionProps> = ({
         <FadeIn direction="up" delay={0.1}>
           <div className="relative max-w-md mx-auto mb-10">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <FaSearch className="text-gray-500 dark:text-gray-400" />
+              <FaSearch className="text-foreground-muted" />
             </div>
             <input
               type="text"
               value={searchQuery}
               onChange={handleSearchChange}
               placeholder="Search posts..."
-              className="block w-full pl-10 pr-4 py-3 text-sm bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-primary-500 focus:border-primary-500 text-gray-900 dark:text-white shadow-sm"
+              className="block w-full pl-10 pr-4 py-3 text-sm bg-surface border border-border rounded-lg focus:ring-line focus:border-accent text-foreground shadow-sm"
             />
           </div>
         </FadeIn>
@@ -153,7 +153,7 @@ const BlogGridSection: React.FC<BlogGridSectionProps> = ({
               .replace(/\s+/g, "-")}
             transitionDirection="fade"
             transitionDuration={0.3}
-            className="bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700"
+            className="bg-surface rounded-lg shadow-md p-6 border border-border"
             tabsClassName="flex flex-wrap -mb-6"
           />
         </FadeIn>

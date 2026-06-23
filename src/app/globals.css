@@ -1,57 +1,95 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+/*
+ * ────────────────────────────────────────────────────────────────────
+ *  YoRHa design tokens  —  near-monochrome bone / khaki / ink + one red
+ * ────────────────────────────────────────────────────────────────────
+ *  Single theme (no dark mode). Every text/background pair below is
+ *  contrast-locked; the measured WCAG ratios live in src/lib/contrast.ts
+ *  and are enforced by scripts/check-contrast.mjs in CI.
+ *
+ *  Body text  = --ink on --bone           → 5.73:1  (AA normal ✓)
+ *  Muted text = --ink-muted on --bone      → 4.90:1  (AA normal ✓)
+ *  Hairlines  = --line on --bone           → 4.12:1  (AA large / UI ✓)
+ *  --red      = vivid accent (2.65:1)       → NON-text / large-decorative ONLY
+ *  --red-ink  = accessible red (3.88:1)     → focus / active / borders / large text
+ */
 :root {
-  /* Cream / warm palette — Anthropic-inspired */
-  --background: #faf9f5;
-  --surface: #f0eee6;
-  --foreground: #1f1e1c;
-  --foreground-muted: #6a6660;
-  --border: #e3dfd5;
-  --accent: #cc785c;
-}
+  --bone:        #c7c3ae; /* base surface */
+  --bone-raised: #d0ccb8; /* raised panel / card */
+  --khaki:       #b3ae97; /* secondary fill — NON-text only */
+  --ink:         #454138; /* body text */
+  --ink-muted:   #4f4b43; /* metadata / secondary text */
+  --line:        #5a564c; /* hairline rules & borders */
+  --red:         #bb5533; /* vivid accent — non-text / large-decorative only */
+  --red-ink:     #9c3b1c; /* accessible red — focus / active / border / large text */
 
-.dark, [data-theme="dark"] {
-  --background: #1a1916;
-  --surface: #22211e;
-  --foreground: #f0eee6;
-  --foreground-muted: #a8a39a;
-  --border: #3a3833;
-  --accent: #e3a78f;
+  /* motion */
+  --duration-fast: 120ms;
+  --duration-base: 240ms;
+  --duration-slow: 600ms;
+  --ease-hud:  cubic-bezier(0.2, 0, 0, 1);
+  --ease-step: steps(8, end);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-surface: var(--surface);
-  --color-foreground: var(--foreground);
-  --color-foreground-muted: var(--foreground-muted);
-  --color-border: var(--border);
-  --color-accent: var(--accent);
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
-}
+  /* raw palette → utilities (bg-bone, text-ink, border-line, …) */
+  --color-bone:        var(--bone);
+  --color-bone-raised: var(--bone-raised);
+  --color-khaki:       var(--khaki);
+  --color-ink:         var(--ink);
+  --color-ink-muted:   var(--ink-muted);
+  --color-line:        var(--line);
+  --color-red:         var(--red);
+  --color-red-ink:     var(--red-ink);
 
-@media (prefers-color-scheme: dark) {
-  :root:not(.light) {
-    --background: #1a1916;
-    --surface: #22211e;
-    --foreground: #f0eee6;
-    --foreground-muted: #a8a39a;
-    --border: #3a3833;
-    --accent: #e3a78f;
-  }
+  /* semantic aliases — keep existing bg-background/text-foreground/… working */
+  --color-background:       var(--bone);
+  --color-surface:          var(--bone-raised);
+  --color-foreground:       var(--ink);
+  --color-foreground-muted: var(--ink-muted);
+  --color-border:           var(--line);
+  --color-accent:           var(--red-ink);
+
+  /* fonts */
+  --font-display: var(--font-oswald), ui-sans-serif, system-ui, sans-serif;
+  --font-mono:    var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-body:    var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  /* back-compat aliases for existing font-sans / font-serif utilities */
+  --font-sans:    var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif:   var(--font-oswald), ui-sans-serif, system-ui, sans-serif;
+
+  /* motion */
+  --ease-hud:  cubic-bezier(0.2, 0, 0, 1);
 }
 
 html {
   scroll-behavior: smooth;
 }
 
+/* Lenis smooth scroll (official baseline). When Lenis is active it drives the
+   scroll itself, so native scroll-behavior must yield to it. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--bone);
+  color: var(--ink);
   font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   font-feature-settings: "ss01", "cv01";
   -webkit-font-smoothing: antialiased;
@@ -59,18 +97,55 @@ body {
 }
 
 ::selection {
-  background: var(--accent);
-  color: var(--background);
+  background: var(--red-ink);
+  color: var(--bone);
 }
 
-/* Editorial heading styles */
-.font-serif {
-  font-family: var(--font-instrument-serif), ui-serif, Georgia, serif;
-  font-feature-settings: "lnum";
-  letter-spacing: -0.01em;
+/* ── Display headings: condensed grotesque (Oswald) ── */
+.font-serif,
+.font-display {
+  font-family: var(--font-oswald), ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.01em;
 }
 
-/* Subtle link underline animation */
+/* ── HUD label: uppercase mono, the bracketed-metadata voice ── */
+.hud-label {
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.7rem;
+  line-height: 1.2;
+  color: var(--ink-muted);
+}
+
+/* ── Dithered "paper / old screen" background (static, near-free) ── */
+.dither-bg {
+  background-color: var(--bone);
+  background-image:
+    linear-gradient(45deg, rgba(69, 65, 56, 0.03) 25%, transparent 25%, transparent 75%, rgba(69, 65, 56, 0.03) 75%),
+    linear-gradient(45deg, rgba(69, 65, 56, 0.03) 25%, transparent 25%, transparent 75%, rgba(69, 65, 56, 0.03) 75%);
+  background-size: 4px 4px;
+  background-position: 0 0, 2px 2px;
+  box-shadow: inset 0 0 140px rgba(69, 65, 56, 0.12);
+}
+
+/* ── Scanline overlay (used by ScanlineOverlay; single fixed layer) ── */
+.scanlines {
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent 0,
+    transparent 2px,
+    rgba(69, 65, 56, 0.05) 2px,
+    rgba(69, 65, 56, 0.05) 4px
+  );
+}
+@keyframes hud-flicker {
+  0%, 97%, 100% { opacity: 0.5; }
+  98%           { opacity: 0.42; }
+  99%           { opacity: 0.55; }
+}
+
+/* ── Subtle link underline animation (carried over from editorial style) ── */
 a.link-underline {
   background-image: linear-gradient(currentColor, currentColor);
   background-size: 0% 1px;
@@ -82,6 +157,26 @@ a.link-underline:hover {
   background-size: 100% 1px;
 }
 
+/* ── Case-study / blog prose, themed to YoRHa tokens ── */
+.prose-yorha {
+  --tw-prose-body: var(--ink);
+  --tw-prose-headings: var(--ink);
+  --tw-prose-lead: var(--ink-muted);
+  --tw-prose-links: var(--red-ink);
+  --tw-prose-bold: var(--ink);
+  --tw-prose-counters: var(--ink-muted);
+  --tw-prose-bullets: var(--line);
+  --tw-prose-hr: var(--line);
+  --tw-prose-quotes: var(--ink-muted);
+  --tw-prose-quote-borders: var(--red-ink);
+  --tw-prose-captions: var(--ink-muted);
+  --tw-prose-code: var(--ink);
+  --tw-prose-pre-code: var(--bone);
+  --tw-prose-pre-bg: var(--ink);
+  --tw-prose-th-borders: var(--line);
+  --tw-prose-td-borders: var(--line);
+}
+
 @media (max-width: 640px) {
   button, a, input, select, textarea {
     min-height: 44px;
@@ -91,9 +186,17 @@ a.link-underline:hover {
   }
 }
 
+/* ── Reduced motion: kill decorative animation everywhere ── */
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  .scanlines {
+    animation: none !important;
   }
 }

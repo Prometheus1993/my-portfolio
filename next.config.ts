@@ -25,13 +25,27 @@ const nextConfig: NextConfig = {
   
   // Configureer images
   images: {
-    domains: ['placehold.co'],
+    formats: ['image/avif', 'image/webp'],
+    remotePatterns: [
+      { protocol: 'https', hostname: 'placehold.co' },
+    ],
   },
   eslint: {
     ignoreDuringBuilds: true,
   },
-  
-  // Andere Next.js config opties indien nodig
+
+  // Old routes folded into the one-page home + /work/[slug] case studies.
+  async redirects() {
+    return [
+      { source: '/projects', destination: '/#work', permanent: true },
+      { source: '/projects/road-to-ragnarok', destination: '/work/road-to-ragnarok', permanent: true },
+      { source: '/projects/brightest-pom-generator', destination: '/work/brightest', permanent: true },
+      { source: '/projects/:slug*', destination: '/#work', permanent: false },
+      { source: '/about', destination: '/#about', permanent: true },
+      { source: '/experience', destination: '/#work', permanent: true },
+      { source: '/contact', destination: '/#contact', permanent: true },
+    ];
+  },
 };
 
 // Pas MDX plugin toe op de Next.js configuratie

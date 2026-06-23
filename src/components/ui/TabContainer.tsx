@@ -115,7 +115,7 @@ const TabContainer: React.FC<TabContainerProps> = ({
         {showScrollButtons && showLeftScroll && (
           <button
             onClick={scrollLeft}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-gray-100 dark:bg-gray-700 rounded-full shadow-md p-1 text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-surface rounded-full shadow-md p-1 text-foreground-muted hover:bg-bone-raised"
             aria-label="Scroll left"
           >
             <FaChevronLeft size={16} />
@@ -124,7 +124,7 @@ const TabContainer: React.FC<TabContainerProps> = ({
 
         <div
           ref={tabsRef}
-          className={`flex overflow-x-auto scrollbar-hide py-1 mb-6 border-b border-gray-200 dark:border-gray-700 ${tabsClassName}`}
+          className={`flex overflow-x-auto scrollbar-hide py-1 mb-6 border-b border-border ${tabsClassName}`}
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           {tabs.map((tab) => (
@@ -133,8 +133,8 @@ const TabContainer: React.FC<TabContainerProps> = ({
               data-tab-id={tab.id}
               className={`py-2 px-4 text-sm font-medium transition duration-200 flex-shrink-0 whitespace-nowrap ${
                 activeTabId === tab.id
-                  ? "text-primary-600 dark:text-primary-400 border-b-2 border-primary-600 dark:border-primary-400"
-                  : "text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400"
+                  ? "text-accent border-b-2 border-accent"
+                  : "text-foreground-muted hover:text-accent"
               }`}
               onClick={() => handleTabClick(tab.id)}
             >
@@ -146,7 +146,7 @@ const TabContainer: React.FC<TabContainerProps> = ({
         {showScrollButtons && showRightScroll && (
           <button
             onClick={scrollRight}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-gray-100 dark:bg-gray-700 rounded-full shadow-md p-1 text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-surface rounded-full shadow-md p-1 text-foreground-muted hover:bg-bone-raised"
             aria-label="Scroll right"
           >
             <FaChevronRight size={16} />

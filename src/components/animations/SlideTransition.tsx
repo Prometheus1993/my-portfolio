@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 
 interface SlideTransitionProps {
   children: React.ReactNode;
@@ -64,7 +64,7 @@ const SlideTransition: React.FC<SlideTransitionProps> = ({
   return (
     <AnimatePresence mode="wait">
       {isActive && (
-        <motion.div
+        <m.div
           className={className}
           initial="hidden"
           animate="visible"
@@ -77,7 +77,7 @@ const SlideTransition: React.FC<SlideTransitionProps> = ({
           }}
         >
           {children}
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

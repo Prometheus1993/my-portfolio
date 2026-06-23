@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 interface HoverScaleCardProps {
   children: React.ReactNode;
@@ -17,9 +17,9 @@ const HoverScaleCard: React.FC<HoverScaleCardProps> = ({
   duration = 0.3,
 }) => {
   return (
-    <motion.div
+    <m.div
       className={className}
-      whileHover={{ 
+      whileHover={{
         scale: scale,
         boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)',
         zIndex: 1
@@ -27,7 +27,7 @@ const HoverScaleCard: React.FC<HoverScaleCardProps> = ({
       transition={{ duration: duration }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 };
 
