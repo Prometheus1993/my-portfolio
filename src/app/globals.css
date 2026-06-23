@@ -3,7 +3,7 @@
 
 /*
  * ────────────────────────────────────────────────────────────────────
- *  YoRHa design tokens  —  near-monochrome bone / khaki / ink + one red
+ *  YoRHa design tokens: near-monochrome bone / khaki / ink + one red
  * ────────────────────────────────────────────────────────────────────
  *  Single theme (no dark mode). Every text/background pair below is
  *  contrast-locked; the measured WCAG ratios live in src/lib/contrast.ts
@@ -13,17 +13,17 @@
  *  Muted text = --ink-muted on --bone      → 4.90:1  (AA normal ✓)
  *  Hairlines  = --line on --bone           → 4.12:1  (AA large / UI ✓)
  *  --red      = vivid accent (2.65:1)       → NON-text / large-decorative ONLY
- *  --red-ink  = accessible red (3.88:1)     → focus / active / borders / large text
+ *  --red-ink  = accessible red (4.56:1)     → small text OK: markers, labels, carets, active
  */
 :root {
   --bone:        #c7c3ae; /* base surface */
   --bone-raised: #d0ccb8; /* raised panel / card */
-  --khaki:       #b3ae97; /* secondary fill — NON-text only */
+  --khaki:       #b3ae97; /* secondary fill, NON-text only */
   --ink:         #454138; /* body text */
   --ink-muted:   #4f4b43; /* metadata / secondary text */
   --line:        #5a564c; /* hairline rules & borders */
-  --red:         #bb5533; /* vivid accent — non-text / large-decorative only */
-  --red-ink:     #9c3b1c; /* accessible red — focus / active / border / large text */
+  --red:         #bb5533; /* vivid accent, non-text / large-decorative only */
+  --red-ink:     #902f10; /* accessible red, safe for small text (>=4.5:1 on bone) */
 
   /* motion */
   --duration-fast: 120ms;
@@ -44,7 +44,7 @@
   --color-red:         var(--red);
   --color-red-ink:     var(--red-ink);
 
-  /* semantic aliases — keep existing bg-background/text-foreground/… working */
+  /* semantic aliases, keep existing bg-background/text-foreground/… working */
   --color-background:       var(--bone);
   --color-surface:          var(--bone-raised);
   --color-foreground:       var(--ink);

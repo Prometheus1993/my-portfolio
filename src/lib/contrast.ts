@@ -19,7 +19,7 @@ export const PALETTE = {
   "ink-muted": "#4f4b43",
   line: "#5a564c",
   red: "#bb5533",
-  "red-ink": "#9c3b1c",
+  "red-ink": "#902f10",
 } as const;
 
 export type Token = keyof typeof PALETTE;
@@ -45,9 +45,9 @@ export const APPROVED_PAIRS: ApprovedPair[] = [
   { fg: "ink", bg: "bone-raised", min: 4.5, usage: "Body text on raised panel" },
   { fg: "ink-muted", bg: "bone", min: 4.5, usage: "Muted / metadata text" },
   { fg: "line", bg: "bone", min: 3, usage: "Hairline borders & rules" },
-  { fg: "red-ink", bg: "bone", min: 3, usage: "Accent: focus ring / active / large heading / border" },
+  { fg: "red-ink", bg: "bone", min: 4.5, usage: "Accent text: section markers, labels, carets, active state" },
   { fg: "bone", bg: "ink", min: 4.5, usage: "Inverted: bone text on ink fill (buttons)" },
-  { fg: "bone", bg: "red-ink", min: 3, usage: "Bone text on red-ink fill (active marker, large/UI only)" },
+  { fg: "bone", bg: "red-ink", min: 4.5, usage: "Bone text on red-ink fill" },
 ];
 
 function srgbToLinear(channel: number): number {

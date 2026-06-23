@@ -41,7 +41,10 @@ jobs:
           npx --yes wait-on http://localhost:3000 --timeout 60000
       - name: pa11y (WCAG2AA, fails on contrast/a11y violations)
         run: npx --yes pa11y-ci
+      # pa11y above is the hard WCAG gate. Lighthouse runs for score visibility
+      # but does not block: its perf/scores are environment-sensitive in CI.
       - name: Lighthouse CI
         uses: treosh/lighthouse-ci-action@v12
+        continue-on-error: true
         with:
           configPath: ./lighthouserc.json

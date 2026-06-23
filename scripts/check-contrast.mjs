@@ -28,9 +28,9 @@ const APPROVED_PAIRS = [
   { fg: "ink", bg: "bone-raised", min: 4.5, usage: "Body text on raised panel" },
   { fg: "ink-muted", bg: "bone", min: 4.5, usage: "Muted / metadata text" },
   { fg: "line", bg: "bone", min: 3, usage: "Hairline borders & rules" },
-  { fg: "red-ink", bg: "bone", min: 3, usage: "Accent: focus / active / large / border" },
+  { fg: "red-ink", bg: "bone", min: 4.5, usage: "Accent text: markers, labels, carets, active" },
   { fg: "bone", bg: "ink", min: 4.5, usage: "Inverted text on ink fill" },
-  { fg: "bone", bg: "red-ink", min: 3, usage: "Bone text on red-ink fill (large/UI)" },
+  { fg: "bone", bg: "red-ink", min: 4.5, usage: "Bone text on red-ink fill" },
 ];
 
 const srgbToLinear = (ch) => {
