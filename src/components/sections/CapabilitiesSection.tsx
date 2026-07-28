@@ -13,7 +13,7 @@ const groups: {
 }[] = [
   {
     label: "Frontend",
-    items: ["Angular (signals, reactive forms)", "React", "TypeScript", "Tailwind"],
+    items: ["React", "TypeScript", "Tailwind"],
     provenIn: { label: "Ragnarök", slug: "road-to-ragnarok" },
   },
   {

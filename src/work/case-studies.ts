@@ -1,8 +1,10 @@
 import { CaseStudy } from "./types";
 
-// Copy for Road to Ragnarok and Wedding Hub is from spec-2.md (sections 4.1, 4.2),
-// used close to verbatim in a plain first-person voice. Brightest is restructured
-// from the existing on-site copy into the same template, with no invented facts.
+// Wedding Hub copy is from spec-2.md (section 4.2), used close to verbatim in a
+// plain first-person voice. Brightest is restructured from the existing on-site
+// copy. Road to Ragnarok was refreshed 2026-07-28 against the live repo (489
+// tests / 55 files verified by running the suite; 112 achievements counted in
+// the registry) — same plain first-person voice, no invented facts.
 
 const roadToRagnarok: CaseStudy = {
   slug: "road-to-ragnarok",
@@ -13,34 +15,34 @@ const roadToRagnarok: CaseStudy = {
   status: "ongoing",
   year: "2026",
   summary:
-    "An app that takes my real data, Garmin runs, gym sessions, weigh-ins, recovery numbers, plus the books, manga, games and exams I track, and turns it into RPG-style stats, a daily \"should I train hard or rest\" call, quests and trophies. It looks like a NieR:Automata YoRHa status screen. Everything runs on my own machine with no cloud and no account.",
+    "A local-first app that turns my real life into an RPG status screen: Garmin runs, gym sessions, PlayStation trophies, books, manga and exams all feed one engine that computes stats, a daily \"train hard or rest\" call, quests and 112 trophies — styled like a NieR:Automata YoRHa terminal. Everything runs on my own machine: no cloud, no account, no subscription.",
   meta: [
-    { label: "Role", value: "Solo, I designed and built all of it" },
-    { label: "Context", value: "Personal project, still working on it" },
+    { label: "Role", value: "Solo — designed and built all of it" },
+    { label: "Context", value: "Personal project, in daily use and still growing" },
     {
       label: "Stack",
       value:
-        "TypeScript, React + Vite, SQLite, Vitest for tests, the Anthropic SDK, a Garmin data connector, Open-Meteo for weather",
+        "TypeScript monorepo, React + Vite, SQLite, Vitest, the Anthropic SDK plus an optional Gemini layer, Garmin and PlayStation Network connectors, Open-Meteo for weather",
     },
-    { label: "Tests", value: "~198" },
+    { label: "Tests", value: "489, all green" },
   ],
   techStack: ["TypeScript", "React", "SQLite", "Vitest"],
   problem:
-    "I wanted one place that treats real-life progress like a game: training, studying, reading and gaming all shown as stats and quests. The fun part is the game layer, but the part I cared most about is that the numbers are honest. If the stats are made up or change randomly, the whole thing is pointless. So my main goal was that every stat is calculated the same way every time from my real data, and that I could test it.",
+    "I wanted one place that treats real-life progress like a game: training, studying, reading and gaming all shown as stats and quests. The fun part is the game layer, but the part I cared most about is that the numbers are honest. If a stat can drift or change randomly, the whole thing is pointless. So the hard requirement was determinism: every stat is calculated the same way every time from my real data, and every calculation is testable.",
   whatIBuilt:
-    "All of it, on my own. The app pulls runs and recovery data in from Garmin, I log my gym sessions and weigh-ins as I go, and I add books, manga, games and exams by hand. From all of that it builds three training stats, a daily readiness recommendation, a Ragnarok-themed quest log, and around a hundred trophies. There is a command-line tool for importing and a React dashboard for viewing it.",
+    "All of it, solo. A TypeScript monorepo where a pure calculation core sits behind a repository interface, with adapters around it for the messy outside world: a Garmin connector that pulls new runs and recovery data with one button, a PlayStation Network sync that keeps my trophy list and playtime honest, importers for gym sessions, weigh-ins, books, manga and exams, and a weather backfill via Open-Meteo. Every sync is idempotent — re-running an import can never duplicate data. On top of that core: three training stats, a daily readiness call, a study planner for my exam resits, a Ragnarök quest log and 112 trophies. A React dashboard renders everything from one read-only JSON contract; a CLI covers it all headless.",
   decisions: [
     {
       title: "I split the app into a thinking part and a messy part",
-      body: "One part only does the calculations and nothing else. The other part deals with the annoying outside stuff: reading files, talking to the database, fetching weather. Keeping them apart made the calculation part much easier to test, because I could feed it data and check the answer without any of the messy stuff in the way.",
+      body: "One package only does calculations — pure functions, no database, no network, not even a system clock (time is injected). Everything messy lives in adapters around it: file parsing, SQLite, HTTP. It's a ports-and-adapters setup in plain terms, and it's why 489 tests run fast and never flake: I feed the core data and check the answer with nothing in the way.",
     },
     {
       title: "I made the app refuse to mix kilograms and pounds",
-      body: "Early on I was worried about accidentally treating a weight in pounds as if it were in kilograms, which would quietly wreck a stat. So I set it up so the code complains if I ever try to mix the two, instead of letting it slip through silently.",
+      body: "Early on I was worried about accidentally treating a weight in pounds as if it were kilograms, which would quietly wreck a stat. So units are branded types: the compiler refuses to mix the two instead of letting it slip through silently.",
     },
     {
       title: "I gave the screen one clear thing to show",
-      body: "Instead of the dashboard reaching into all the calculations itself, the app builds one tidy summary object and the screen just shows that. So when I change how a stat is calculated, the screen doesn't break, because it only ever reads that one summary.",
+      body: "Instead of the dashboard reaching into all the calculations itself, the app builds one read-only summary object and the screen just renders that. When I change how a stat is calculated, the UI doesn't break — it only ever reads that one contract.",
     },
     {
       title: "I put all the unit conversions in one place",
@@ -51,19 +53,23 @@ const roadToRagnarok: CaseStudy = {
       body: "A lot of apps use \"220 minus your age\" to set heart-rate zones, but that is just a rough rule of thumb and it was wrong for me. I used my actual tested max, so the zones are right.",
     },
     {
-      title: "I used AI for one small job only",
-      body: "The Anthropic SDK is in there, but only to read a coaching schedule I paste in and turn it into a dated plan. The rest of the app is written by hand and stays predictable.",
+      title: "Derived, never stored",
+      body: "A rule I kept re-applying: anything that can be computed from the data never gets its own column. Whether an exam is passed derives from the grade, whether a manga series is finished derives from the volumes I've read, whether a game counts as synced derives from the sync data itself. Stored flags drift out of sync with reality; derived values can't lie.",
+    },
+    {
+      title: "AI is in there, but fenced in",
+      body: "The stats never touch AI — they stay deterministic. AI does the narrow jobs it's genuinely good at: parsing a pasted coaching schedule into dated sessions, writing a short weekly coach's read. Every AI feature is opt-in behind an API key and silently skips without one, responses are cached so unchanged data costs zero tokens, and a budget guard rejects a truncated answer instead of caching half a sentence — a bug I actually shipped twice before building the guard.",
     },
   ],
   outcome:
-    "It works and I use it. Around 198 tests, and a live dashboard where I can drop a Garmin export onto it and watch it update. Still an ongoing personal project.",
-  // TODO (Jesus): replace with your real two or three lines (what was hard, what you'd clean up, a feature you want next).
+    "In daily use — it's literally how I decide whether to train hard today. 489 tests across 55 files, all green; new Garmin and PlayStation data lands with one button each; dropping an export file anywhere on the dashboard imports it. The game layer is what makes it fun; the determinism is what makes it true.",
   whatIdChange:
-    "Next up: I want to clean up how new data sources get added, and maybe let it sync between machines so it is not tied to one computer.",
+    "Strength sessions still come in by hand — wiring them in from Garmin's strength tracking is next. The audit trail that makes every corrected number traceable covers strength today but not yet every conversion; I want to finish that. And it's tied to one machine by design — at some point I'll want it to sync between two.",
   links: {
     note: "It runs locally, so there is no hosted demo. A short screen-recording of the dashboard plus this writeup does the job.",
   },
-  aiUsage: "Only the schedule parser uses AI. The rest is hand-written.",
+  aiUsage:
+    "AI parses pasted schedules and writes a short weekly summary — opt-in, cached and budget-guarded. Every stat and every coaching number is hand-written, deterministic code.",
 };
 
 const weddingHub: CaseStudy = {
