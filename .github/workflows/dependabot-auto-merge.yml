@@ -2,14 +2,15 @@ name: Dependabot auto-merge
 
 on: pull_request
 
-permissions:
-  contents: write
-  pull-requests: write
+permissions: {}
 
 jobs:
   auto-merge:
     name: Auto-merge safe Dependabot PRs
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'Prometheus1993/my-portfolio'
     steps:
       - name: Fetch Dependabot metadata
