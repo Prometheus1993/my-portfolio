@@ -24,13 +24,14 @@ jobs:
       # PRs update-type is the highest bump in the group, so any minor or major
       # in the group blocks auto-merge. Dev PRs are identified by Dependabot
       # group name, so the group names below must stay in sync with
-      # .github/dependabot.yml.
+      # .github/dependabot.yml. Security updates (any group) are never
+      # auto-merged, because their diffs can move other packages beyond the
+      # named dependency (see PR #18).
       - name: Enable auto-merge
         if: >-
           steps.metadata.outputs.update-type == 'version-update:semver-patch' &&
           (steps.metadata.outputs.package-ecosystem == 'github_actions' ||
-          steps.metadata.outputs.dependency-group == 'dev-minor-patch' ||
-          steps.metadata.outputs.dependency-group == 'dev-security')
+          steps.metadata.outputs.dependency-group == 'dev-minor-patch')
         run: gh pr merge --auto --squash "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
