@@ -1,16 +1,13 @@
 // @ts-check
 import { type NextConfig } from 'next';
 import createMDX from '@next/mdx';
-import remarkGfm from 'remark-gfm';
-import rehypeSlug from 'rehype-slug';
-import rehypeHighlight from 'rehype-highlight';
 
 // Definieer plugin types
 const withMDX = createMDX({
   extension: /\.mdx?$/,
   options: {
-    remarkPlugins: [remarkGfm],
-    rehypePlugins: [rehypeSlug, rehypeHighlight],
+    remarkPlugins: ['remark-gfm'],
+    rehypePlugins: ['rehype-slug', 'rehype-highlight'],
     providerImportSource: "@mdx-js/react",
   },
 });
@@ -29,9 +26,6 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { protocol: 'https', hostname: 'placehold.co' },
     ],
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
   },
 
   // Old routes folded into the one-page home + /work/[slug] case studies.
