@@ -42,9 +42,25 @@ export default function CommandPalette() {
   const router = useRouter();
   const { open, setOpen } = useCommandPalette();
 
+  const ALLOWED_HOSTS: string[] = []; // ACTION REQUIRED: Add your allowed hosts before merging
+  const isSafeExternalUrl = (url: string, allowedHosts: string[]) => {
+    if (!url) return false;
+    try {
+      const parsed = new URL(String(url).replace(/[\t\n\r]/g, ""));
+      if (parsed.protocol !== "http:" && parsed.protocol !== "https:") return false;
+      return allowedHosts.some(function (h) {
+        return parsed.hostname === h || parsed.hostname.endsWith("." + h);
+      });
+    } catch (e) {
+      return false;
+    }
+  };
+
   const go = (href: string, external = false) => {
     setOpen(false);
-    if (external) window.open(href, "_blank", "noopener,noreferrer");
+    if (external) {
+      if (isSafeExternalUrl(href, ALLOWED_HOSTS)) window.open(href, "_blank", "noopener,noreferrer");
+    }
     else router.push(href);
   };
 
