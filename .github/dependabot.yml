@@ -1,0 +1,41 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "deps"
+      prefix-development: "deps-dev"
+    # Minor and patch bumps are grouped. Major bumps are not grouped, so each
+    # one gets its own PR.
+    groups:
+      prod-minor-patch:
+        applies-to: version-updates
+        dependency-type: production
+        update-types: [minor, patch]
+      dev-minor-patch:
+        applies-to: version-updates
+        dependency-type: development
+        update-types: [minor, patch]
+      prod-security:
+        applies-to: security-updates
+        dependency-type: production
+        update-types: [minor, patch]
+      dev-security:
+        applies-to: security-updates
+        dependency-type: development
+        update-types: [minor, patch]
+
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+    commit-message:
+      prefix: "ci"
+    groups:
+      actions:
+        patterns: ["*"]

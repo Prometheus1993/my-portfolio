@@ -1,0 +1,37 @@
+name: Dependabot auto-merge
+
+on: pull_request
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-merge:
+    name: Auto-merge safe Dependabot PRs
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'Prometheus1993/my-portfolio'
+    steps:
+      - name: Fetch Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      # Policy: only patch bumps of dev dependencies or GitHub Actions are
+      # auto-merged (once required checks pass). Runtime (production)
+      # dependencies, minors and majors always need a human review. On grouped
+      # PRs update-type is the highest bump in the group, so any minor or major
+      # in the group blocks auto-merge. Dev PRs are identified by Dependabot
+      # group name, so the group names below must stay in sync with
+      # .github/dependabot.yml.
+      - name: Enable auto-merge
+        if: >-
+          steps.metadata.outputs.update-type == 'version-update:semver-patch' &&
+          (steps.metadata.outputs.package-ecosystem == 'github_actions' ||
+          steps.metadata.outputs.dependency-group == 'dev-minor-patch' ||
+          steps.metadata.outputs.dependency-group == 'dev-security')
+        run: gh pr merge --auto --squash "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
