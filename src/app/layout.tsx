@@ -42,7 +42,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Jesus O'Bulan, Fullstack Developer",
+  title: "Jesus O.Bulan, Fullstack Developer",
   description:
     "Fullstack developer in Antwerp. I like building things that are put together well, and I use AI tools to build faster. Case studies in TypeScript, Next.js, Angular and .NET.",
 };

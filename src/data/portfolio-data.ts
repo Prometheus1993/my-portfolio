@@ -1,5 +1,5 @@
 export const portfolioData = {
-  name: "Jesus O'Bulan",
+  name: "Jesus O.Bulan",
   title: "Full-Stack Developer | Student IT & Software",
   location: "2100 Antwerp, Belgium",
   contact: {

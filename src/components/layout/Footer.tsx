@@ -26,7 +26,7 @@ const Footer = () => {
       <div className="max-w-5xl mx-auto px-6 md:px-10 py-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div className="flex flex-col gap-1">
           <p className="font-mono text-xs uppercase tracking-[0.18em] text-foreground-muted">
-            © {year} Jesus O&apos;Bulan
+            © {year} Jesus O.Bulan
           </p>
           <HudReadout label="STATUS" value="OPERATIONAL" />
         </div>

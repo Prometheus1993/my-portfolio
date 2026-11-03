@@ -35,4 +35,4 @@ export function isOutputSafe(text: string): boolean {
 }
 
 export const REFUSAL_MESSAGE =
-  "I can only help with questions about Jesus O'Bulan and his portfolio, his projects, skills, experience, education, and how to reach him. What would you like to know?";
+  "I can only help with questions about Jesus O.Bulan and his portfolio, his projects, skills, experience, education, and how to reach him. What would you like to know?";

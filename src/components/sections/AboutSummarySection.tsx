@@ -45,7 +45,7 @@ const AboutSummarySection = () => {
               <div className="group relative h-32 w-24 overflow-hidden grayscale transition-all duration-700 hover:grayscale-0 md:h-auto md:w-full md:aspect-[4/5]">
                 <Image
                   src={profilePic}
-                  alt="Portrait of Jesus O'Bulan"
+                  alt="Portrait of Jesus O.Bulan"
                   fill
                   sizes="(max-width: 768px) 96px, 25vw"
                   className="object-cover"

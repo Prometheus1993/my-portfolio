@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const study = getCaseStudyBySlug(slug);
   if (!study) return { title: "Work" };
   return {
-    title: `${study.title}, Jesus O'Bulan`,
+    title: `${study.title}, Jesus O.Bulan`,
     description: study.summary,
   };
 }

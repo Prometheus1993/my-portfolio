@@ -42,7 +42,7 @@ const Navbar = () => {
           className="group flex items-baseline gap-2 text-foreground transition-opacity hover:opacity-70"
         >
           <span className="font-display text-lg uppercase tracking-[0.2em]">
-            Jesus O&apos;Bulan
+            Jesus O.Bulan
           </span>
           <span className="hidden font-mono text-[10px] uppercase tracking-[0.2em] text-ink-muted sm:inline">
             [UNIT:DEV]
