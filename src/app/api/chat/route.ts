@@ -2,9 +2,10 @@ import { google } from "@ai-sdk/google";
 import {
   streamText,
   convertToModelMessages,
-  stepCountIs,
+  isStepCount,
   createUIMessageStream,
   createUIMessageStreamResponse,
+  toUIMessageStream,
   UIMessage,
 } from "ai";
 import { NextRequest } from "next/server";
@@ -136,7 +137,7 @@ export async function POST(req: NextRequest) {
     system: buildSystemPrompt(),
     messages: await convertToModelMessages(messages),
     tools: portfolioTools,
-    stopWhen: stepCountIs(2), // tool call, then the text answer
+    stopWhen: isStepCount(2), // tool call, then the text answer
     maxOutputTokens: MAX_OUTPUT_TOKENS,
     onFinish: ({ text }) => {
       // Output monitoring: flag any canary / system-prompt leak for alerting.
@@ -146,5 +147,7 @@ export async function POST(req: NextRequest) {
     },
   });
 
-  return result.toUIMessageStreamResponse();
+  return createUIMessageStreamResponse({
+    stream: toUIMessageStream({ stream: result.stream, tools: portfolioTools }),
+  });
 }
