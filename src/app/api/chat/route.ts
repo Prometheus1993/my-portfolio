@@ -1,8 +1,11 @@
 import { google } from "@ai-sdk/google";
 import {
-  generateText,
+  streamText,
   convertToModelMessages,
   isStepCount,
+  createUIMessageStream,
+  createUIMessageStreamResponse,
+  toUIMessageStream,
   UIMessage,
 } from "ai";
 import { NextRequest } from "next/server";
@@ -110,71 +113,58 @@ export async function POST(req: NextRequest) {
     return jsonError("Conversation too long. Please start a new chat.", 400);
   }
 
-  // Build a safe, server-controlled history from client input:
-  // - only allow expected roles
-  // - keep text parts only
-  // - sanitize all text
-  // - run injection detection on every user turn
+  // Build a server-controlled history from client input. Client-sent
+  // assistant turns carry no provenance, so they are ignored; only user text
+  // parts reach the model. Every user turn is length-checked, sanitized and
+  // injection-scanned, not only the latest.
   const safeMessages: UIMessage[] = [];
   for (const m of messages) {
-    if (m.role !== "user" && m.role !== "assistant") {
+    if (m.role === "assistant") continue;
+    if (m.role !== "user") {
       return jsonError("Invalid message role.", 400);
     }
 
-    const textParts = (m.parts ?? [])
-      .filter((p) => p.type === "text")
-      .map((p) => ({ type: "text" as const, text: sanitizeInput((p as { type: "text"; text: string }).text, MAX_INPUT_LENGTH) }));
+    const rawText = (m.parts ?? [])
+      .filter((p): p is { type: "text"; text: string } => p.type === "text" && typeof p.text === "string")
+      .map((p) => p.text)
+      .join("");
 
-    const joinedText = textParts.map((p) => p.text).join("");
-    if (joinedText.length > MAX_INPUT_LENGTH) {
+    if (rawText.length > MAX_INPUT_LENGTH) {
       return jsonError("Message too long.", 400);
     }
 
-    if (joinedText && detectInjection(joinedText)) {
+    const text = sanitizeInput(rawText, MAX_INPUT_LENGTH);
+    if (detectInjection(text)) {
       return refusalResponse();
     }
 
     safeMessages.push({
-      ...m,
-      parts: textParts,
+      id: m.id,
+      role: "user",
+      parts: [{ type: "text", text }],
     });
   }
 
-  // Latest user text is still checked explicitly for existing behavior parity.
-  const lastUserMessage = [...safeMessages].reverse().find((m) => m.role === "user");
-  const lastText =
-    lastUserMessage?.parts
-      ?.filter((p) => p.type === "text")
-      .map((p) => (p as { type: "text"; text: string }).text)
-      .join("") ?? "";
-
-  if (lastText.length > MAX_INPUT_LENGTH) {
-    return jsonError("Message too long.", 400);
+  if (safeMessages.length === 0) {
+    return jsonError("No messages provided.", 400);
   }
 
-  // Defense-in-depth: latest turn check remains in place.
-  const sanitized = sanitizeInput(lastText, MAX_INPUT_LENGTH);
-  if (detectInjection(sanitized)) {
-    return refusalResponse();
-  }
-
-  const result = await generateText({
+  const result = streamText({
     model: google("gemini-2.5-flash-lite"),
     system: buildSystemPrompt(),
     messages: await convertToModelMessages(safeMessages),
     tools: portfolioTools,
     stopWhen: isStepCount(2), // tool call, then the text answer
     maxOutputTokens: MAX_OUTPUT_TOKENS,
+    onFinish: ({ text }) => {
+      // Output monitoring: flag any canary / system-prompt leak for alerting.
+      if (text && !isOutputSafe(text)) {
+        console.warn("[ai-guard] potential prompt leak detected in output");
+      }
+    },
   });
 
-  const text = result.text ?? "";
-  if (text && !isOutputSafe(text)) {
-    console.warn("[ai-guard] blocked potential prompt leak in output");
-    return refusalResponse();
-  }
-
-  return new Response(text, {
-    status: 200,
-    headers: { "Content-Type": "text/plain; charset=utf-8" },
+  return createUIMessageStreamResponse({
+    stream: toUIMessageStream({ stream: result.stream, tools: portfolioTools }),
   });
 }
