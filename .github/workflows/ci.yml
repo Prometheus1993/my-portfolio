@@ -19,6 +19,8 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      - name: Lint
+        run: npm run lint
       # Fast, deterministic gates — no browser needed.
       - name: WCAG contrast gate
         run: npm run test:contrast
