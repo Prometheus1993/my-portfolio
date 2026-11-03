@@ -14,7 +14,7 @@ const AboutSummarySection = () => {
     >
       <FadeIn direction="up">
         <h2 className="mb-6 border-b border-line pb-2 font-mono text-xs uppercase tracking-[0.2em] text-foreground-muted">
-          <span className="text-red-ink">//</span> About
+          <span className="text-red-ink">{"//"}</span> About
         </h2>
       </FadeIn>
 

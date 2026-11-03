@@ -16,7 +16,6 @@ const StaggerContainer: React.FC<StaggerContainerProps> = ({
   delay = 0,
   staggerDelay = 0.1,
   className = '',
-  once = true,
 }) => {
   const containerVariants = {
     hidden: { opacity: 0 },

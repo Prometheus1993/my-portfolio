@@ -51,7 +51,7 @@ export default function CommandPalette() {
       return allowedHosts.some(function (h) {
         return parsed.hostname === h || parsed.hostname.endsWith("." + h);
       });
-    } catch (e) {
+    } catch {
       return false;
     }
   };

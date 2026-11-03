@@ -50,14 +50,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
 
   // Try to get the post, but handle the case where it's not found
+  let post: Awaited<ReturnType<typeof getPostBySlug>>;
   try {
-    const post = await getPostBySlug(slug);
-    const relatedPosts = getRelatedPosts(slug, 3);
-
-    return <BlogPostDetail post={post} relatedPosts={relatedPosts} />;
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (error) {
+    post = await getPostBySlug(slug);
+  } catch {
     // If the post isn't found, return a 404 page
     notFound();
   }
+  const relatedPosts = getRelatedPosts(slug, 3);
+
+  return <BlogPostDetail post={post} relatedPosts={relatedPosts} />;
 }
