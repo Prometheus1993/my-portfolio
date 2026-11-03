@@ -1,11 +1,8 @@
 import { google } from "@ai-sdk/google";
 import {
-  streamText,
+  generateText,
   convertToModelMessages,
   isStepCount,
-  createUIMessageStream,
-  createUIMessageStreamResponse,
-  toUIMessageStream,
   UIMessage,
 } from "ai";
 import { NextRequest } from "next/server";
@@ -132,22 +129,23 @@ export async function POST(req: NextRequest) {
     return refusalResponse();
   }
 
-  const result = streamText({
+  const result = await generateText({
     model: google("gemini-2.5-flash-lite"),
     system: buildSystemPrompt(),
     messages: await convertToModelMessages(messages),
     tools: portfolioTools,
     stopWhen: isStepCount(2), // tool call, then the text answer
     maxOutputTokens: MAX_OUTPUT_TOKENS,
-    onFinish: ({ text }) => {
-      // Output monitoring: flag any canary / system-prompt leak for alerting.
-      if (text && !isOutputSafe(text)) {
-        console.warn("[ai-guard] potential prompt leak detected in output");
-      }
-    },
   });
 
-  return createUIMessageStreamResponse({
-    stream: toUIMessageStream({ stream: result.stream, tools: portfolioTools }),
+  const text = result.text ?? "";
+  if (text && !isOutputSafe(text)) {
+    console.warn("[ai-guard] blocked potential prompt leak in output");
+    return refusalResponse();
+  }
+
+  return new Response(text, {
+    status: 200,
+    headers: { "Content-Type": "text/plain; charset=utf-8" },
   });
 }
