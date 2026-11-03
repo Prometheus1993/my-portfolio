@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useSyncExternalStore } from "react";
 import { ReactLenis, useLenis } from "lenis/react";
 import { ScrollTrigger, prefersReducedMotion } from "@/lib/gsap";
 
@@ -19,12 +19,16 @@ function ScrollTriggerBridge() {
  * Children pass through untouched, so the tree below stays RSC. Under
  * prefers-reduced-motion, lerp is 1 (instant) and wheel smoothing is off.
  */
-export default function SmoothScroll({ children }: { children: React.ReactNode }) {
-  const [reduce, setReduce] = useState(false);
+const REDUCE_QUERY = "(prefers-reduced-motion: reduce)";
 
-  useEffect(() => {
-    setReduce(prefersReducedMotion());
-  }, []);
+function subscribeReduce(onChange: () => void) {
+  const mql = window.matchMedia(REDUCE_QUERY);
+  mql.addEventListener("change", onChange);
+  return () => mql.removeEventListener("change", onChange);
+}
+
+export default function SmoothScroll({ children }: { children: React.ReactNode }) {
+  const reduce = useSyncExternalStore(subscribeReduce, prefersReducedMotion, () => false);
 
   return (
     <ReactLenis root options={{ lerp: reduce ? 1 : 0.1, smoothWheel: !reduce }}>

@@ -32,7 +32,7 @@ const HeroSection = () => {
         <p className="hero-line mb-6 flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground-muted">
           <span aria-hidden className="inline-block h-1.5 w-1.5 bg-red-ink" />
           Antwerp, BE
-          <span aria-hidden className="text-ink-muted/60">//</span>
+          <span aria-hidden className="text-ink-muted/60">{"//"}</span>
           Looking for a fullstack internship, spring 2027
         </p>
 

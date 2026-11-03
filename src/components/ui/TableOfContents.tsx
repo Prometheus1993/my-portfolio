@@ -14,14 +14,13 @@ interface TableOfContentsProps {
 }
 
 const TableOfContents: React.FC<TableOfContentsProps> = ({ sections: propSections, className = "" }) => {
-  const [sections, setSections] = useState<Section[]>([]);
+  const [detectedSections, setDetectedSections] = useState<Section[]>([]);
+  const sections = propSections ?? detectedSections;
   const [activeSection, setActiveSection] = useState<string>("");
 
   // Extract sections from the DOM if not provided via props
   useEffect(() => {
-    if (propSections) {
-      setSections(propSections);
-    } else {
+    if (!propSections) {
       // Auto-detect sections from h2 elements in the main content
       const extractSections = () => {
         const headings = document.querySelectorAll("main h2[id], article h2[id], section h2[id]");
@@ -36,7 +35,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ sections: propSection
           }
         });
         
-        setSections(extractedSections);
+        setDetectedSections(extractedSections);
         
         // Set initial active section
         if (extractedSections.length > 0) {

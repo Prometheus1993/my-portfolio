@@ -1,7 +1,7 @@
 "use client";
 
 // src/components/sections/BlogListingSection.tsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import BlogCard from "@/components/ui/BlogCard";
 import { FaSearch } from "react-icons/fa";
 import FadeIn from "@/components/animations/FadeIn";
@@ -22,9 +22,6 @@ const BlogGridSection: React.FC<BlogGridSectionProps> = ({
   // State for search query
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-  // State for filtered posts (used for search)
-  const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>(posts);
-
   // Add "All" to the beginning of the tags array
   const allTags = ["All", ...tags];
 
@@ -39,9 +36,9 @@ const BlogGridSection: React.FC<BlogGridSectionProps> = ({
   const safeInitialTagId = initialTagId >= 0 ? initialTagId : 0;
 
   // Filter posts when searchQuery changes
-  useEffect(() => {
+  const filteredPosts = useMemo(() => {
     if (searchQuery.trim() === "") {
-      setFilteredPosts(posts);
+      return posts;
     } else {
       const query = searchQuery.toLowerCase();
       const filtered = posts.filter(
@@ -55,7 +52,7 @@ const BlogGridSection: React.FC<BlogGridSectionProps> = ({
               section.content.toLowerCase().includes(query)
           )
       );
-      setFilteredPosts(filtered);
+      return filtered;
     }
   }, [searchQuery, posts]);
 

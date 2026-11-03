@@ -5,7 +5,7 @@ import { CaseStudy as CaseStudyType, statusLabel } from "@/work/types";
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <h2 className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-foreground-muted">
-      <span className="text-red-ink">//</span> {children}
+      <span className="text-red-ink">{"//"}</span> {children}
     </h2>
   );
 }

@@ -15,10 +15,8 @@ interface FadeInProps {
 const FadeIn: React.FC<FadeInProps> = ({
   children,
   delay = 0,
-  direction = 'up',
   duration = 0.5,
   className = '',
-  once = true,
 }) => {
   // Simple fade-in animation without scroll detection
   return (

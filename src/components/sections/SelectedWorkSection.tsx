@@ -13,7 +13,7 @@ const SelectedWorkSection = () => {
     <section id="work" className="max-w-5xl mx-auto px-6 md:px-10 pt-6 md:pt-10 pb-6 scroll-mt-24">
       <FadeIn direction="up">
         <h2 className="mb-1 border-b border-line pb-2 font-mono text-xs uppercase tracking-[0.2em] text-foreground-muted">
-          <span className="text-red-ink">//</span> Selected work
+          <span className="text-red-ink">{"//"}</span> Selected work
         </h2>
       </FadeIn>
 
