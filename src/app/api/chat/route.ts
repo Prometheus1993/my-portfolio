@@ -110,8 +110,38 @@ export async function POST(req: NextRequest) {
     return jsonError("Conversation too long. Please start a new chat.", 400);
   }
 
-  // Latest user text → validate length, then sanitize.
-  const lastUserMessage = [...messages].reverse().find((m) => m.role === "user");
+  // Build a safe, server-controlled history from client input:
+  // - only allow expected roles
+  // - keep text parts only
+  // - sanitize all text
+  // - run injection detection on every user turn
+  const safeMessages: UIMessage[] = [];
+  for (const m of messages) {
+    if (m.role !== "user" && m.role !== "assistant") {
+      return jsonError("Invalid message role.", 400);
+    }
+
+    const textParts = (m.parts ?? [])
+      .filter((p) => p.type === "text")
+      .map((p) => ({ type: "text" as const, text: sanitizeInput((p as { type: "text"; text: string }).text, MAX_INPUT_LENGTH) }));
+
+    const joinedText = textParts.map((p) => p.text).join("");
+    if (joinedText.length > MAX_INPUT_LENGTH) {
+      return jsonError("Message too long.", 400);
+    }
+
+    if (m.role === "user" && joinedText && detectInjection(joinedText)) {
+      return refusalResponse();
+    }
+
+    safeMessages.push({
+      ...m,
+      parts: textParts,
+    });
+  }
+
+  // Latest user text is still checked explicitly for existing behavior parity.
+  const lastUserMessage = [...safeMessages].reverse().find((m) => m.role === "user");
   const lastText =
     lastUserMessage?.parts
       ?.filter((p) => p.type === "text")
@@ -122,8 +152,7 @@ export async function POST(req: NextRequest) {
     return jsonError("Message too long.", 400);
   }
 
-  // Defense-in-depth: detect instruction-override / extraction attempts and
-  // refuse without ever reaching the model.
+  // Defense-in-depth: latest turn check remains in place.
   const sanitized = sanitizeInput(lastText, MAX_INPUT_LENGTH);
   if (detectInjection(sanitized)) {
     return refusalResponse();
@@ -132,7 +161,7 @@ export async function POST(req: NextRequest) {
   const result = await generateText({
     model: google("gemini-2.5-flash-lite"),
     system: buildSystemPrompt(),
-    messages: await convertToModelMessages(messages),
+    messages: await convertToModelMessages(safeMessages),
     tools: portfolioTools,
     stopWhen: isStepCount(2), // tool call, then the text answer
     maxOutputTokens: MAX_OUTPUT_TOKENS,
