@@ -9,6 +9,12 @@ updates:
     commit-message:
       prefix: "deps"
       prefix-development: "deps-dev"
+    ignore:
+      # TypeScript 7 breaks lint: typescript-eslint 8.x refuses to load on TS 7
+      # (see PR #36). Remove this once eslint-config-next ships a
+      # typescript-eslint release with TS 7 support.
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
     # Minor and patch bumps are grouped. AI SDK major bumps are grouped too,
     # because those packages must move together. Other majors still get their
     # own PR.
