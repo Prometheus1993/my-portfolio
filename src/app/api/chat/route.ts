@@ -2,9 +2,10 @@ import { google } from "@ai-sdk/google";
 import {
   streamText,
   convertToModelMessages,
-  stepCountIs,
+  isStepCount,
   createUIMessageStream,
   createUIMessageStreamResponse,
+  toUIMessageStream,
   UIMessage,
 } from "ai";
 import { NextRequest } from "next/server";
@@ -112,31 +113,48 @@ export async function POST(req: NextRequest) {
     return jsonError("Conversation too long. Please start a new chat.", 400);
   }
 
-  // Latest user text → validate length, then sanitize.
-  const lastUserMessage = [...messages].reverse().find((m) => m.role === "user");
-  const lastText =
-    lastUserMessage?.parts
-      ?.filter((p) => p.type === "text")
-      .map((p) => (p as { type: "text"; text: string }).text)
-      .join("") ?? "";
+  // Build a server-controlled history from client input. Client-sent
+  // assistant turns carry no provenance, so they are ignored; only user text
+  // parts reach the model. Every user turn is length-checked, sanitized and
+  // injection-scanned, not only the latest.
+  const safeMessages: UIMessage[] = [];
+  for (const m of messages) {
+    if (m.role === "assistant") continue;
+    if (m.role !== "user") {
+      return jsonError("Invalid message role.", 400);
+    }
 
-  if (lastText.length > MAX_INPUT_LENGTH) {
-    return jsonError("Message too long.", 400);
+    const rawText = (m.parts ?? [])
+      .filter((p): p is { type: "text"; text: string } => p.type === "text" && typeof p.text === "string")
+      .map((p) => p.text)
+      .join("");
+
+    if (rawText.length > MAX_INPUT_LENGTH) {
+      return jsonError("Message too long.", 400);
+    }
+
+    const text = sanitizeInput(rawText, MAX_INPUT_LENGTH);
+    if (detectInjection(text)) {
+      return refusalResponse();
+    }
+
+    safeMessages.push({
+      id: m.id,
+      role: "user",
+      parts: [{ type: "text", text }],
+    });
   }
 
-  // Defense-in-depth: detect instruction-override / extraction attempts and
-  // refuse without ever reaching the model.
-  const sanitized = sanitizeInput(lastText, MAX_INPUT_LENGTH);
-  if (detectInjection(sanitized)) {
-    return refusalResponse();
+  if (safeMessages.length === 0) {
+    return jsonError("No messages provided.", 400);
   }
 
   const result = streamText({
     model: google("gemini-2.5-flash-lite"),
     system: buildSystemPrompt(),
-    messages: await convertToModelMessages(messages),
+    messages: await convertToModelMessages(safeMessages),
     tools: portfolioTools,
-    stopWhen: stepCountIs(2), // tool call, then the text answer
+    stopWhen: isStepCount(2), // tool call, then the text answer
     maxOutputTokens: MAX_OUTPUT_TOKENS,
     onFinish: ({ text }) => {
       // Output monitoring: flag any canary / system-prompt leak for alerting.
@@ -146,5 +164,7 @@ export async function POST(req: NextRequest) {
     },
   });
 
-  return result.toUIMessageStreamResponse();
+  return createUIMessageStreamResponse({
+    stream: toUIMessageStream({ stream: result.stream, tools: portfolioTools }),
+  });
 }
