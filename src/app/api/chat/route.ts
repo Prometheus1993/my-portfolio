@@ -130,7 +130,7 @@ export async function POST(req: NextRequest) {
       return jsonError("Message too long.", 400);
     }
 
-    if (m.role === "user" && joinedText && detectInjection(joinedText)) {
+    if (joinedText && detectInjection(joinedText)) {
       return refusalResponse();
     }
 
