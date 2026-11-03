@@ -158,6 +158,11 @@ export async function POST(req: NextRequest) {
     maxOutputTokens: MAX_OUTPUT_TOKENS,
     onFinish: ({ text }) => {
       // Output monitoring: flag any canary / system-prompt leak for alerting.
+      // Output leak check is monitoring only, by design. The model context holds only
+      // public portfolio data (prompt.ts + static tools); the canary is a tripwire, not a
+      // secret, and no env vars or keys are in context. Streaming is intentional, so we log
+      // instead of blocking. Revisit (experimental_transform or buffering) if sensitive data
+      // is ever added to the prompt or tools.
       if (text && !isOutputSafe(text)) {
         console.warn("[ai-guard] potential prompt leak detected in output");
       }
