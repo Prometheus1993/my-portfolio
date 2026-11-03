@@ -9,9 +9,13 @@ updates:
     commit-message:
       prefix: "deps"
       prefix-development: "deps-dev"
-    # Minor and patch bumps are grouped. Major bumps are not grouped, so each
-    # one gets its own PR.
+    # Minor and patch bumps are grouped. AI SDK major bumps are grouped too,
+    # because those packages must move together. Other majors still get their
+    # own PR.
     groups:
+      ai-sdk:
+        patterns: ["ai", "@ai-sdk/*"]
+        update-types: [major]
       prod-minor-patch:
         applies-to: version-updates
         dependency-type: production
