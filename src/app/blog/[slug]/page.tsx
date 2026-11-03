@@ -20,7 +20,7 @@ export async function generateMetadata({
     const post = await getPostBySlug(slug);
 
     return {
-      title: `${post.title} | Blog | Jesus O\'Bulan`,
+      title: `${post.title} | Blog | Jesus O.Bulan`,
       description: post.excerpt,
       openGraph: {
         title: post.title,
@@ -30,7 +30,7 @@ export async function generateMetadata({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     return {
-      title: "Blog Post Not Found | Jesus O'Bulan",
+      title: "Blog Post Not Found | Jesus O.Bulan",
       description: "The requested blog post could not be found.",
     };
   }

@@ -22,6 +22,7 @@ import {
 const RATE_LIMIT_MAX = 10;
 const RATE_WINDOW_MS = 60 * 60 * 1000; // 1 hour
 const MAX_INPUT_LENGTH = 500;
+const MAX_ASSISTANT_LENGTH = 1500; // per replayed assistant message (truncated)
 const MAX_MESSAGES = 30; // total messages in conversation history
 const MAX_OUTPUT_TOKENS = 300;
 
@@ -113,14 +114,14 @@ export async function POST(req: NextRequest) {
     return jsonError("Conversation too long. Please start a new chat.", 400);
   }
 
-  // Build a server-controlled history from client input. Client-sent
-  // assistant turns carry no provenance, so they are ignored; only user text
-  // parts reach the model. Every user turn is length-checked, sanitized and
-  // injection-scanned, not only the latest.
+  // Build a server-controlled history from client input. Assistant turns carry
+  // no provenance, so a client could forge them; we accept that because only
+  // plain text survives (tool/reasoning/file parts are dropped), it is
+  // sanitized and capped, and prompt rule 4 and the canary still apply.
+  // Every user turn is length-checked, sanitized and injection-scanned.
   const safeMessages: UIMessage[] = [];
   for (const m of messages) {
-    if (m.role === "assistant") continue;
-    if (m.role !== "user") {
+    if (m.role !== "user" && m.role !== "assistant") {
       return jsonError("Invalid message role.", 400);
     }
 
@@ -128,6 +129,18 @@ export async function POST(req: NextRequest) {
       .filter((p): p is { type: "text"; text: string } => p.type === "text" && typeof p.text === "string")
       .map((p) => p.text)
       .join("");
+
+    if (m.role === "assistant") {
+      const assistantText = sanitizeInput(rawText, MAX_ASSISTANT_LENGTH);
+      if (assistantText) {
+        safeMessages.push({
+          id: m.id,
+          role: "assistant",
+          parts: [{ type: "text", text: assistantText }],
+        });
+      }
+      continue;
+    }
 
     if (rawText.length > MAX_INPUT_LENGTH) {
       return jsonError("Message too long.", 400);
@@ -137,6 +150,7 @@ export async function POST(req: NextRequest) {
     if (detectInjection(text)) {
       return refusalResponse();
     }
+    if (!text) continue;
 
     safeMessages.push({
       id: m.id,

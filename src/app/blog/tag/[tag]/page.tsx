@@ -24,13 +24,13 @@ export async function generateMetadata({
 
   if (!tagExists) {
     return {
-      title: "Tag Not Found | Blog | Jesus O'Bulan",
+      title: "Tag Not Found | Blog | Jesus O.Bulan",
       description: "The requested tag could not be found.",
     };
   }
 
   return {
-    title: `${decodedTag} | Blog | Jesus O'Bulan`,
+    title: `${decodedTag} | Blog | Jesus O.Bulan`,
     description: `Browse articles tagged with ${decodedTag}`,
   };
 }

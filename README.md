@@ -1,4 +1,4 @@
-# Jesus O'Bulan's Portfolio
+# Jesus O.Bulan's Portfolio
 
 I'm a fullstack developer based in Antwerp. This is where I share my projects, the decisions behind them, and what I've learned along the way.
 
